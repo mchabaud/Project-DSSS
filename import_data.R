@@ -1,16 +1,7 @@
-#répertoires
-mortalite_path <- "~/ENSAE/3A/Projet_DSSS/Données/Mortalité"
+#rÃ©pertoires
+mortalite_path <- "~/ENSAE/3A/Projet_DSSS/DonnÃ©es/MortalitÃ©"
 
-data <- read_csv2(file.choose())
-data <- read_delim(file.choose(), delim = "|", 
-                   col_types = cols(.default = col_character()), n_max = 4398)
-data <- read_delim(file.choose(), delim = "|", 
-                   col_types = cols(.default = col_character()), skip = 4399, col_names = FALSE)
-
-
-data <- read_csv2(file.choose())
-
-#décès
+#dÃ©cÃ¨s
 
 files_list <- list.files(sprintf('%s', mortalite_path), pattern = 'deces-[0-9]+.txt', full.names = T)
 files_list <- files_list[12:16] #on ne prend que 2015-2019
@@ -35,9 +26,9 @@ deces <- lapply(files_list, read_fwf,
 
 # Attention pour les dates : certaines sont approximatives. Lorsque c'est le cas
 # la partie incertaine (mois ou jour) est 00 -> remplacer les 00 par 01.
-# Pour les années inconnues -> ne rien mettre ?
+# Pour les annÃ©es inconnues -> ne rien mettre ?
 
-#transforme dates en numériques
+#transforme dates en numÃ©riques
 nettoyer_partie_date <- function(
   x,
   debut,
@@ -96,8 +87,6 @@ A <- deces_15_19 %>% group_by(deces_code_lieu) %>% summarise(n = n())
 any(is.na(deces_15_19$naissance_date_complete))
 any(is.na(deces_15_19$deces_date_complete))
 
-
-#A <- deces8 %>% filter(grepl("MOURLON",nom))
 
 
 
