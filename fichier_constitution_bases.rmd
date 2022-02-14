@@ -166,13 +166,11 @@ base_com <- merge(libelle, base_com, by.x = "COM", by.y = "deces_code_lieu")
 base_com$annee_vie <- base_com$semaine_vie/52.1786
 
 
-base_com 
-
 ```
 
 
 
-
+Base à l'échelle du département pour viz
 ```{r}
 base_dep <- base_com  %>%
   group_by(DEP , annee_mort) %>%
@@ -190,8 +188,7 @@ write.csv(base_dep, "base_dep.csv")
 ```
 
 
-
-
+Max et min à l'échelle du département
 ```{r}
 xtable(rbind(filter(base_dep, annee_mort == "2015")[filter(base_dep, annee_mort == "2015")$annee_vie == max(filter(base_dep, annee_mort == "2015")$annee_vie),],
 filter(base_dep, annee_mort == "2016")[filter(base_dep, annee_mort == "2016")$annee_vie == max(filter(base_dep, annee_mort == "2016")$annee_vie),],
@@ -201,6 +198,17 @@ filter(base_dep, annee_mort == "2019")[filter(base_dep, annee_mort == "2019")$an
 ```
 
 
+Corrélation avec APL
+```{r}
+apl <- read.csv("Project in DSSS/base_APL_complete.csv", sep = ",")
+
+correlation <- function(annee){
+  base_totale <- merge(filter(base_com, annee_mort == annee), apl[, c("commune_code", paste0("APL_med_gen_", annee))], by.x = "COM", by.y = "commune_code")
+  return(cor.test(base_totale$annee_vie, base_totale[,paste0("APL_med_gen_", annee)]))
+}
+
+correlation("2019")
+```
 
 
 Equipements
