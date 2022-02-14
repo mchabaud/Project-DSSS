@@ -1,0 +1,176 @@
+---
+title: "Projet de DSSS"
+author: "Agathe ROSENZWEIG"
+date: "14/02/2022"
+output: html_document
+
+---
+
+
+```{r}
+library(readr)
+library(dplyr)
+library(xtable)
+library(stats)
+```
+
+
+Importation des bases
+```{r}
+#répertoires
+mortalite_path <- "C:/Users/agros/Documents/3AMIE/Project in Data Science and Social Science/Project in DSSS"
+
+#décès
+
+files_list <- list.files(sprintf('%s', mortalite_path), pattern = 'deces-201[0-9]+.txt', full.names = T)
+
+positions <- c(
+  nom = 80,
+  sexe = 1,
+  naissance_date = 8,
+  naissance_code_lieu = 5,
+  naissance_commune = 30,
+  naissance_pays = 30,
+  deces_date = 8,
+  deces_code_lieu = 5,
+  deces_numero_acte = 9
+)
+
+deces <- lapply(files_list, read_fwf,
+                        col_positions = fwf_widths(positions, col_names = names(positions)),
+                        col_types = cols(
+                          .default = col_character())
+)
+```
+
+Data cleaning
+```{r}
+# Attention pour les dates : certaines sont approximatives. Lorsque c'est le cas
+# la partie incertaine (mois ou jour) est 00 -> remplacer les 00 par 01.
+# Pour les années inconnues -> ne rien mettre ?
+
+#transforme dates en numériques
+nettoyer_partie_date <- function(
+  x,
+  debut,
+  fin
+) {
+  rez <- x %>%
+    substr(debut, fin) %>% 
+    as.integer()
+  
+  rez[rez==0] <- NA
+  rez
+}
+
+#impute moyenne
+complete_manquant <- function(x) {
+  x[is.na(x)] <- as.integer(mean(x, na.rm = TRUE))
+  x
+}
+
+#applique ces 2 fonctions aux colonnes dates
+clean_date <- function(df){
+  clean_df <- df %>%
+    mutate(
+      naissance_annee = nettoyer_partie_date(naissance_date, 1, 4),
+      naissance_annee_complete = complete_manquant(naissance_annee), 
+      naissance_mois = nettoyer_partie_date(naissance_date, 5, 6),
+      naissance_mois_complete = complete_manquant(naissance_mois), 
+      naissance_jour = nettoyer_partie_date(naissance_date, 7, 8),
+      naissance_jour_complete = complete_manquant(naissance_jour), 
+      naissance_date_brute = naissance_date,
+      naissance_date = as.Date(naissance_date, '%Y%m%d'),
+      naissance_date_complete = as.Date(paste0(naissance_annee_complete, '-', naissance_mois_complete, '-', naissance_jour_complete)),
+      deces_annee = nettoyer_partie_date(deces_date, 1, 4),
+      deces_annee_complete = complete_manquant(deces_annee), 
+      deces_mois = nettoyer_partie_date(deces_date, 5, 6),
+      deces_mois_complete = complete_manquant(deces_mois), 
+      deces_jour = nettoyer_partie_date(deces_date, 7, 8),
+      deces_jour_complete = complete_manquant(deces_jour), 
+      deces_date = as.Date(deces_date, '%Y%m%d'),
+      deces_date_complete = as.Date(paste0(deces_annee_complete, '-', deces_mois_complete, '-', deces_jour_complete))
+    ) %>%
+    select(nom, sexe, naissance_date_brute,naissance_date_complete, naissance_code_lieu,
+           naissance_commune, naissance_pays, deces_date, deces_date_complete, deces_code_lieu,
+           deces_numero_acte)
+  clean_df
+}
+
+
+
+deces <- lapply(deces, clean_date)
+
+deces_15_19 <- bind_rows(deces) %>% distinct(.keep_all = T)
+
+A <- deces_15_19 %>% group_by(deces_code_lieu) %>% summarise(n = n())
+
+any(is.na(deces_15_19$naissance_date_complete))
+any(is.na(deces_15_19$deces_date_complete))
+```
+
+
+Variable d'intérêt à l'échelle de l'individu
+```{r}
+#On crée la variable qui comptabilise le nombre de semaines en vie
+deces_15_19$semaine_vie <- as.numeric(difftime(as.Date(deces_15_19$deces_date_complete),as.Date(deces_15_19$naissance_date_complete), units = "weeks"))
+
+print(summary(deces_15_19$semaine_vie))
+
+filter(deces_15_19, semaine_vie< 0)
+#Erreur pour 3 enfants qui sont comptabilisés comme ayant vécu un nombre de semaines négatif : on leur assigne 0 comme nombre de semaines vécues
+
+deces_15_19$semaine_vie <- ifelse(deces_15_19$semaine_vie < 0, 0, deces_15_19$semaine_vie)
+
+summary(deces_15_19$semaine_vie)
+
+
+deces_15_19$annee_mort <- format(deces_15_19$deces_date, format="%Y")
+
+L <- rbind(summary(filter(deces_15_19, annee_mort == "2015")$semaine_vie/52.1786),
+summary(filter(deces_15_19, annee_mort == "2016")$semaine_vie/52.1786),
+summary(filter(deces_15_19, annee_mort == "2017")$semaine_vie/52.1786),
+summary(filter(deces_15_19, annee_mort == "2018")$semaine_vie/52.1786),
+summary(filter(deces_15_19, annee_mort == "2019")$semaine_vie/52.1786))
+
+rownames(L) <- (2015:2019)
+xtable(L)
+
+
+#43 514 personnes mortes à plus de 100 ans 
+filter(deces_15_19, deces_15_19$semaine_vie/52.1786 > 100)
+
+
+```
+
+
+Base à l'échelle des communes
+```{r}
+libelle <- read.csv("commune2021.csv", sep = ",")[, c("COM", "NCC")]
+
+
+base_com <- deces_15_19 %>%
+  group_by(deces_code_lieu, annee_mort) %>%
+  summarise_at(vars(semaine_vie), list(semaine_vie = mean))
+
+base_com <- merge(libelle, base_com, by.x = "COM", by.y = "deces_code_lieu")
+
+base_com$annee_vie <- base_com$semaine_vie/52.1786
+
+
+```
+
+
+
+
+
+
+
+Equipements
+```{r}
+data <- read_csv2(file.choose())
+A <- data %>% distinct(UU2020, .keep_all = T)
+A <- data %>% filter(TYPEQU == "D201")
+```
+```
+
