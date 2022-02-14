@@ -126,6 +126,10 @@ summary(deces_15_19$semaine_vie)
 
 
 deces_15_19$annee_mort <- format(deces_15_19$deces_date, format="%Y")
+print(deces_15_19[as.numeric(deces_15_19$annee_mort) <2015,])
+#27 188 personnes mortes avant 2015 : on les retire de la base 
+
+deces_15_19 <- filter(deces_15_19, annee_mort > 2014)
 
 L <- rbind(summary(filter(deces_15_19, annee_mort == "2015")$semaine_vie/52.1786),
 summary(filter(deces_15_19, annee_mort == "2016")$semaine_vie/52.1786),
@@ -144,24 +148,57 @@ filter(deces_15_19, deces_15_19$semaine_vie/52.1786 > 100)
 ```
 
 
+
 Base à l'échelle des communes
 ```{r}
-libelle <- read.csv("commune2021.csv", sep = ",")[, c("COM", "NCC")]
-
+libelle <- read.csv("commune2021.csv", sep = ",")[, c("COM", "NCC", "DEP")]
 
 base_com <- deces_15_19 %>%
   group_by(deces_code_lieu, annee_mort) %>%
   summarise_at(vars(semaine_vie), list(semaine_vie = mean))
+
+base_com <- merge(base_com, deces_15_19 %>%
+  group_by(deces_code_lieu, annee_mort)  %>% 
+  summarise(nombre_deces = n()), by = c("deces_code_lieu", "annee_mort"))
 
 base_com <- merge(libelle, base_com, by.x = "COM", by.y = "deces_code_lieu")
 
 base_com$annee_vie <- base_com$semaine_vie/52.1786
 
 
+base_com 
+
 ```
 
 
 
+
+```{r}
+base_dep <- base_com  %>%
+  group_by(DEP , annee_mort) %>%
+  summarise_at(vars(semaine_vie), list(semaine_vie = mean))
+
+base_dep <- merge(base_dep, base_com  %>%
+  group_by(DEP , annee_mort) %>%
+  summarise_at(vars(nombre_deces), list(nombre_deces = sum)), by = c("DEP", "annee_mort"))
+
+
+base_dep <- base_dep[base_dep$DEP != "",]
+base_dep$annee_vie <- base_dep$semaine_vie/52.1786
+base_dep
+write.csv(base_dep, "base_dep.csv")
+```
+
+
+
+
+```{r}
+xtable(rbind(filter(base_dep, annee_mort == "2015")[filter(base_dep, annee_mort == "2015")$annee_vie == max(filter(base_dep, annee_mort == "2015")$annee_vie),],
+filter(base_dep, annee_mort == "2016")[filter(base_dep, annee_mort == "2016")$annee_vie == max(filter(base_dep, annee_mort == "2016")$annee_vie),],
+filter(base_dep, annee_mort == "2017")[filter(base_dep, annee_mort == "2017")$annee_vie == max(filter(base_dep, annee_mort == "2017")$annee_vie),],
+filter(base_dep, annee_mort == "2018")[filter(base_dep, annee_mort == "2018")$annee_vie == max(filter(base_dep, annee_mort == "2018")$annee_vie),],
+filter(base_dep, annee_mort == "2019")[filter(base_dep, annee_mort == "2019")$annee_vie == max(filter(base_dep, annee_mort == "2019")$annee_vie),]))
+```
 
 
 
