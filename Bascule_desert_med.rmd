@@ -1,0 +1,118 @@
+---
+title: "Bascule Désert médical"
+author: "Agathe ROSENZWEIG"
+date: "22/11/2021"
+lang: "fr"
+output: html_document
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+---
+```{r}
+
+library("dplyr")
+library("openxlsx")
+library("xtable")
+library("rmarkdown")
+```
+
+
+##Import des données 
+```{r}
+import_base <- function(annee){
+  base <- read.xlsx("APL_medecins_generalistes.xlsx", sheet = paste0("APL_", annee))[c(7:36883),]
+  base <-   base%>% filter(!is.na(base[,1]))
+  base <- base[, c(1,3)]
+  colnames(base) <- c("commune_code",  paste0("APL_med_gen_", annee))
+  base[,paste0("desert_med_", annee)] <- ifelse(base[,paste0("APL_med_gen_", annee) ] <= 2.5, 1, 0)
+  base[, paste0("APL_med_gen_", annee)] <- as.numeric(base[,paste0("APL_med_gen_", annee)])
+  rownames(base) <- base[, 1]
+  return(base)
+}
+
+
+
+base_2015 <- import_base("2015")
+base_2016 <- import_base("2016")
+base_2017 <- import_base("2017")
+base_2018 <- import_base("2018")
+
+
+base_2019 <- read.xlsx("FET2021-29.xlsx", sheet = "Figure 1a")
+colnames(base_2019) <- c("commune_code", "pop_standard_2019", "APL_med_gen_2019")
+base_2019[, "desert_med_2019"] <- ifelse(base_2019[, "APL_med_gen_2019"]<= 2.5, 1, 0)
+
+
+
+```
+
+
+Fusion des bases par année 
+```{r}
+base <- merge(base_2015, base_2016, by = "commune_code")
+base <- merge(base, base_2017, by = "commune_code")
+base <- merge(base, base_2018, by = "commune_code")
+base <- merge(base, base_2019, by = "commune_code")
+base
+```
+
+
+```{r}
+commune <-  read.csv("communes2020.csv", sep = ",")[, c("com", "dep")]
+base$commune_code <- as.factor(base$commune_code)
+
+base <- merge(base,commune, by.x = "commune_code", by.y = "com")
+
+write.csv(base, "base_APL_complete.csv")
+```
+
+
+
+Base à l'échelle du département
+```{r}
+for (var in colnames(base))
+base_dep <- base %>% group_by(dep) %>% summarise_all(mean)
+base_dep[base_dep$APL_med_gen_2015 == max(base_dep$APL_med_gen_2015), ]
+base_dep[base_dep$APL_med_gen_2016 == max(base_dep$APL_med_gen_2016), ]
+base_dep[base_dep$APL_med_gen_2017 == max(base_dep$APL_med_gen_2017), ]
+base_dep[base_dep$APL_med_gen_2018 == max(base_dep$APL_med_gen_2018), ]
+base_dep[base_dep$APL_med_gen_2019 == max(base_dep$APL_med_gen_2019), ]
+#Max = réunion
+
+
+base_dep[base_dep$APL_med_gen_2015 == min(base_dep$APL_med_gen_2015), ]
+base_dep[base_dep$APL_med_gen_2016 == min(base_dep$APL_med_gen_2016), ]
+base_dep[base_dep$APL_med_gen_2017 == min(base_dep$APL_med_gen_2017), ]
+base_dep[base_dep$APL_med_gen_2018 == min(base_dep$APL_med_gen_2018), ]
+base_dep[base_dep$APL_med_gen_2019 == min(base_dep$APL_med_gen_2019), ]
+#Min = Guinée Française
+
+
+xtable(rbind(base_dep[base_dep$APL_med_gen_2019 == min(base_dep$APL_med_gen_2019), ], base_dep[base_dep$APL_med_gen_2019 == max(base_dep$APL_med_gen_2019), ]))
+```
+
+
+
+
+```{r}
+base$transition_2016 <- ifelse(base$desert_med_2015 == "0" & base$desert_med_2016 == "1", "Entrée désert", ifelse(base$desert_med_2015 == "1" & base$desert_med_2016 == "0", "Sortie désert", "Stable"))
+
+base$transition_2017 <- ifelse(base$desert_med_2016 == "0" & base$desert_med_2017 == "1", "Entrée désert", ifelse(base$desert_med_2016 == "1" & base$desert_med_2017 == "0", "Sortie désert", "Stable"))
+
+base$transition_2018 <- ifelse(base$desert_med_2017 == "0" & base$desert_med_2018 == "1", "Entrée désert", ifelse(base$desert_med_2017 == "1" & base$desert_med_2018 == "0", "Sortie désert", "Stable"))
+
+table(base$transition_2016)
+table(base$transition_2017)
+table(base$transition_2018)
+
+table(base$transition_2016)/nrow(base)
+table(base$transition_2017)/nrow(base)
+table(base$transition_2018)/nrow(base)
+```
+```{r}
+library(caret)
+confusionMatrix(as.factor(base$transition_2016),as.factor(base$transition_2017), dnn = c("Transition_2016", "Transition_2017"))$table
+confusionMatrix(as.factor(base$transition_2017),as.factor(base$transition_2018), , dnn = c("Transition_2017", "Transition_2018"))$table
+
+```
