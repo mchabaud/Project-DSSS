@@ -203,6 +203,45 @@ filter(base_dep, annee_mort == "2019")[filter(base_dep, annee_mort == "2019")$an
 
 
 
+
+
+# Mesure alternative de l'âge moyen de décès par département
+
+#création variable "âge de décès"
+deces_15_19 %<>% mutate(age = round(as.numeric((deces_date_complete - naissance_date_complete)/365),1))
+
+#visualisation de la distribution
+ggplot(deces_15_19, aes(x=age)) + 
+  geom_density()
+quantile(deces_15_19$age, probs = c(0,0.01,0.25,0.5,0.75,0.9,0.99,0.999))
+
+#mortalité infantile
+nrow(deces_15_19 %>% filter(age == 0))
+
+#par sexe: résultats cohérents
+deces_15_19 %>% group_by(sexe) %>% summarise(age_moyen = mean(age))
+
+#par département
+
+table_passage <- read_excel("~/ENSAE/3A/Projet_DSSS/table-appartenance-geo-communes-21.xlsx", sheet = "COM", skip = 5)
+table_passage %<>% select(CODGEO, LIBGEO, DEP)
+
+
+deces_15_19 %<>% filter(!is.na(deces_code_lieu)) %>%
+  left_join(table_passage, by = c('deces_code_lieu' = 'CODGEO')) %>%
+  mutate(annee_deces = year(deces_date_complete))
+
+A <- deces_15_19 %>% group_by(annee_deces, DEP) %>% summarise(n = n(), age = mean(age)) %>%
+  filter(annee_deces > 2014) %>%
+  arrange(age, .by_group = T)
+
+
+
+
+
+
+
+
 Equipements
 ```{r}
 data <- read_csv2(file.choose())
