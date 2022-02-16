@@ -43,6 +43,8 @@ deces <- lapply(files_list, read_fwf,
 )
 ```
 
+
+
 Data cleaning
 ```{r}
 # Attention pour les dates : certaines sont approximatives. Lorsque c'est le cas
@@ -113,29 +115,17 @@ any(is.na(deces_15_19$deces_date_complete))
 Variable d'intérêt à l'échelle de l'individu
 ```{r}
 #On crée la variable qui comptabilise le nombre de semaines en vie
-deces_15_19$semaine_vie <- as.numeric(difftime(as.Date(deces_15_19$deces_date_complete),as.Date(deces_15_19$naissance_date_complete), units = "weeks"))
+deces_15_19 <- deces_15_19 %>% mutate(age = round(as.numeric((deces_date_complete - naissance_date_complete)/365),1))
 
-print(summary(deces_15_19$semaine_vie))
-
-filter(deces_15_19, semaine_vie< 0)
-#Erreur pour 3 enfants qui sont comptabilisés comme ayant vécu un nombre de semaines négatif : on leur assigne 0 comme nombre de semaines vécues
-
-deces_15_19$semaine_vie <- ifelse(deces_15_19$semaine_vie < 0, 0, deces_15_19$semaine_vie)
-
-summary(deces_15_19$semaine_vie)
-
+print(summary(deces_15_19$age))
 
 deces_15_19$annee_mort <- format(deces_15_19$deces_date, format="%Y")
-print(deces_15_19[as.numeric(deces_15_19$annee_mort) <2015,])
-#27 188 personnes mortes avant 2015 : on les retire de la base 
 
-deces_15_19 <- filter(deces_15_19, annee_mort > 2014)
-
-L <- rbind(summary(filter(deces_15_19, annee_mort == "2015")$semaine_vie/52.1786),
-summary(filter(deces_15_19, annee_mort == "2016")$semaine_vie/52.1786),
-summary(filter(deces_15_19, annee_mort == "2017")$semaine_vie/52.1786),
-summary(filter(deces_15_19, annee_mort == "2018")$semaine_vie/52.1786),
-summary(filter(deces_15_19, annee_mort == "2019")$semaine_vie/52.1786))
+L <- rbind(summary(filter(deces_15_19, annee_mort == "2015")$age),
+summary(filter(deces_15_19, annee_mort == "2016")$age),
+summary(filter(deces_15_19, annee_mort == "2017")$age),
+summary(filter(deces_15_19, annee_mort == "2018")$age),
+summary(filter(deces_15_19, annee_mort == "2019")$age))
 
 rownames(L) <- (2015:2019)
 xtable(L)
@@ -155,7 +145,7 @@ libelle <- read.csv("commune2021.csv", sep = ",")[, c("COM", "NCC", "DEP")]
 
 base_com <- deces_15_19 %>%
   group_by(deces_code_lieu, annee_mort) %>%
-  summarise_at(vars(semaine_vie), list(semaine_vie = mean))
+  summarise_at(vars(age), list(age = mean))
 
 base_com <- merge(base_com, deces_15_19 %>%
   group_by(deces_code_lieu, annee_mort)  %>% 
@@ -163,20 +153,18 @@ base_com <- merge(base_com, deces_15_19 %>%
 
 base_com <- merge(libelle, base_com, by.x = "COM", by.y = "deces_code_lieu")
 
-base_com$annee_vie <- base_com$semaine_vie/52.1786
-
-
-base_com 
-
+base_com
 ```
 
 
 
-
+Base à l'échelle du département pour viz
 ```{r}
+library(raster)
+
 base_dep <- base_com  %>%
   group_by(DEP , annee_mort) %>%
-  summarise_at(vars(semaine_vie), list(semaine_vie = mean))
+  summarise_at(vars(age), list(age = mean))
 
 base_dep <- merge(base_dep, base_com  %>%
   group_by(DEP , annee_mort) %>%
@@ -184,45 +172,67 @@ base_dep <- merge(base_dep, base_com  %>%
 
 
 base_dep <- base_dep[base_dep$DEP != "",]
-base_dep$annee_vie <- base_dep$semaine_vie/52.1786
-base_dep
+
 write.csv(base_dep, "base_dep.csv")
+
+
+FranceFormes <- getData('GADM', country='FRA', level=2)
+
+
+plot_fr <- function(annee){
+ idx <- match(FranceFormes$CC_2, filter(base_dep, annee_mort == annee)$DEP)
+concordance <- filter(base_dep, annee_mort == annee)[idx, "age"]
+FranceFormes$age<- concordance
+couleurs <- colorRampPalette(c('grey', 'blue'))
+
+spplot(FranceFormes, "age",col.regions=couleurs(30),  main=list(label= paste0("Nombre total d'années vécues en ", annee),cex=.8)) 
+}
+
+plot_fr("2015")
+plot_fr("2016")
+plot_fr("2017")
+plot_fr("2018")
+plot_fr("2019")
+
+
+```
+
+Problème avec le département de l'OISE (60)
+```{r}
+filter(base_dep, DEP == "60")
 ```
 
 
 
+Max et min à l'échelle du département
+```{r}
+xtable(rbind(filter(base_dep, annee_mort == "2015")[filter(base_dep, annee_mort == "2015")$age == max(filter(base_dep, annee_mort == "2015")$age),],
+filter(base_dep, annee_mort == "2016")[filter(base_dep, annee_mort == "2016")$age == max(filter(base_dep, annee_mort == "2016")$age),],
+filter(base_dep, annee_mort == "2017")[filter(base_dep, annee_mort == "2017")$age == max(filter(base_dep, annee_mort == "2017")$age),],
+filter(base_dep, annee_mort == "2018")[filter(base_dep, annee_mort == "2018")$age == max(filter(base_dep, annee_mort == "2018")$age),],
+filter(base_dep, annee_mort == "2019")[filter(base_dep, annee_mort == "2019")$age == max(filter(base_dep, annee_mort == "2019")$age),]))
+```
 
 ```{r}
-xtable(rbind(filter(base_dep, annee_mort == "2015")[filter(base_dep, annee_mort == "2015")$annee_vie == max(filter(base_dep, annee_mort == "2015")$annee_vie),],
-filter(base_dep, annee_mort == "2016")[filter(base_dep, annee_mort == "2016")$annee_vie == max(filter(base_dep, annee_mort == "2016")$annee_vie),],
-filter(base_dep, annee_mort == "2017")[filter(base_dep, annee_mort == "2017")$annee_vie == max(filter(base_dep, annee_mort == "2017")$annee_vie),],
-filter(base_dep, annee_mort == "2018")[filter(base_dep, annee_mort == "2018")$annee_vie == max(filter(base_dep, annee_mort == "2018")$annee_vie),],
-filter(base_dep, annee_mort == "2019")[filter(base_dep, annee_mort == "2019")$annee_vie == max(filter(base_dep, annee_mort == "2019")$annee_vie),]))
-```
-
-
-
-
-
-
-# Mesure alternative de l'âge moyen de décès par département
-
-#création variable "âge de décès"
-deces_15_19 %<>% mutate(age = round(as.numeric((deces_date_complete - naissance_date_complete)/365),1))
-
-#visualisation de la distribution
+library("ggplot2")
 ggplot(deces_15_19, aes(x=age)) + 
   geom_density()
 quantile(deces_15_19$age, probs = c(0,0.01,0.25,0.5,0.75,0.9,0.99,0.999))
+```
 
-#mortalité infantile
+Mortalité infantile
+```{r}
 nrow(deces_15_19 %>% filter(age == 0))
+```
 
-#par sexe: résultats cohérents
+par sexe: résultats cohérents
+```{r}
 deces_15_19 %>% group_by(sexe) %>% summarise(age_moyen = mean(age))
+```
 
-#par département
 
+par département (Représentation Mathieu)
+```{r}
 table_passage <- read_excel("~/ENSAE/3A/Projet_DSSS/table-appartenance-geo-communes-21.xlsx", sheet = "COM", skip = 5)
 table_passage %<>% select(CODGEO, LIBGEO, DEP)
 
@@ -235,10 +245,46 @@ A <- deces_15_19 %>% group_by(annee_deces, DEP) %>% summarise(n = n(), age = mea
   filter(annee_deces > 2014) %>%
   arrange(age, .by_group = T)
 
+```
 
 
 
 
+Corrélation avec APL
+```{r}
+apl <- read.csv("Project in DSSS/base_APL_complete.csv", sep = ",")
+
+correlation <- function(annee){
+  base_totale <- merge(filter(base_com, annee_mort == annee), apl[, c("commune_code", paste0("APL_med_gen_", annee))], by.x = "COM", by.y = "commune_code")
+  return(cor.test(base_totale$age, base_totale[,paste0("APL_med_gen_", annee)]))
+}
+
+correlation("2019")
+```
+
+```{r}
+apl_dep <- aggregate(apl, list(apl$dep), mean)
+apl_dep
+apl_dep <- filter(apl_dep, Group.1!= "971" & Group.1!= "972" & Group.1!= "973" & Group.1!= "974" & Group.1!= "" & is.na(apl_dep$Group.1) == FALSE)
+
+nrow(apl_dep)
+
+plot_fr_apl <- function(annee){
+ idx <- match(FranceFormes$CC_2,apl_dep$Group.1)
+concordance <-apl_dep[idx, paste0("APL_med_gen_", annee)]
+FranceFormes$APL_med_gen <- concordance
+
+couleurs <- colorRampPalette(c('grey', 'darkblue'))
+
+spplot(FranceFormes, "APL_med_gen",col.regions=couleurs(30),  main=list(label= paste0("Nombre total d'années vécues en ", annee),cex=.8)) 
+}
+
+plot_fr_apl("2015")
+plot_fr_apl("2016")
+plot_fr_apl("2017")
+plot_fr_apl("2018")
+plot_fr_apl("2019")
+```
 
 
 
