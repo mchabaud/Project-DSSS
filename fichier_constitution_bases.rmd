@@ -131,10 +131,6 @@ rownames(L) <- (2015:2019)
 xtable(L)
 
 
-#43 514 personnes mortes à plus de 100 ans 
-filter(deces_15_19, deces_15_19$semaine_vie/52.1786 > 100)
-
-
 ```
 
 
@@ -259,6 +255,10 @@ correlation <- function(annee){
   return(cor.test(base_totale$age, base_totale[,paste0("APL_med_gen_", annee)]))
 }
 
+correlation("2015")
+correlation("2016")
+correlation("2017")
+correlation("2018")
 correlation("2019")
 ```
 
