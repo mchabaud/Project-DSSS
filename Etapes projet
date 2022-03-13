@@ -1,0 +1,23 @@
+Données utilisées :
+-décès : https://www.data.gouv.fr/fr/datasets/fichier-des-personnes-decedees/
+-APL : https://drees.shinyapps.io/carto-apl/ 
+-codes commune : https://www.insee.fr/fr/information/5057840 (sur github)
+-recensement : https://www.insee.fr/fr/statistiques/5395875?sommaire=5395927#documentation
+-taille ménages : https://www.observatoire-des-territoires.gouv.fr/outils/cartographie-interactive/#c=indicator&i=insee_rp_hist_1968.tmm&s=2018&view=map36 (sur github)
+-Filosofi : https://www.insee.fr/fr/statistiques/5009236?sommaire=5009255#consulter
+
+
+Étapes projet pour le 18/03 (avec données 2015-2019) :
+-régression cross-section avec covariables (structure population, évolution démographique, revenu médian)  FAIT
+-calcul de la variance within/between pour âge moyen décès, APL et densité médicale
+-régression effet fixe avec APL et densité médicale
+-régression 2-stage avec :
+1st stage = régresser APL sur moyenne pondérée de la densité médicale des communes du TVS (poids = 1 pour commune, puis poids = 1/nb_commune_TVS : affiner avec géolocalisation si on a le temps)
+2nd stage = régresser âge moyen sur APL prédit au 1st stage 
+
+
+Étapes projet pour début avril :
+-régression effet fixe sur période 2004-2020
+-Double machine learning
+-extensions
+-hétérogénéité
