@@ -1,6 +1,17 @@
+library("haven")
+library(tidyverse)
+library(lubridate)
+library(tictoc)
+library(magrittr)
+library(fixest)
+library(lfe)
+library("readxl")
+library("writexl")
+
 #répertoires
 mortalite_path <- "~/ENSAE/3A/Projet_DSSS/Données/Mortalité"
 APL_path <- "~/ENSAE/3A/Projet_DSSS/Données/APL_densité_médicale/APL"
+densite_path <- "~/ENSAE/3A/Projet_DSSS/Données/APL_densité_médicale/Densité médicale"
 covariable_path <- "~/ENSAE/3A/Projet_DSSS/Données/Covariables"
 
 #décès
@@ -17,8 +28,7 @@ positions <- c(
   naissance_pays = 30,
   deces_date = 8,
   deces_code_lieu = 5,
-  deces_numero_acte = 9
-)
+  deces_numero_acte = 9)
 
 deces <- lapply(files_list, read_fwf,
                         col_positions = fwf_widths(positions, col_names = names(positions)),
@@ -103,7 +113,7 @@ deces_15_19 %<>% mutate(age = round(as.numeric((deces_date_complete - naissance_
 # nrow(deces_15_19 %>% filter(age == 0))
 # deces_15_19 %>% group_by(sexe) %>% summarise(age_moyen = mean(age))
 
-table_commune <- read_csv("~/ENSAE/3A/Projet_DSSS/commune2021.csv") %>%
+table_commune <- read_csv("~/ENSAE/3A/Projet_DSSS/Données/commune2021.csv") %>%
   distinct(COM, .keep_all = T) #37122 communes/arrondissements municipaux
 
 deces_15_19 %<>% distinct(nom, sexe, naissance_date_complete, naissance_code_lieu, deces_date_complete, .keep_all = T) %>%
@@ -129,43 +139,197 @@ for (i in 1:5){
   APL[[i]] %<>% mutate(annee = 2014 + i)
 }
 
-B <- deces_15_19 %>% filter(!(deces_code_lieu %chin% APL$`Code commune`)) #48000 obs, plupart à l'étranger
+APL_15_19 <- bind_rows(APL) %>% arrange(`Code commune`) %>%
+  rename(APL = `APL aux médecins généralistes (sans borne d'âge)`,
+         APL_moins_65 = `APL aux médecins généralistes de moins de 65 ans`,
+         APL_moins_62 = `APL aux médecins généralistes de moins de 62 ans`,
+         Pop_standardisee = `Population standardisée par la consommation de soins par tranche d'âge`)
+
+APL_15_19 %<>% group_by(`Code commune`) %>% 
+  mutate(max_variation = max(APL) - min(APL))
+
+B <- deces_15_19 %>% filter(!(deces_code_lieu %chin% APL_15_19$`Code commune`)) #49000 obs, plupart à l'étranger
 
 
-deces_15 <- deces_15_19 %>% select(1:12) %>%
-  mutate(annee_deces = year(deces_date_complete)) %>%
-  filter(annee_deces == 2015) %>%
+#densité médicale
+
+files_list <- list.files(sprintf('%s', densite_path), full.names = T)
+densite <- lapply(files_list, function(i){read_csv2(i, skip = 2)})
+for (i in 1:5){
+  densite[[i]] %<>% mutate(annee = 2014 + i) %>% rename(nb_medecins = 3)
+}
+
+densite_15_19 <- bind_rows(densite) %>% arrange(Code)
+
+B <- deces_15_19 %>% filter(!(deces_code_lieu %chin% densite_15_19$Code))
+
+
+
+
+
+
+
+#variance between/within (panel)
+
+deces_15_19_commune <- deces_15_19 %>% filter(annee_deces >= 2015) %>% #& age >= 50
+  group_by(deces_code_lieu, annee_deces) %>%
+  summarise(nb_morts = n(), age_moyen_deces = mean(age)) %>%
+  left_join(APL_15_19, by = c('deces_code_lieu' = 'Code commune', 'annee_deces' = 'annee')) %>%
+  left_join(densite_15_19, by = c('deces_code_lieu' = 'Code', 'annee_deces' = 'annee')) %>%
+  filter(!is.na(APL) & !is.na(nb_medecins)) %>%
   group_by(deces_code_lieu) %>%
-  summarise(age_moy_deces = mean(age))
+  mutate(n = n(), densite = nb_medecins*1000/`Population totale`,
+         log_nb_morts = log(nb_morts), log_pop = log(`Population totale`)) %>% 
+  filter(n == 5) #on se restreint aux communes avec au moins 1 mort/an
 
-deces_15 %<>% left_join(APL, by = c('deces_code_lieu' = 'Code commune'))
+nb_communes <- n_distinct(deces_15_19_commune$deces_code_lieu) #12042 communes avec au moins 1 mort/an
 
-deces_15 %<>% rename(APL = `APL aux médecins généralistes (sans borne d'âge)`) %>%
-  filter(!is.na(`Population totale`))
+n <- nrow(deces_15_19_commune)
 
-model <- lm(age_moy_deces ~ APL, data = deces_15)
-summary(model)
+deces_15_19_commune %<>% ungroup() %>% mutate(moy_age = mean(age_moyen_deces),
+                                moy_APL = mean(APL),
+                                moy_densite = mean(densite))
+
+deces_15_19_commune %<>% group_by(deces_code_lieu) %>% mutate(moy_age_com = mean(age_moyen_deces),
+                                                              moy_APL_com = mean(APL),
+                                                              moy_densite_com = mean(densite)) %>%
+  mutate(ecart_age_with = age_moyen_deces - moy_age_com,
+         ecart_APL_with = APL - moy_APL_com,
+         ecart_densite_with = densite - moy_densite_com)
+
+overall_var_age_deces <- var(deces_15_19_commune$age_moyen_deces)
+overall_var_APL <- var(deces_15_19_commune$APL)
+overall_var_densite <- var(deces_15_19_commune$densite)
+
+between_var <- deces_15_19_commune %>% distinct(deces_code_lieu, .keep_all = T) %>%
+  mutate(ecart_age_betw = moy_age_com - moy_age,
+         ecart_APL_betw = moy_APL_com - moy_APL,
+         ecart_densite_betw = moy_densite_com - moy_densite)
+between_var_age_deces <- sum((between_var$ecart_age_betw)^2)/nb_communes
+between_var_APL <- sum((between_var$ecart_APL_betw)^2)/nb_communes
+between_var_densite <- sum((between_var$ecart_densite_betw)^2)/nb_communes
+
+within_var_age_deces <- sum((deces_15_19_commune$ecart_age_with)^2)/(n-1)
+within_var_APL <- sum((deces_15_19_commune$ecart_APL_with)^2)/(n-1)
+within_var_densite <- sum((deces_15_19_commune$ecart_densite_with)^2)/(n-1)
+
+var <- data.frame(Variable = c("age_moyen_deces", "APL", "densite"),
+                  Overall = c(overall_var_age_deces, overall_var_APL, overall_var_densite),
+                  Between = c(between_var_age_deces, between_var_APL, between_var_densite),
+                  Within = c(within_var_age_deces, within_var_APL, within_var_densite))
+var %<>% mutate(Part_within = Within/Overall)
+
+
+
+deces_15_19_commune1 <- deces_15_19_commune %>% group_by(deces_code_lieu) %>%
+  mutate(nb_min_morts = min(nb_morts)) %>%
+  filter(nb_min_morts >= 5)
+
+nb_communes <- length(unique(deces_15_19_commune1$deces_code_lieu)) #12042 communes avec au moins 1 mort/an
+
+n <- nrow(deces_15_19_commune1)
+
+deces_15_19_commune1 %<>% ungroup() %>% mutate(moy_age = mean(age_moyen_deces),
+                                              moy_APL = mean(APL),
+                                              moy_densite = mean(densite))
+
+overall_var_age_deces1 <- var(deces_15_19_commune1$age_moyen_deces)
+overall_var_APL1 <- var(deces_15_19_commune1$APL)
+overall_var_densite1 <- var(deces_15_19_commune1$densite)
+
+between_var1 <- deces_15_19_commune1 %>% distinct(deces_code_lieu, .keep_all = T) %>%
+  mutate(ecart_age_betw1 = moy_age_com - moy_age,
+         ecart_APL_betw1 = moy_APL_com - moy_APL,
+         ecart_densite_betw1 = moy_densite_com - moy_densite)
+between_var_age_deces1 <- sum((between_var1$ecart_age_betw1)^2)/nb_communes
+between_var_APL1 <- sum((between_var1$ecart_APL_betw1)^2)/nb_communes
+between_var_densite1 <- sum((between_var1$ecart_densite_betw1)^2)/nb_communes
+
+within_var_age_deces1 <- sum((deces_15_19_commune1$ecart_age_with)^2)/(n-1)
+within_var_APL1 <- sum((deces_15_19_commune1$ecart_APL_with)^2)/(n-1)
+within_var_densite1 <- sum((deces_15_19_commune1$ecart_densite_with)^2)/(n-1)
+
+var1 <- data.frame(Variable = c("age_moyen_deces", "APL", "densite"),
+                  Overall = c(overall_var_age_deces1, overall_var_APL1, overall_var_densite1),
+                  Between = c(between_var_age_deces1, between_var_APL1, between_var_densite1),
+                  Within = c(within_var_age_deces1, within_var_APL1, within_var_densite1))
+var1 %<>% mutate(Part_within = Within/Overall)
+
+
+
+
+#régression effet fixe
+
+#panel équilibré
+data <- deces_15_19_commune %>% group_by(deces_code_lieu) %>% mutate(nb_min = min(nb_morts))
+data %>% filter(nb_min >= 5) %>% pull(deces_code_lieu) %>% n_distinct() #5693 communes avec au moins 5 morts/an
+
+
+fixed <- feols(age_moyen_deces ~ APL + log_pop | deces_code_lieu, data=data)
+summary(fixed)
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop | deces_code_lieu, data=data)
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ APL + log_pop | deces_code_lieu, data=data)
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ densite + log_pop | deces_code_lieu, data=data)
+summary(fixed)
+
+  
+
+fixed <- feols(age_moyen_deces ~ APL + log_pop | deces_code_lieu, data=data %>% filter(nb_min >= 5))
+summary(fixed)
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop | deces_code_lieu, data=data %>% filter(nb_min >= 5))
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ APL + log_pop | deces_code_lieu, data=data %>% filter(nb_min >= 5))
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ densite + log_pop | deces_code_lieu, data=data %>% filter(nb_min >= 5))
+summary(fixed)
+
+
+
+#instrumenter APL par densité
+
+fixed <- feols(age_moyen_deces ~ log_pop | deces_code_lieu | APL ~ densite, data=data)
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ log_pop | deces_code_lieu | APL ~ densite, data=data)
+summary(fixed)
+
+fixed <- feols(age_moyen_deces ~ log_pop | deces_code_lieu | APL ~ densite, data=data %>% filter(nb_min >= 5))
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ log_pop | deces_code_lieu | APL ~ densite, data=data %>% filter(nb_min >= 5))
+summary(fixed)
+
+
 
 
 ## 2018 ##
 
 #cross-section avec seulement APL
 
-deces_18 <- deces_15_19 %>%
-  filter(annee_deces == 2018) %>%
-  group_by(deces_code_lieu) %>%
-  summarise(nb_morts = n(), age_moy_deces = mean(age))
-
-APL_18 <- APL[[4]]
+deces_18 <- deces_15_19_commune %>%
+  filter(annee_deces == 2018)
 
 deces_18 %>% filter(!(deces_code_lieu %in% APL_18$`Code commune`)) %>% view() #communes déléguées ou à l'étranger
 
-deces_18 %<>% left_join(APL_18, by = c('deces_code_lieu' = 'Code commune')) %>%
-  rename(APL = `APL aux médecins généralistes (sans borne d'âge)`)
+tvs <- read_excel("~/ENSAE/3A/Projet_DSSS/Données/Correspondance_communes_tvs_2019.xlsx")
 
-deces_18 %<>% rename(APL = `APL aux médecins généralistes (sans borne d'âge)`)
+deces_18 %<>% left_join(tvs, by = c('deces_code_lieu' = 'Code commune'))
 
-model <- lm(age_moy_deces ~ APL, data = deces_18)
+model <- lm(age_moyen_deces ~ APL, data = deces_18)
+summary(model)
+
+model2 <- lm(log_nb_morts ~ APL + log_pop, data = deces_18)
+summary(model2)
+
+model <- lm.cluster(age_moy_deces ~ APL, cluster = 'Code du territoire de vie-santé', data = deces_18)
 summary(model)
 
 
@@ -207,25 +371,34 @@ recensement %<>% left_join(filosofi, by = 'CODGEO')
 
 deces_18 %<>% left_join(recensement, by = c('deces_code_lieu' = 'CODGEO'))
 
-deces_18 %<>% rename(APL_62 = `APL aux médecins généralistes de moins de 62 ans`) %>%
-  mutate(log_nb_morts = log(nb_morts))
-
-model <- lm(age_moy_deces ~ APL + P18_H0014_prop + P18_H1529_prop +
+model <- lm(age_moyen_deces ~ APL + P18_H0014_prop + P18_H1529_prop +
             P18_H4559_prop + P18_H6074_prop + P18_H7589_prop + P18_H90P_prop + P18_F0014_prop +
             P18_F1529_prop + P18_F3044_prop + P18_F4559_prop + P18_F6074_prop + P18_F7589_prop +
             P18_F90P_prop + C18_POP15P_CS1_prop + C18_POP15P_CS2_prop + C18_POP15P_CS3_prop +
             C18_POP15P_CS4_prop + C18_POP15P_CS5_prop + C18_POP15P_CS6_prop + C18_POP15P_CS7_prop + 
-            as.numeric(Taille_menage) + MED18, data = deces_18 %>% filter(nb_morts > 3))
+            as.numeric(Taille_menage) + MED18, data = deces_18)
 summary(model)
 
-model <- lm(log_nb_morts ~ APL + `Population totale` + P18_H0014_prop + P18_H1529_prop +
+model2 <- lm(log_nb_morts ~ APL + log_pop + P18_H0014_prop + P18_H1529_prop +
               P18_H4559_prop + P18_H6074_prop + P18_H7589_prop + P18_H90P_prop + P18_F0014_prop +
               P18_F1529_prop + P18_F3044_prop + P18_F4559_prop + P18_F6074_prop + P18_F7589_prop +
               P18_F90P_prop + C18_POP15P_CS1_prop + C18_POP15P_CS2_prop + C18_POP15P_CS3_prop +
               C18_POP15P_CS4_prop + C18_POP15P_CS5_prop + C18_POP15P_CS6_prop + C18_POP15P_CS7_prop + 
-              as.numeric(Taille_menage) + MED18, data = deces_18 %>% filter(nb_morts > 5))
-summary(model)
+              as.numeric(Taille_menage) + MED18, data = deces_18)
+summary(model2)
 
 
-#variance between/within (panel)
 
+
+
+
+
+
+
+
+
+#base equipements
+
+data <- read_csv2(file.choose())
+A <- data %>% distinct(UU2020, .keep_all = T)
+A <- data %>% filter(TYPEQU == "D201")
