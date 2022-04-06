@@ -390,6 +390,72 @@ summary(model2)
 
 
 
+#Niveau TVS
+
+tvs <- read_excel("~/ENSAE/3A/Projet_DSSS/Données/Correspondance_communes_tvs_2019.xlsx")
+
+deces_15_19 %<>% distinct(nom, sexe, naissance_date_complete, naissance_code_lieu, deces_date_complete, .keep_all = T) %>%
+  left_join(tvs, by = c('deces_code_lieu' = 'Code commune')) %>%
+  mutate(annee_deces = year(deces_date_complete))
+
+communes_inconnues_tvs <- deces_15_19 %>% filter(is.na(`Libellé du territoire de vie-santé`)) %>% group_by(deces_code_lieu) %>%
+  summarise(n = n()) %>% filter(!grepl("^9[7-9]", deces_code_lieu)) #111 communes
+sum(communes_inconnues_tvs$n) #10948 décès
+
+
+#APL
+
+files_list <- list.files(sprintf('%s', APL_path), pattern = '^APL_mg_[0-9]+_tvs.xlsx', full.names = T)
+APL_tvs <- lapply(files_list, read_excel)
+for (i in 1:5){
+  APL_tvs[[i]] %<>% mutate(annee = 2014 + i)
+}
+
+APL_15_19_tvs <- bind_rows(APL_tvs) %>% arrange(`Code du territoire de vie-santé`) %>%
+  rename(APL = `APL aux médecins généralistes (sans borne d'âge)`,
+         APL_moins_65 = `APL aux médecins généralistes de moins de 65 ans`,
+         APL_moins_62 = `APL aux médecins généralistes de moins de 62 ans`,
+         Pop = `Population totale du territoire de vie-santé`,
+         Pop_standardisee = `Population standardisée par la consommation de soins par tranche d'âge`)
+
+
+files_list <- list.files(sprintf('%s/2015-2019', densite_path), full.names = T)
+densite <- lapply(files_list, function(i){read_csv2(i, skip = 2)})
+for (i in 1:5){
+  densite[[i]] %<>% mutate(annee = 2014 + i) %>% rename(nb_medecins = 3)
+}
+
+densite_15_19_tvs <- bind_rows(densite) %>% arrange(Code)
+
+
+deces_15_19_tvs <- deces_15_19 %>% filter(annee_deces >= 2015 & !is.na(`Code du territoire de vie-santé`)) %>% #& age >= 50
+  group_by(`Code du territoire de vie-santé`, annee_deces) %>%
+  summarise(nb_morts = n(), age_moyen_deces = mean(age)) %>%
+  left_join(APL_15_19_tvs, by = c('Code du territoire de vie-santé' = 'Code du territoire de vie-santé', 'annee_deces' = 'annee')) %>%
+  left_join(densite_15_19_tvs, by = c('Code du territoire de vie-santé' = 'Code', 'annee_deces' = 'annee')) %>%
+  filter(!is.na(APL) & !is.na(nb_medecins)) %>%
+  mutate(densite = nb_medecins*1000/Pop,
+         log_nb_morts = log(nb_morts), log_pop = log(Pop)) %>%
+  group_by(`Code du territoire de vie-santé`) %>%
+  mutate(n = n()) %>% 
+  filter(n == 5) #on se restreint aux tvs avec au moins 1 mort/an
+
+
+data <- deces_15_19_tvs %>% group_by(`Code du territoire de vie-santé`) %>% mutate(nb_min = min(nb_morts))
+data %>% filter(nb_min >= 5) %>% pull(`Code du territoire de vie-santé`) %>% n_distinct() #2792 tvs avec au moins 5 morts/an
+
+fixed <- feols(age_moyen_deces ~ APL + log_pop | `Code du territoire de vie-santé`, data=data)
+summary(fixed)
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop | `Code du territoire de vie-santé`, data=data)
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ APL + log_pop | `Code du territoire de vie-santé`, data=data)
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ densite + log_pop | `Code du territoire de vie-santé`, data=data)
+summary(fixed)
+
 
 
 
