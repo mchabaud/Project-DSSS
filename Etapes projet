@@ -5,6 +5,8 @@ Données utilisées :
 -recensement : https://www.insee.fr/fr/statistiques/5395875?sommaire=5395927#documentation
 -taille ménages : https://www.observatoire-des-territoires.gouv.fr/outils/cartographie-interactive/#c=indicator&i=insee_rp_hist_1968.tmm&s=2018&view=map36 (sur github)
 -Filosofi : https://www.insee.fr/fr/statistiques/5009236?sommaire=5009255#consulter
+-densité médicale : https://cartosante.atlasante.fr/#bbox=-358058,7111701,2045022,1045413&c=indicator&i=offre_ps.dens_g&s=2014&view=map23 
+#J'ai mis la base de Vincent mais j'ai l'impression qu'on a une seule période 
 
 
 Étapes projet pour le 18/03 (avec données 2015-2019) :
