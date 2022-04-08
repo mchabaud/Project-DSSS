@@ -1,0 +1,2851 @@
+﻿CartoSanté; ; 
+Référentiel géographique : France par territoire de vie-santé 2019; ; 
+Code;Libellé;Densité de généralistes lib. 2010
+01004;Ambérieu-en-Bugey;8.9
+01033;Bellegarde-sur-Valserine;7.5
+01034;Belley;10.5
+01043;Beynost;8.1
+01053;Bourg-en-Bresse;12.1
+01093;Châtillon-sur-Chalaronne;6.9
+01134;Crottet;5.9
+01143;Divonne-les-Bains;12.9
+01160;Ferney-Voltaire;11.7
+01173;Gex;5.8
+01185;Hauteville-Lompnes;6.7
+01194;Jassans-Riottier;7.4
+01202;Lagnieu;5.5
+01244;Meximieux;7.6
+01249;Miribel;6.6
+01262;Montluel;5.8
+01266;Montrevel-en-Bresse;8.3
+01269;Nantua;6.9
+01283;Oyonnax;6.9
+01289;Péronnas;6.9
+01305;Pont-de-Vaux;8.7
+01333;Saint-André-de-Corcy;7.2
+01344;Saint-Denis-lès-Bourg;7.7
+01348;Saint-Didier-sur-Chalaronne;4.4
+01354;Saint-Genis-Pouilly;3.5
+01419;Thoiry;5
+01427;Trévoux;8.2
+01443;Villars-les-Dombes;8.2
+01451;Viriat;5.6
+01457;Vonnas;4.9
+02018;Anizy-le-Château;6.2
+02095;Bohain-en-Vermandois;7.7
+02141;La Capelle;8.5
+02163;Charly-sur-Marne;6.2
+02168;Château-Thierry;8.2
+02173;Chauny;7.3
+02305;Fère-en-Tardenois;5
+02340;Gauchy;6.2
+02361;Guise;8.7
+02381;Hirson;8.2
+02408;Laon;8.8
+02468;Marle;6.6
+02558;Le Nouvion-en-Thiérache;6.5
+02691;Saint-Quentin;11.2
+02722;Soissons;9.8
+02738;Tergnier;7.1
+02789;Vervins;5.3
+02795;Vic-sur-Aisne;5
+02810;Villers-Cotterêts;7
+03023;Bellerive-sur-Allier;6.6
+03036;Bourbon-l'Archambault;6.6
+03082;Commentry;9.4
+03084;Cosne-d'Allier;9.2
+03095;Cusset;7.8
+03101;Domérat;6.6
+03102;Dompierre-sur-Besbre;9.3
+03118;Gannat;9.2
+03138;Lapalisse;9.5
+03165;Le Mayet-de-Montagne;9.1
+03185;Montluçon;13.2
+03186;Montmarault;7.9
+03190;Moulins;10.8
+03236;Saint-Germain-des-Fossés;6.7
+03254;Saint-Pourçain-sur-Sioule;6.5
+03298;Varennes-sur-Allier;4.5
+03310;Vichy;14.4
+03321;Yzeure;6.4
+04019;Barcelonnette;13.6
+04039;Castellane;13.6
+04049;Château-Arnoux-Saint-Auban;10.6
+04070;Digne-les-Bains;11.3
+04088;Forcalquier;13.9
+04094;Gréoux-les-Bains;22.7
+04112;Manosque;13.9
+04143;Oraison;11.9
+04166;Riez;10
+04173;Saint-André-les-Alpes;11.6
+04209;Sisteron;8.6
+05006;L'Argentière-la-Bessée;13.7
+05023;Briançon;12
+05046;Embrun;11.9
+05061;Gap;13.5
+05065;Guillestre;11.3
+05070;Laragne-Montéglin;7.9
+05132;Saint-Bonnet-en-Champsaur;14.7
+05179;Veynes;11.9
+06004;Antibes;13.2
+06011;Beaulieu-sur-Mer;15.4
+06012;Beausoleil;13.9
+06018;Biot;8.7
+06027;Cagnes-sur-Mer;12.9
+06029;Cannes;15.4
+06030;Le Cannet;16.4
+06033;Carros;8.1
+06044;La Colle-sur-Loup;9.9
+06048;Contes;8.8
+06065;La Gaude;3
+06069;Grasse;10
+06079;Mandelieu-la-Napoule;16.9
+06083;Menton;13.4
+06084;Mouans-Sartoux;12.6
+06085;Mougins;10.2
+06088;Nice;14.3
+06090;Pégomas;8.9
+06095;Peymeinade;11.8
+06099;Puget-Théniers;11.6
+06104;Roquebrune-Cap-Martin;8.1
+06105;Roquefort-les-Pins;10.3
+06123;Saint-Laurent-du-Var;12.9
+06130;Saint-Vallier-de-Thiey;6.7
+06149;La Trinité;10.2
+06152;Valbonne;16
+06155;Vallauris;9.3
+06157;Vence;11.1
+06159;Villefranche-sur-Mer;14.4
+06161;Villeneuve-Loubet;9
+06163;Tende;6
+07010;Annonay;8.3
+07019;Aubenas;9
+07042;Bourg-Saint-Andéol;9.4
+07064;Le Cheylard;9.6
+07102;Guilherand-Granges;16.7
+07110;Joyeuse;9.9
+07129;Lamastre;7.7
+07132;Largentière;7.2
+07186;Privas;8.9
+07201;Ruoms;12.1
+07204;Saint-Agrève;10.8
+07281;Saint-Péray;9.9
+07319;Le Teil;10.2
+07324;Tournon-sur-Rhône;7.8
+07330;Vallon-Pont-d'Arc;9.7
+07331;Vals-les-Bains;11.2
+07334;Les Vans;7.8
+07338;Vernoux-en-Vivarais;12.6
+07349;La Voulte-sur-Rhône;10.9
+08090;Carignan;9.3
+08105;Charleville-Mézières;9.9
+08185;Fumay;7.4
+08190;Givet;8.9
+08302;Monthermé;8.5
+08328;Nouzonville;9.4
+08362;Rethel;8.8
+08363;Revin;6.9
+08367;Rocroi;6.4
+08409;Sedan;8.4
+08490;Vouziers;11
+08491;Vrigne aux Bois;9.9
+09032;Ax-les-Thermes;N/A
+09122;Foix;N/A
+09160;Lavelanet;N/A
+09167;Lézat-sur-Lèze;N/A
+09185;Mazères;N/A
+09194;Mirepoix;N/A
+09225;Pamiers;N/A
+09261;Saint-Girons;N/A
+09282;Saverdun;N/A
+09306;Tarascon-sur-Ariège;N/A
+10003;Aix-Villemaur-Pâlis;7.1
+10006;Arcis-sur-Aube;8.2
+10033;Bar-sur-Aube;6.5
+10034;Bar-sur-Seine;7.7
+10064;Brienne-le-Château;5.9
+10081;La Chapelle-Saint-Luc;6.1
+10268;Nogent-sur-Seine;5.3
+10323;Romilly-sur-Seine;6.5
+10333;Saint-André-les-Vergers;6.4
+10343;Saint-Julien-les-Villas;5.9
+10362;Sainte-Savine;8.2
+10387;Troyes;10.8
+11049;Bram;N/A
+11069;Carcassonne;N/A
+11076;Castelnaudary;N/A
+11106;Coursan;N/A
+11129;Espéraza;N/A
+11202;Leucate;N/A
+11203;Lézignan-Corbières;N/A
+11206;Limoux;N/A
+11262;Narbonne;N/A
+11266;Port-la-Nouvelle;N/A
+11304;Quillan;N/A
+11315;Rieux-Minervois;N/A
+11379;Sigean;N/A
+11397;Trèbes;N/A
+12033;Bozouls;N/A
+12056;Baraqueville;N/A
+12089;Decazeville;0
+12094;Entraygues-sur-Truyère;N/A
+12096;Espalion;N/A
+12119;Laguiole;15.3
+12120;Laissac-Sévérac l'Église;N/A
+12133;Luc-la-Primaube;N/A
+12138;Marcillac-Vallon;N/A
+12145;Millau;N/A
+12148;Montbazens;N/A
+12164;Mur-de-Barrez;0
+12169;Naucelle;N/A
+12176;Onet-le-Château;N/A
+12185;Pont-de-Salars;N/A
+12197;Réquista;N/A
+12198;Rieupeyroux;N/A
+12199;Rignac;N/A
+12202;Rodez;N/A
+12208;Saint-Affrique;N/A
+12224;Saint Geniez d'Olt et d'Aubrac;N/A
+12270;Sévérac d'Aveyron;N/A
+12300;Villefranche-de-Rouergue;N/A
+13001;Aix-en-Provence;15.8
+13002;Allauch;10.7
+13004;Arles;13.7
+13005;Aubagne;15.8
+13007;Auriol;5.8
+13014;Berre-l'Étang;6.5
+13015;Bouc-Bel-Air;11.5
+13019;Cabriès;13.4
+13022;Cassis;14.1
+13026;Châteauneuf-les-Martigues;8.6
+13027;Châteaurenard;10.5
+13028;La Ciotat;12.4
+13031;La Destrousse;15.9
+13032;Éguilles;11.3
+13035;Eyguières;10.2
+13037;La Fare-les-Oliviers;12.3
+13039;Fos-sur-Mer;8.4
+13040;Fuveau;9.5
+13041;Gardanne;12.3
+13042;Gémenos;9.3
+13043;Gignac-la-Nerthe;12.4
+13046;Gréasque;9.1
+13047;Istres;11.5
+13050;Lambesc;12.6
+13051;Lançon-Provence;8.7
+13053;Mallemort;11.3
+13054;Marignane;14.7
+13056;Martigues;11.4
+13063;Miramas;7
+13069;Pélissanne;6.7
+13070;La Penne-sur-Huveaune;9.5
+13071;Les Pennes-Mirabeau;9.9
+13074;Peyrolles-en-Provence;7.5
+13075;Plan-de-Cuques;11.7
+13077;Port-de-Bouc;8.1
+13078;Port-Saint-Louis-du-Rhône;4.7
+13081;Rognac;6.6
+13084;La Roque-d'Anthéron;12
+13086;Roquevaire;13.1
+13087;Rousset;9.9
+13091;Saint-Cannat;10
+13092;Saint-Chamas;9.9
+13097;Saint-Martin-de-Crau;11.4
+13098;Saint-Mitre-les-Remparts;9.3
+13100;Saint-Rémy-de-Provence;15.2
+13102;Saint-Victoret;12.2
+13103;Salon-de-Provence;10.8
+13104;Sausset-les-Pins;13.2
+13105;Sénas;9.9
+13106;Septèmes-les-Vallons;11.4
+13110;Trets;9.5
+13112;Velaux;11.9
+13113;Venelles;10.9
+13117;Vitrolles;13.7
+13119;Carnoux-en-Provence;10.8
+13201;Marseille 1er Arrondissement;N/A
+13202;Marseille 2e Arrondissement;N/A
+13203;Marseille 3e Arrondissement;N/A
+13204;Marseille 4e Arrondissement;N/A
+13205;Marseille 5e Arrondissement;N/A
+13206;Marseille 6e Arrondissement;N/A
+13207;Marseille 7e Arrondissement;N/A
+13208;Marseille 8e Arrondissement;N/A
+13209;Marseille 9e Arrondissement;N/A
+13210;Marseille 10e Arrondissement;N/A
+13211;Marseille 11e Arrondissement;N/A
+13212;Marseille 12e Arrondissement;N/A
+13213;Marseille 13e Arrondissement;N/A
+13214;Marseille 14e Arrondissement;N/A
+13215;Marseille 15e Arrondissement;N/A
+13216;Marseille 16e Arrondissement;N/A
+14020;Argences;8.8
+14027;Les Monts d'Aunay;6.4
+14047;Bayeux;7.8
+14101;Bretteville-sur-Odon;9.2
+14117;Cabourg;8.3
+14118;Caen;11.7
+14167;Colombelles;7.1
+14174;Condé-en-Normandie;5.5
+14191;Courseulles-sur-Mer;8.5
+14220;Deauville;7.8
+14225;Dives-sur-Mer;10.4
+14228;Douvres-la-Délivrande;8.9
+14258;Falaise;7.2
+14327;Hérouville-Saint-Clair;9.7
+14333;Honfleur;9.2
+14341;Ifs;8.9
+14342;Isigny-sur-Mer;8.2
+14366;Lisieux;6.5
+14370;Le Molay-Littry;5.8
+14371;Livarot-Pays-d'Auge;7.2
+14431;Mézidon Vallée d'Auge;6.4
+14437;Mondeville;8.5
+14478;Orbec;5.2
+14488;Ouistreham;9.2
+14514;Pont-l'Évêque;7.6
+14654;Saint-Pierre-en-Auge;7.7
+14689;Le Hom;6.4
+14712;Saline;6.5
+14715;Trouville-sur-Mer;11.9
+14738;Verson;7.2
+14752;Villers-Bocage;8
+14754;Villers-sur-Mer;6.5
+14762;Vire Normandie;7.9
+15014;Aurillac;11.1
+15119;Massiac;9
+15120;Mauriac;12
+15122;Maurs;6
+15138;Murat;9.5
+15162;Riom-ès-Montagnes;8.8
+15187;Saint-Flour;8.4
+16015;Angoulême;12.1
+16028;Barbezieux-Saint-Hilaire;11
+16070;Chabanais;10.1
+16073;Chalais;8.9
+16078;Champniers;8
+16085;Chasseneuil-sur-Bonnieure;10.8
+16090;Châteauneuf-sur-Charente;6.3
+16102;Cognac;10.7
+16106;Confolens;7.9
+16113;La Couronne;6.9
+16154;Gond-Pontouvre;9.9
+16166;L'Isle-d'Espagnac;13.1
+16167;Jarnac;8.4
+16192;Roumazières-Loubert;7.2
+16206;Mansle;10.5
+16223;Montbron;7.8
+16281;La Rochefoucauld;8.6
+16286;Rouillac;9.6
+16291;Ruelle-sur-Touvre;7.5
+16292;Ruffec;8.3
+16374;Soyaux;6.5
+17003;Aigrefeuille-d'Aunis;7.8
+17004;Île-d'Aix;0
+17010;Angoulins;10.1
+17019;Ars-en-Ré;15
+17024;Aulnay;13.3
+17028;Aytré;10.2
+17093;Le Château-d'Oléron;10.9
+17094;Châtelaillon-Plage;9.1
+17131;Cozes;11.2
+17140;Dolus-d'Oléron;12.6
+17161;La Flotte;12.8
+17168;Fouras;15.3
+17172;Gémozac;9.3
+17197;Jonzac;11
+17200;Lagord;8.3
+17218;Marans;11
+17219;Marennes;9.8
+17224;Matha;8.1
+17240;Montendre;6
+17241;Montguyon;9.9
+17264;Nieul-sur-Mer;13.1
+17274;Périgny;8.7
+17283;Pons;8.9
+17291;Puilboreau;13.2
+17299;Rochefort;12.7
+17300;La Rochelle;16.7
+17306;Royan;13.6
+17347;Saint-Jean-d'Angély;9.9
+17385;Saint-Pierre-d'Oléron;12.6
+17397;Saint-Savinien;8.3
+17415;Saintes;12.4
+17421;Saujon;8.4
+17434;Surgères;8.9
+17449;Tonnay-Charente;9.7
+17452;La Tremblade;11.6
+18003;Les Aix-d'Angillon;1.8
+18015;Aubigny-sur-Nère;8.2
+18033;Bourges;10.6
+18057;Châteaumeillant;8.6
+18087;Dun-sur-Auron;7.5
+18108;La Guerche-sur-l'Aubois;6.2
+18109;Henrichemont;6.7
+18141;Mehun-sur-Yèvre;6
+18197;Saint-Amand-Montrond;6.9
+18205;Saint-Doulchard;7.1
+18207;Saint-Florent-sur-Cher;4.5
+18213;Saint-Germain-du-Puy;6.3
+18241;Sancerre;6.4
+18242;Sancoins;5.3
+18279;Vierzon;7.8
+19005;Allassac;5.3
+19010;Argentat-sur-Dordogne;11
+19019;Beaulieu-sur-Dordogne;12
+19028;Bort-les-Orgues;12.1
+19031;Brive-la-Gaillarde;12.7
+19073;Égletons;9.2
+19121;Lubersac;10.6
+19123;Malemort;8.4
+19136;Meymac;6.2
+19138;Meyssac;9.8
+19148;Neuvic;12.2
+19153;Objat;9.3
+19269;Treignac;15.4
+19272;Tulle;9.2
+19275;Ussel;7.2
+19276;Uzerche;11.2
+21023;Arnay-le-Duc;9.6
+21038;Auxonne;7.1
+21054;Beaune;10
+21154;Châtillon-sur-Seine;7.7
+21166;Chenôve;29.1
+21171;Chevigny-Saint-Sauveur;9
+21231;Dijon;11.7
+21278;Fontaine-lès-Dijon;12.5
+21292;Genlis;8.1
+21317;Is-sur-Tille;6.9
+21355;Longvic;6
+21390;Marsannay-la-Côte;11.6
+21425;Montbard;8
+21464;Nuits-Saint-Georges;8.6
+21501;Pouilly-en-Auxois;6.6
+21515;Quetigny;10.9
+21540;Saint-Apollinaire;9.2
+21554;Saint-Jean-de-Losne;5.6
+21584;Saulieu;7.5
+21603;Semur-en-Auxois;10.5
+21607;Seurre;5.8
+21617;Talant;9.6
+21663;Venarey-les-Laumes;6.3
+22004;Bégard;8.9
+22007;Binic;9.5
+22016;Île-de-Bréhat;22.5
+22020;Broons;10.7
+22025;Callac;7.4
+22046;Le Mené;13
+22050;Dinan;9.2
+22054;Erquy;18.5
+22070;Guingamp;7.7
+22093;Lamballe;5.9
+22106;Langueux;4.3
+22113;Lannion;10.4
+22121;Lanvollon;7.4
+22136;Loudéac;6.9
+22143;Matignon;9.9
+22147;Merdrignac;9.1
+22162;Paimpol;11.1
+22168;Perros-Guirec;12.4
+22172;Plancoët;10.1
+22186;Pléneuf-Val-André;12
+22187;Plérin;5.9
+22194;Plestin-les-Grèves;13.1
+22203;Ploeuc-L'Hermitage;6.6
+22206;Plouagat;7.2
+22207;Plouaret;8.8
+22215;Ploufragan;6.8
+22222;Plouha;8
+22251;Pordic;8.2
+22259;Quévert;10.4
+22262;Quintin;7.4
+22266;Rostrenen;10.9
+22278;Saint-Brieuc;13.7
+22324;Saint-Quay-Perros;12.2
+22360;Trégueux;6.7
+22362;Tréguier;11.6
+22389;Yffiniac;7.8
+23008;Aubusson;10.1
+23013;Auzances;9.2
+23030;Bourganeuf;10.2
+23031;Boussac;9.8
+23075;Dun-le-Palestel;12.7
+23076;Évaux-les-Bains;12.5
+23096;Guéret;8.8
+23176;La Souterraine;9.7
+24035;Pays de Belvès;10
+24037;Bergerac;9.6
+24053;Boulazac Isle Manoire;7.5
+24064;Brantôme en Périgord;10.4
+24067;Le Bugue;10.5
+24164;Excideuil;10.4
+24167;Eymet;7.7
+24223;Lalinde;5.9
+24256;Marsac-sur-l'Isle;4.8
+24291;Montignac;11.4
+24294;Montpon-Ménestérol;5
+24299;Mussidan;8.7
+24309;Neuvic;8.4
+24311;Nontron;8.2
+24322;Périgueux;16.2
+24352;Ribérac;9
+24354;La Roche-Chalais;11.3
+24372;Saint-Astier;9.2
+24396;Saint-Cyprien;15.1
+24520;Sarlat-la-Canéda;10.2
+24547;Terrasson-Lavilledieu;7.5
+24551;Thiviers;8.4
+24557;Trélissac;9.7
+24571;Vergt;10.2
+25031;Audincourt;9.9
+25047;Baume-les-Dames;6.8
+25056;Besançon;14
+25212;École-Valentin;8.5
+25315;L'Isle-sur-le-Doubs;7
+25334;Levier;9.6
+25356;Maîche;7.9
+25388;Montbéliard;11.6
+25411;Morteau;7.3
+25434;Ornans;10
+25462;Pontarlier;9.9
+25463;Pont-de-Roide-Vermondans;6.7
+25527;Saint-Vit;9.1
+25532;Saône;9.5
+25578;Valdahon;7.9
+25580;Valentigney;8.4
+26037;Beaumont-lès-Valence;8.6
+26057;Bourg-de-Péage;7.7
+26058;Bourg-lès-Valence;8.7
+26063;Buis-les-Baronnies;11.4
+26064;Chabeuil;8.2
+26108;Crest;10.5
+26113;Die;10.3
+26114;Dieulefit;10.3
+26116;Donzère;10.7
+26124;Étoile-sur-Rhône;6.1
+26165;Livron-sur-Drôme;8.5
+26198;Montélimar;10.7
+26220;Nyons;11.3
+26235;Pierrelatte;7.8
+26252;Portes-lès-Valence;8.5
+26281;Romans-sur-Isère;11.1
+26301;Saint-Donat-sur-l'Herbasse;5.4
+26307;Saint-Jean-en-Royans;11.3
+26313;Saint-Marcel-lès-Valence;7.3
+26324;Saint-Paul-Trois-Châteaux;6.1
+26325;Saint-Rambert-d'Albon;9.4
+26333;Saint-Vallier;6
+26362;Valence;11.5
+27016;Les Andelys;7.5
+27051;Beaumont-le-Roger;6.3
+27056;Bernay;8.1
+27065;Beuzeville;6.7
+27103;Bourg-Achard;7.5
+27112;Breteuil;7.7
+27116;Brionne;8
+27165;Conches-en-Ouche;6.1
+27198;Mesnils-sur-Iton;4.9
+27226;Étrépagny;6.4
+27229;Évreux;9.2
+27230;Ézy-sur-Eure;7.5
+27246;Fleury-sur-Andelle;9
+27275;Gaillon;6
+27284;Gisors;5.6
+27375;Louviers;9.5
+27428;Le Neubourg;5.8
+27448;Pacy-sur-Eure;5.9
+27467;Pont-Audemer;6.1
+27469;Pont-de-l'Arche;9.3
+27493;Romilly-sur-Andelle;7.7
+27507;Saint-André-de-l'Eure;4.8
+27562;Saint-Marcel;7.2
+27679;Verneuil d'Avre et d'Iton;7.4
+27681;Vernon;8.2
+27701;Val-de-Reuil;9.3
+28015;Auneau-Bleury-Saint-Symphorien;6.7
+28051;Bonneval;4.5
+28061;Brou;6.4
+28085;Chartres;12.1
+28088;Châteaudun;7.9
+28089;Châteauneuf-en-Thymerais;6
+28103;Cloyes-les-Trois-Rivières;6.5
+28116;Courville-sur-Eure;5.1
+28134;Dreux;8.3
+28140;Épernon;7.8
+28196;Illiers-Combray;6.8
+28199;Janville;7.5
+28214;La Loupe;6.7
+28218;Lucé;8.6
+28220;Luisant;6.5
+28227;Maintenon;5.1
+28229;Mainvilliers;8
+28279;Nogent-le-Roi;6.9
+28280;Nogent-le-Rotrou;7.3
+28348;Saint-Lubin-des-Joncherets;4.3
+28373;Senonches;9.1
+28404;Vernouillet;4
+28422;Les Villages Vovéens;5.9
+29004;Bannalec;8.2
+29019;Brest;12.5
+29020;Briec;7
+29024;Carhaix-Plouguer;8.7
+29026;Châteaulin;10.9
+29027;Châteauneuf-du-Faou;6.9
+29039;Concarneau;10.4
+29042;Crozon;9.6
+29046;Douarnenez;8.7
+29051;Ergué-Gabéric;9.1
+29053;Le Faou;6.7
+29058;Fouesnant;10.9
+29061;Gouesnou;9.9
+29069;Guilers;7.3
+29075;Guipavas;9.1
+29081;Huelgoat;6.2
+29082;Île-de-Batz;17.4
+29083;Île-de-Sein;46.7
+29084;Île-Molène;0
+29103;Landerneau;10.2
+29105;Landivisiau;6.8
+29124;Lesneven;9.3
+29147;Mellac;5.2
+29150;Moëlan-sur-Mer;9.1
+29151;Morlaix;9.5
+29155;Ouessant;11.7
+29158;Penmarch;9.6
+29160;Plabennec;7.9
+29162;Pleyben;8.8
+29174;Plonéour-Lanvern;6.3
+29178;Ploudalmézeau;9.5
+29185;Plouescat;7.5
+29189;Plougastel-Daoulas;9.9
+29195;Plouguerneau;8
+29197;Plouhinec;9.3
+29199;Plouigneau;5.3
+29212;Plouzané;9.5
+29217;Pont-Aven;11.3
+29220;Pont-l'Abbé;15.6
+29232;Quimper;13.6
+29233;Quimperlé;11.1
+29235;Le Relecq-Kerhuon;7.4
+29241;Rosporden;7
+29259;Saint-Pol-de-Léon;9.8
+29260;Saint-Renan;7.5
+29274;Scaër;8.9
+29302;Pont-de-Buis-lès-Quimerch;7.2
+2A01;Ajaccio;9.7
+2A02;Vallée du Prunelli;4.5
+2A03;Rive Sud;10
+2A04;Cinarca;8.4
+2A05;Taravo;11.8
+2A06;Propriano-Sartène;9.1
+2A07;Alta-Rocca;3.2
+2A08;Gravona-Cruzini;10.6
+2A09;Grand Sud;12.4
+2A10;Cargèse;14.3
+2A11;Vico;21.2
+2B12;Aléria-Cervione;9.4
+2B13;Calvi;9.1
+2B14;Fiumorbu;7.8
+2B15;Ile-Rousse;14
+2B16;Casinca;9.8
+2B17;Corte;7.5
+2B18;Ponte-Leccia;6.2
+2B19;Borgo-Biguglia;7.9
+2B20;Nebbiu;11.2
+2B21;Bastia;12.3
+2B23;Cap Corse;9.5
+30003;Aigues-Mortes;8.7
+30007;Alès;N/A
+30010;Anduze;N/A
+30011;Les Angles;8
+30028;Bagnols-sur-Cèze;N/A
+30032;Beaucaire;10.6
+30034;Bellegarde;N/A
+30037;Bessèges;0
+30062;Calvisson;N/A
+30132;La Grand-Combe;N/A
+30141;Laudun-l'Ardoise;N/A
+30155;Manduel;N/A
+30156;Marguerittes;N/A
+30169;Milhaud;N/A
+30189;Nîmes;N/A
+30202;Pont-Saint-Esprit;10.2
+30210;Quissac;N/A
+30212;Remoulins;N/A
+30221;Roquemaure;N/A
+30227;Saint-Ambroix;4.7
+30243;Saint-Christol-lès-Alès;N/A
+30258;Saint-Gilles;N/A
+30263;Saint-Hippolyte-du-Fort;N/A
+30269;Saint-Jean-du-Gard;N/A
+30305;Salindres;N/A
+30321;Sommières;N/A
+30334;Uzès;N/A
+30341;Vauvert;N/A
+30344;Vergèze;N/A
+30350;Le Vigan;N/A
+30351;Villeneuve-lès-Avignon;N/A
+31020;Aspet;N/A
+31022;Aucamville;N/A
+31033;Auterive;N/A
+31042;Bagnères-de-Luchon;N/A
+31044;Balma;N/A
+31056;Beauzelle;N/A
+31066;Bessières;N/A
+31069;Blagnac;N/A
+31080;Boulogne-sur-Gesse;N/A
+31098;Cadours;N/A
+31106;Caraman;N/A
+31107;Carbonne;N/A
+31113;Castanet-Tolosan;N/A
+31118;Castelnau-d'Estrétefonds;N/A
+31135;Cazères;N/A
+31149;Colomiers;N/A
+31150;Cornebarrieu;N/A
+31157;Cugnaux;N/A
+31182;Fenouillet;N/A
+31187;Fonsorbes;N/A
+31202;Fronton;N/A
+31232;Grenade;N/A
+31239;L'Isle-en-Dodon;N/A
+31254;Labège;N/A
+31282;Launaguet;N/A
+31291;Léguevin;N/A
+31324;Martres-Tolosane;N/A
+31358;Montastruc-la-Conseillère;N/A
+31375;Montesquieu-Volvestre;N/A
+31390;Montréjeau;N/A
+31395;Muret;N/A
+31396;Nailloux;N/A
+31417;Pibrac;N/A
+31421;Pins-Justaret;N/A
+31424;Plaisance-du-Touch;N/A
+31433;Portet-sur-Garonne;N/A
+31445;Quint-Fonsegrives;N/A
+31446;Ramonville-Saint-Agne;N/A
+31451;Revel;N/A
+31454;Rieumes;N/A
+31458;Roques;N/A
+31467;Saint-Alban;N/A
+31483;Saint-Gaudens;N/A
+31488;Saint-Jean;N/A
+31490;Saint-Jory;N/A
+31499;Saint-Lys;N/A
+31506;Saint-Orens-de-Gameville;N/A
+31523;Salies-du-Salat;N/A
+31526;La Salvetat-Saint-Gilles;N/A
+31547;Seysses;N/A
+31555;Toulouse;N/A
+31557;Tournefeuille;N/A
+31561;L'Union;N/A
+31572;Venerque;N/A
+31573;Verfeil;N/A
+31582;Villefranche-de-Lauragais;N/A
+31584;Villemur-sur-Tarn;N/A
+31588;Villeneuve-Tolosane;N/A
+32013;Auch;N/A
+32096;Cazaubon;14.4
+32107;Condom;8.1
+32119;Eauze;0
+32132;Fleurance;N/A
+32147;Gimont;N/A
+32160;L'Isle-Jourdain;N/A
+32208;Lectoure;N/A
+32213;Lombez;N/A
+32233;Marciac;N/A
+32242;Masseube;N/A
+32249;Mauvezin;N/A
+32256;Mirande;N/A
+32296;Nogaro;N/A
+32319;Plaisance;N/A
+32344;Riscle;0
+32410;Samatan;N/A
+32462;Vic-Fezensac;N/A
+33003;Ambarès-et-Lagrave;8.4
+33005;Andernos-les-Bains;13.1
+33009;Arcachon;27.1
+33011;Arès;9.1
+33013;Artigues-près-Bordeaux;12.9
+33036;Bazas;10.9
+33039;Bègles;11.2
+33051;Biganos;8.6
+33056;Blanquefort;10.1
+33058;Blaye;10.6
+33063;Bordeaux;16.6
+33067;Bourg;12.3
+33069;Le Bouscat;16.8
+33075;Bruges;12.8
+33081;Cadillac;10.1
+33090;Canéjan;18
+33096;Carbon-Blanc;11.1
+33104;Castelnau-de-Médoc;6.3
+33108;Castillon-la-Bataille;9.8
+33119;Cenon;25.4
+33122;Cestas;12.7
+33123;Cézac;7.5
+33138;Coutras;6.4
+33140;Créon;8.4
+33162;Eysines;10.1
+33167;Floirac;12.1
+33192;Gradignan;12
+33199;Gujan-Mestras;9.2
+33200;Le Haillan;7.2
+33213;La Brède;11.6
+33214;Lacanau;8
+33227;Langon;10.7
+33234;Latresne;12.2
+33236;Lège-Cap-Ferret;10.3
+33238;Léognan;7.9
+33240;Lesparre-Médoc;9
+33243;Libourne;12.9
+33249;Lormont;19.1
+33273;Martignas-sur-Jalle;8.8
+33281;Mérignac;11.3
+33289;Monségur;6.1
+33312;Parempuyre;12.2
+33314;Pauillac;9.9
+33318;Pessac;12.1
+33327;Podensac;8.1
+33334;Portets;15.3
+33352;La Réole;9
+33366;Saint-André-de-Cubzac;11.7
+33389;Saint-Ciers-sur-Gironde;9.4
+33397;Sainte-Eulalie;8.2
+33402;Sainte-Foy-la-Grande;7.4
+33422;Saint-Jean-d'Illac;12
+33433;Saint-Loubès;9.2
+33449;Saint-Médard-en-Jalles;12.1
+33478;Saint-Seurin-sur-l'Isle;13.5
+33498;Salles;8.6
+33506;Sauveterre-de-Guyenne;7.4
+33514;Soulac-sur-Mer;13.7
+33519;Le Taillan-Médoc;10.5
+33522;Talence;9.4
+33527;Le Teich;6.3
+33529;La Teste-de-Buch;13.5
+33550;Villenave-d'Ornon;9.9
+34003;Agde;N/A
+34022;Baillargues;N/A
+34023;Balaruc-les-Bains;N/A
+34028;Bédarieux;N/A
+34031;Bessan;N/A
+34032;Béziers;N/A
+34052;Capestang;N/A
+34057;Castelnau-le-Lez;N/A
+34058;Castries;N/A
+34077;Clapiers;N/A
+34079;Clermont-l'Hérault;N/A
+34088;Cournonterral;N/A
+34090;Le Crès;N/A
+34095;Fabrègues;N/A
+34101;Florensac;N/A
+34108;Frontignan;N/A
+34111;Ganges;N/A
+34113;Gigean;N/A
+34114;Gignac;N/A
+34120;Jacou;N/A
+34123;Juvignac;N/A
+34129;Lattes;N/A
+34142;Lodève;N/A
+34145;Lunel;N/A
+34147;Magalas;N/A
+34150;Marseillan;N/A
+34151;Marsillargues;N/A
+34154;Mauguio;N/A
+34157;Mèze;N/A
+34162;Montagnac;N/A
+34172;Montpellier;N/A
+34192;Palavas-les-Flots;N/A
+34194;Paulhan;N/A
+34198;Pérols;N/A
+34199;Pézenas;N/A
+34213;Poussan;N/A
+34239;Saint-André-de-Sangonis;N/A
+34245;Saint-Chinian;N/A
+34247;Saint-Clément-de-Rivière;N/A
+34255;Saint-Gély-du-Fesc;N/A
+34270;Saint-Jean-de-Védas;N/A
+34276;Saint-Mathieu-de-Tréviers;N/A
+34284;Saint-Pons-de-Thomières;N/A
+34299;Sérignan;N/A
+34300;Servian;N/A
+34301;Sète;N/A
+34327;Vendargues;N/A
+34332;Vias;N/A
+34336;Villeneuve-lès-Béziers;N/A
+34344;La Grande-Motte;N/A
+35001;Acigné;8.9
+35004;Antrain;12.4
+35006;Argentré-du-Plessis;5.3
+35012;Bain-de-Bretagne;8
+35023;Bédée;9.1
+35024;Betton;8.3
+35047;Bruz;10.9
+35049;Cancale;7.7
+35051;Cesson-Sévigné;11.2
+35055;Chantepie;9.8
+35066;Chartres-de-Bretagne;7.9
+35068;Châteaubourg;6.9
+35069;Châteaugiron;7.6
+35085;Combourg;9.3
+35093;Dinard;10.4
+35095;Dol-de-Bretagne;8.3
+35115;Fougères;7.6
+35125;La Guerche-de-Bretagne;4.2
+35126;Guichen;7.7
+35129;Guipry;5.2
+35136;Janzé;7.2
+35152;Liffré;7.9
+35162;Louvigné-du-Désert;7.7
+35168;Val d'Anast;7
+35173;Melesse;7.8
+35184;Montauban-de-Bretagne;9.2
+35188;Montfort-sur-Meu;7.1
+35189;Montgermont;10.4
+35196;Mordelles;8.6
+35210;Pacé;12.4
+35219;Pipriac;3.2
+35223;Plélan-le-Grand;4.9
+35236;Redon;9
+35238;Rennes;13.3
+35239;Retiers;5.5
+35240;Le Rheu;8.7
+35253;Saint-Aubin-du-Cormier;7.5
+35257;Maen Roch;5.9
+35278;Saint-Grégoire;22.9
+35281;Saint-Jacques-de-la-Lande;9.8
+35288;Saint-Malo;16.1
+35297;Saint-Méen-le-Grand;7.7
+35334;Thorigné-Fouillard;7.1
+35337;Tinténiac;6.6
+35352;Vern-sur-Seiche;8.6
+35360;Vitré;7.9
+36001;Aigurande;9
+36006;Argenton-sur-Creuse;8
+36018;Le Blanc;7.8
+36031;Buzançais;7
+36034;Chabris;5.2
+36044;Châteauroux;8.5
+36045;Châtillon-sur-Indre;8.7
+36046;La Châtre;7
+36063;Déols;4.2
+36088;Issoudun;6.7
+36093;Levroux;7.6
+36228;Valençay;9.9
+37003;Amboise;11.5
+37014;Azay-le-Rideau;9
+37018;Ballan-Miré;8.3
+37022;Beaumont-en-Véron;8.3
+37027;Bléré;5.6
+37031;Bourgueil;8.6
+37050;Chambray-lès-Tours;14.1
+37063;Château-Renault;6.7
+37072;Chinon;13.7
+37104;Esvres;8.2
+37109;Fondettes;10.3
+37115;Descartes;5.6
+37119;L'Île-Bouchard;8.5
+37122;Joué-lès-Tours;10.8
+37123;Langeais;7.8
+37130;Ligueil;8.1
+37132;Loches;10.9
+37139;Luynes;4.7
+37156;Montlouis-sur-Loire;11.4
+37159;Monts;8.1
+37167;Neuillé-Pont-Pierre;7.2
+37195;La Riche;10.8
+37196;Richelieu;11.6
+37208;Saint-Avertin;9.8
+37214;Saint-Cyr-sur-Loire;11.8
+37226;Sainte-Maure-de-Touraine;7.6
+37233;Saint-Pierre-des-Corps;9.3
+37261;Tours;11.6
+38001;Les Abrets en Dauphiné;7.5
+38006;Allevard;11.9
+38012;Aoste;10.4
+38013;Apprieu;9.5
+38022;Les Avenières Veyrins-Thuellin;6.2
+38034;Beaurepaire;3.7
+38052;Le Bourg-d'Oisans;13.3
+38053;Bourgoin-Jallieu;12.8
+38085;Charvieu-Chavagneux;5.7
+38130;La Côte-Saint-André;9.6
+38138;Crémieu;8.7
+38140;Crolles;14.6
+38150;Domène;8.3
+38151;Échirolles;17.9
+38158;Eybens;9.9
+38169;Fontaine;9.5
+38179;Gières;11.8
+38185;Grenoble;13.1
+38189;Heyrieux;7.1
+38193;L'Isle-d'Abeau;6.8
+38226;Mens;8.8
+38229;Meylan;18
+38239;Moirans;12.1
+38247;Montalieu-Vercieu;7.1
+38261;Morestel;6.2
+38269;La Mure;8.3
+38298;Le Péage-de-Roussillon;8.7
+38314;Pontcharra;8.6
+38315;Le Pont-de-Beauvoisin;7.8
+38317;Le Pont-de-Claix;7.9
+38318;Pont-Évêque;10.4
+38337;Rives;8.2
+38344;Roussillon;7
+38382;Saint-Égrève;9.5
+38384;Saint-Étienne-de-Saint-Geoirs;8.5
+38397;Saint-Ismier;9.9
+38399;Saint-Jean-de-Bournay;5.9
+38412;Saint-Laurent-du-Pont;9.2
+38416;Saint-Marcellin;8.7
+38421;Saint-Martin-d'Hères;9
+38468;Salaise-sur-Sanne;4.1
+38474;Sassenage;9.8
+38485;Seyssinet-Pariset;10.6
+38486;Seyssins;4.3
+38509;La Tour-du-Pin;9.8
+38511;Le Touvet;9.9
+38516;La Tronche;11.2
+38517;Tullins;9.4
+38524;Varces-Allières-et-Risset;6
+38544;Vienne;12
+38545;Vif;8.3
+38548;Villard-de-Lans;11.2
+38553;Villefontaine;9.8
+38562;Vizille;10.2
+38563;Voiron;14.2
+38565;Voreppe;9.1
+39013;Arbois;9
+39056;Bletterans;13.2
+39097;Champagnole;7.2
+39128;Chaussin;5
+39154;Clairvaux-les-Lacs;10
+39198;Dole;10.3
+39300;Lons-le-Saunier;10.6
+39368;Hauts de Bienne;5.9
+39434;Poligny;8.6
+39470;Les Rousses;9.9
+39475;Saint-Amour;6.4
+39478;Saint-Claude;7.7
+39487;Saint-Laurent-en-Grandvaux;6.3
+39500;Salins-les-Bains;10.8
+39526;Tavaux;11.4
+40001;Aire-sur-l'Adour;16.4
+40046;Biscarrosse;11
+40065;Capbreton;21.8
+40088;Dax;18
+40119;Hagetmau;6.7
+40133;Labenne;8
+40134;Labouheyre;8.8
+40184;Mimizan;10.6
+40192;Mont-de-Marsan;13.8
+40194;Montfort-en-Chalosse;10.7
+40197;Morcenx;10.6
+40201;Mugron;10.4
+40217;Parentis-en-Born;10.8
+40224;Peyrehorade;8.3
+40233;Pouillon;7.4
+40245;Roquefort;6.3
+40273;Saint-Martin-de-Seignanx;8.5
+40279;Saint-Paul-lès-Dax;10.5
+40281;Saint-Pierre-du-Mont;5.9
+40282;Saint-Sever;10.9
+40284;Saint-Vincent-de-Tyrosse;11.3
+40310;Soustons;12.3
+40312;Tarnos;11.3
+40313;Tartas;10.8
+40331;Villeneuve-de-Marsan;9.3
+41018;Blois;11.7
+41025;Bracieux;7.6
+41047;La Chaussée-Saint-Victor;13.2
+41059;Contres;8.4
+41106;Lamotte-Beuvron;8.6
+41136;Mer;6.8
+41143;Mondoubleau;6.3
+41149;Montoire-sur-le-Loir;7.1
+41151;Montrichard Val de Cher;7.3
+41167;Veuzain-sur-Loire;5.9
+41194;Romorantin-Lanthenay;8.8
+41198;Saint-Aignan;8.3
+41232;Salbris;7.8
+41242;Selles-sur-Cher;9.2
+41269;Vendôme;9.6
+41295;Vineuil;7.5
+42005;Andrézieux-Bouthéon;10.7
+42011;Balbigny;6
+42019;Boën-sur-Lignon;8.2
+42023;Bourg-Argental;9.9
+42044;Le Chambon-Feugerolles;9.2
+42052;Charlieu;9.5
+42059;Chazelles-sur-Lyon;12.4
+42071;Le Coteau;5.2
+42094;Feurs;8.9
+42095;Firminy;10.8
+42110;L'Horme;8.1
+42127;Mably;6.1
+42147;Montbrison;8.4
+42149;Montrond-les-Bains;11
+42159;Noirétable;6
+42165;Panissières;6.9
+42168;Pélussin;12.1
+42182;Renaison;8.1
+42183;La Ricamarie;8.7
+42184;Riorges;5.5
+42186;Rive-de-Gier;8.8
+42187;Roanne;13.2
+42189;Roche-la-Molière;9.8
+42204;Saint-Bonnet-le-Château;4.7
+42207;Saint-Chamond;10.1
+42218;Saint-Étienne;12.4
+42222;Saint-Galmier;9
+42275;Saint-Priest-en-Jarez;13.7
+42279;Saint-Just-Saint-Rambert;7.1
+42302;Sorbiers;6.8
+42305;La Talaudière;5.8
+42316;Unieux;5.4
+42323;Veauche;8.1
+42330;Villars;8.1
+43012;Aurec-sur-Loire;8.9
+43040;Brioude;9.8
+43041;Brives-Charensac;7.2
+43051;Le Chambon-sur-Lignon;9.9
+43080;Craponne-sur-Arzon;9.9
+43087;Dunières;10
+43112;Langeac;11.2
+43137;Monistrol-sur-Loire;7.7
+43157;Le Puy-en-Velay;11.9
+43162;Retournac;5.5
+43177;Saint-Didier-en-Velay;10.8
+43200;Saint-Julien-Chapteuil;7.3
+43224;Sainte-Sigolène;5.5
+43234;Saugues;8.4
+43244;Tence;8.7
+43268;Yssingeaux;7.6
+44002;Aigrefeuille-sur-Maine;7
+44003;Ancenis;7.3
+44009;Basse-Goulaine;8.2
+44015;Blain;5.7
+44018;Bouaye;7
+44020;Bouguenais;9.5
+44026;Carquefou;7.9
+44029;Divatte-sur-Loire;7.3
+44035;La Chapelle-sur-Erdre;9
+44036;Châteaubriant;8
+44043;Clisson;8.3
+44047;Couëron;8.4
+44049;Le Croisic;9.7
+44051;Derval;6.9
+44055;La Baule-Escoublac;9.6
+44067;Guémené-Penfao;6.3
+44069;Guérande;11
+44072;Herbignac;5.9
+44081;Legé;12.5
+44087;Machecoul-Saint-Même;5.2
+44101;La Montagne;11.1
+44103;Montoir-de-Bretagne;6.8
+44109;Nantes;13.1
+44110;Nort-sur-Erdre;7.8
+44113;Nozay;5.2
+44114;Orvault;10.2
+44129;Pontchâteau;7
+44131;Pornic;12.7
+44132;Pornichet;14.3
+44135;Le Pouliguen;13.8
+44143;Rezé;12.1
+44154;Saint-Brevin-les-Pins;9.2
+44158;Saint-Étienne-de-Montluc;6.6
+44161;Saint-Gildas-des-Bois;6.6
+44162;Saint-Herblain;13.2
+44169;Saint-Julien-de-Concelles;6.2
+44172;Sainte-Luce-sur-Loire;7.7
+44180;Saint-Mars-la-Jaille;2.5
+44184;Saint-Nazaire;13.5
+44186;Sainte-Pazanne;5.5
+44187;Saint-Père-en-Retz;8.8
+44188;Saint-Philbert-de-Grand-Lieu;8.2
+44190;Saint-Sébastien-sur-Loire;8.5
+44194;Sautron;10.2
+44195;Savenay;8.1
+44198;Les Sorinières;8.1
+44204;Thouaré-sur-Loire;10
+44209;Treillières;8.9
+44210;Trignac;9
+44211;La Turballe;10.4
+44212;Vallet;8.5
+44213;Loireauxence;5.7
+44215;Vertou;8.8
+44223;Geneston;7.8
+45004;Amilly;5
+45028;Beaugency;6.6
+45030;Beaune-la-Rolande;8.2
+45031;Bellegarde;7.3
+45053;Briare;7
+45068;Châlette-sur-Loing;3.3
+45075;La Chapelle-Saint-Mesmin;8
+45082;Châteauneuf-sur-Loire;6.3
+45083;Château-Renard;6.6
+45085;Châtillon-Coligny;6.5
+45089;Chécy;9.9
+45115;Courtenay;7
+45145;Ferrières-en-Gâtinais;2.9
+45146;La Ferté-Saint-Aubin;8.5
+45147;Fleury-les-Aubrais;6.2
+45155;Gien;7.7
+45169;Ingré;5.5
+45173;Jargeau;7
+45187;Lorris;5.4
+45191;Le Malesherbois;4.5
+45203;Meung-sur-Loire;7.1
+45208;Montargis;13.2
+45224;Neuville-aux-Bois;7.7
+45232;Olivet;7.5
+45234;Orléans;11.7
+45248;Patay;5
+45252;Pithiviers;6
+45258;Puiseaux;6.6
+45274;Saint-Denis-en-Val;8.8
+45284;Saint-Jean-de-Braye;7
+45285;Saint-Jean-de-la-Ruelle;10.8
+45286;Saint-Jean-le-Blanc;3.6
+45302;Saran;5.8
+45315;Sully-sur-Loire;7.4
+46029;Biars-sur-Cère;0
+46042;Cahors;N/A
+46102;Figeac;N/A
+46127;Gourdon;0
+46128;Gramat;N/A
+46143;Lacapelle-Marival;N/A
+46201;Montcuq-en-Quercy-Blanc;N/A
+46225;Prayssac;10.9
+46231;Puy-l'Évêque;0
+46251;Saint-Céré;N/A
+46309;Souillac;4.3
+46330;Vayrac;0
+47001;Agen;12.7
+47004;Aiguillon;11.6
+47027;Bias;2.4
+47031;Boé;6.3
+47032;Bon-Encontre;10.6
+47051;Castelculier;6.1
+47052;Casteljaloux;9.4
+47057;Castillonnès;7.1
+47086;Duras;11.7
+47106;Fumel;9.9
+47157;Marmande;9.1
+47168;Miramont-de-Guyenne;8.8
+47175;Monflanquin;7.6
+47195;Nérac;7.6
+47201;Le Passage;8.6
+47252;Sainte-Livrade-sur-Lot;8
+47310;Tonneins;6.8
+47323;Villeneuve-sur-Lot;10.2
+47324;Villeréal;15.8
+48034;La Canourgue;N/A
+48061;Florac Trois Rivières;N/A
+48080;Langogne;6.9
+48092;Marvejols;N/A
+48095;Mende;N/A
+48140;Saint-Chély-d'Apcher;0
+49007;Angers;15.7
+49015;Avrillé;11.8
+49018;Baugé-en-Anjou;8.5
+49020;Beaucouzé;9.2
+49021;Beaufort-en-Anjou;9
+49023;Beaupréau-en-Mauges;7.8
+49042;Brain-sur-l'Authion;8.5
+49050;Brissac Loire Aubance;11.1
+49054;Candé;9.4
+49063;Chalonnes-sur-Loire;10.9
+49080;Châteauneuf-sur-Sarthe;7.4
+49092;Chemillé-en-Anjou;5
+49099;Cholet;8.5
+49125;Doué-en-Anjou;7.6
+49127;Durtal;7.5
+49176;Le Lion-d'Angers;6.6
+49180;Longué-Jumelles;5.8
+49183;Val d'Erdre-Auxence;7.2
+49214;Montreuil-Juigné;9.4
+49215;Montreuil-Bellay;6.6
+49223;Mûrs-Erigné;8.2
+49228;Noyant-Villages;9.8
+49244;Mauges-sur-Loire;8.2
+49246;Les Ponts-de-Cé;10.2
+49248;Ombrée d'Anjou;5.4
+49261;Les Rosiers-sur-Loire;7.6
+49267;Saint-Barthélemy-d'Anjou;9
+49283;Saint-Georges-sur-Loire;14.4
+49301;Sèvremoine;7.4
+49313;Saint-Pierre-Montlimart;6.6
+49323;Verrières-en-Anjou;11.3
+49328;Saumur;10.4
+49331;Segré-en-Anjou Bleu;7.1
+49333;Seiches-sur-le-Loir;8.2
+49345;Bellevigne-en-Layon;4.4
+49347;Tiercé;8.5
+49353;Trélazé;13.3
+49373;Lys-Haut-Layon;8.3
+50002;Agneaux;5.7
+50003;Agon-Coutainville;7.3
+50025;Avranches;7.2
+50031;Barneville-Carteret;6.7
+50041;La Hague;5.2
+50074;Brécey;6.7
+50076;Bréhal;8.9
+50082;Bricquebec-en-Cotentin;6
+50099;Carentan les Marais;5.6
+50129;Cherbourg-en-Cotentin;10
+50147;Coutances;7.5
+50173;Équeurdreville-Hainneville;0
+50203;Glacerie (La);9.6
+50218;Granville;9.6
+50236;La Haye;6.7
+50237;La Haye-Pesnel;9.7
+50341;Montebourg;6.5
+50359;Mortain-Bocage;8.2
+50394;Périers;6.7
+50402;Les Pieux;6.3
+50410;Pontorson;5.2
+50484;Saint-Hilaire-du-Harcouët;6.3
+50487;Saint-James;7.5
+50502;Saint-Lô;10.4
+50539;Saint-Pierre-Église;4.6
+50551;Saint-Sauveur-le-Vicomte;7.8
+50562;Saint-Vaast-la-Hougue;7
+50582;Sourdeval;8.3
+50601;Torigny-les-Villes;6.3
+50602;Tourlaville;1.7
+50615;Valognes;5.2
+50639;Villedieu-les-Poêles-Rouffigny;6.9
+51030;Aÿ-Champagne;7.7
+51108;Châlons-en-Champagne;9
+51172;Cormontreuil;8.9
+51217;Dormans;7.1
+51230;Épernay;9.4
+51248;Fère-Champenoise;6.9
+51250;Fismes;6.7
+51380;Montmirail;7
+51388;Mourmelon-le-Grand;6.5
+51454;Reims;11.7
+51506;Saint-Memmie;6.9
+51507;Sainte-Menehould;9.5
+51535;Sézanne;9.8
+51559;Suippes;5.7
+51573;Tinqueux;8.7
+51612;Vertus;9.1
+51649;Vitry-le-François;8.6
+52060;Bourbonne-les-Bains;12.4
+52093;Chalindrey;7.3
+52121;Chaumont;9.1
+52197;Fayl-Billot;5.5
+52250;Joinville;8.1
+52269;Langres;6.8
+52331;La Porte du Der;7.3
+52332;Val-de-Meuse;9.6
+52353;Nogent;8.2
+52448;Saint-Dizier;9
+52550;Wassy;8.7
+53003;Ambrières-les-Vallées;7.1
+53062;Château-Gontier;6.7
+53077;Cossé-le-Vivien;4.8
+53084;Craon;9.4
+53096;Ernée;7.6
+53097;Évron;6.9
+53107;Gorron;8
+53127;Lassay-les-Châteaux;4
+53130;Laval;9.4
+53147;Mayenne;7.6
+53152;Meslay-du-Maine;6
+53185;Pré-en-Pail-Saint-Samson;6.6
+53188;Renazé;7.3
+53201;Saint-Berthevin;7.1
+53271;Villaines-la-Juhel;5.9
+54039;Baccarat;5.4
+54076;Blainville-sur-l'Eau;8.4
+54099;Val de Briey;9
+54115;Champigneulles;11.1
+54159;Dombasle-sur-Meurthe;11.3
+54184;Essey-lès-Nancy;11.3
+54215;Frouard;10.4
+54273;Jarny;5.1
+54274;Jarville-la-Malgrange;9.3
+54280;Joeuf;8.4
+54304;Laxou;13.1
+54322;Longuyon;4.8
+54323;Longwy;9.4
+54328;Ludres;12.7
+54329;Lunéville;11.7
+54382;Mont-Saint-Martin;7
+54395;Nancy;13.9
+54397;Neuves-Maisons;8.4
+54425;Piennes;6.2
+54431;Pont-à-Mousson;10.2
+54482;Saint-Max;12.3
+54528;Toul;8.9
+54547;Vandoeuvre-lès-Nancy;16.4
+54563;Vézelise;9.5
+54578;Villers-lès-Nancy;10.1
+54580;Villerupt;6.5
+55029;Bar-le-Duc;8.6
+55122;Commercy;8.8
+55181;Étain;10.2
+55291;Ligny-en-Barrois;9
+55427;Revigny-sur-Ornain;9
+55463;Saint-Mihiel;10.2
+55502;Stenay;5.4
+55533;Vaucouleurs;7.5
+55545;Verdun;7.7
+56003;Arradon;13.4
+56007;Auray;12.2
+56010;Baud;8.1
+56013;Belz;6.9
+56034;Carnac;14.3
+56036;Caudan;8.8
+56053;Elven;6.9
+56057;Le Faouët;8.1
+56061;La Gacilly;6.8
+56066;Gourin;10.1
+56067;Grand-Champ;8.4
+56069;Groix;12.9
+56073;Guémené-sur-Scorff;6.3
+56075;Guer;6.4
+56078;Guidel;10.9
+56083;Hennebont;9.1
+56085;Hoedic;0
+56086;Île-d'Houat;73
+56087;Île-aux-Moines;17.5
+56088;Île-d'Arz;0
+56091;Josselin;6.8
+56098;Lanester;9.8
+56107;Larmor-Plage;11.9
+56117;Locminé;5.9
+56121;Lorient;12.7
+56124;Malestroit;7
+56127;Mauron;7.1
+56143;Muzillac;11.2
+56152;Le Palais;7.8
+56158;Plescop;10.7
+56162;Ploemeur;9.9
+56164;Ploeren;7
+56165;Ploërmel;8.5
+56166;Plouay;10.6
+56177;Pluvigner;7.1
+56178;Pontivy;7.8
+56184;Questembert;8.7
+56185;Quéven;8.4
+56186;Quiberon;11
+56193;Riantec;11.3
+56195;La Roche-Bernard;10.6
+56206;Saint-Avé;9.8
+56240;Sarzeau;10.6
+56243;Séné;12.3
+56251;Theix-Noyalo;8.6
+56260;Vannes;17.2
+57019;Amnéville;13.4
+57032;Ars-sur-Moselle;10.3
+57089;Bitche;8.7
+57097;Boulay-Moselle;8.4
+57106;Bouzonville;5.7
+57132;Château-Salins;10.7
+57160;Creutzwald;6.9
+57177;Dieuze;5.4
+57206;Fameck;10
+57207;Farébersviller;3.3
+57209;Faulquemont;6.9
+57221;Florange;8.2
+57227;Forbach;7
+57240;Freyming-Merlebach;4.7
+57269;Guénange;8.5
+57283;Hagondange;14
+57306;Hayange;8.5
+57323;Hettange-Grande;8.2
+57412;Longeville-lès-Metz;10
+57413;Longeville-lès-Saint-Avold;10.5
+57433;Maizières-lès-Metz;6.8
+57447;Marly;7.5
+57463;Metz;12.9
+57474;Mondelange;7.6
+57480;Montigny-lès-Metz;11.4
+57483;Morhange;8.9
+57487;Moulins-lès-Metz;6.5
+57491;Moyeuvre-Grande;9.5
+57537;Petite-Rosselle;1.5
+57540;Phalsbourg;5.5
+57556;Puttelange-aux-Lacs;5.9
+57572;Rémilly;11.3
+57589;Rohrbach-lès-Bitche;6.1
+57591;Rombas;9.8
+57606;Saint-Avold;7.7
+57628;Sarralbe;9.5
+57630;Sarrebourg;9.4
+57631;Sarreguemines;10.1
+57650;Sierck-les-Bains;10
+57660;Stiring-Wendel;6.2
+57663;Talange;8.9
+57666;Terville;12.4
+57672;Thionville;11.7
+57683;Uckange;9.6
+57751;Woippy;7.3
+57757;Yutz;9.8
+58059;La Charité-sur-Loire;6.3
+58062;Château-Chinon (Ville);5.6
+58079;Clamecy;9.1
+58083;Corbigny;7.5
+58086;Cosne-Cours-sur-Loire;8.1
+58095;Decize;6
+58117;Fourchambault;8.4
+58134;Imphy;4.2
+58149;Luzy;8.5
+58182;Moulins-Engilbert;12.4
+58194;Nevers;9.8
+58218;Prémery;4.3
+58264;Saint-Pierre-le-Moûtier;9.3
+58303;Varennes-Vauzelles;6.6
+59008;Aniche;7.5
+59009;Villeneuve-d'Ascq;9.3
+59011;Annoeullin;10.2
+59014;Anzin;9.1
+59015;Arleux;9.2
+59017;Armentières;15.6
+59028;Auby;9.4
+59032;Aulnoy-lez-Valenciennes;10.4
+59033;Aulnoye-Aymeries;7.5
+59036;Avesnes-sur-Helpe;12.2
+59043;Bailleul;13.4
+59051;La Bassée;12.3
+59053;Bavay;7.7
+59067;Bergues;10.2
+59090;Bondues;9.1
+59092;Bouchain;10.8
+59094;Bourbourg;9.5
+59112;Bruay-sur-l'Escaut;6.2
+59122;Cambrai;10.6
+59131;Cappelle-la-Grande;9.1
+59135;Cassel;6.5
+59136;Le Cateau-Cambrésis;7.6
+59139;Caudry;11.2
+59143;La Chapelle-d'Armentières;10.2
+59152;Comines;9
+59153;Condé-sur-l'Escaut;6.6
+59155;Coudekerque-Branche;7.6
+59163;Croix;9.1
+59168;Cysoing;14.1
+59170;Dechy;11.9
+59172;Denain;11.7
+59178;Douai;12.3
+59179;Douchy-les-Mines;10.7
+59183;Dunkerque;13.3
+59205;Escaudain;9.5
+59212;Estaires;8.1
+59220;Faches-Thumesnil;12.6
+59234;Flers-en-Escrebieux;11.5
+59239;Flines-lez-Raches;7.3
+59249;Fourmies;6.9
+59268;La Gorgue;10.6
+59271;Grande-Synthe;8.1
+59273;Gravelines;7.6
+59279;Halluin;8.5
+59286;Haubourdin;8.8
+59291;Hautmont;8.9
+59295;Hazebrouck;10.8
+59299;Hem;12.6
+59309;Hondschoote;8.4
+59317;Houplines;8
+59324;Jeumont;8.5
+59327;Lallaing;8
+59328;Lambersart;12
+59329;Lambres-lez-Douai;10.3
+59331;Landrecies;11.1
+59339;Leers;6.5
+59343;Lesquin;15
+59350;Lille;13.2
+59352;Linselles;8.5
+59360;Loos;9.4
+59365;Louvroil;5
+59367;Lys-lez-Lannoy;9.8
+59368;La Madeleine;15.7
+59375;Marchiennes;5.6
+59378;Marcq-en-Baroeul;10.8
+59383;Marly;9.1
+59386;Marquette-lez-Lille;7.2
+59392;Maubeuge;7.3
+59400;Merville;8
+59410;Mons-en-Baroeul;12.2
+59421;Mouvaux;13.7
+59426;Neuville-en-Ferrain;10.3
+59431;Nieppe;9.6
+59449;Orchies;12.4
+59452;Ostricourt;6.6
+59459;Petite-Forêt;11.4
+59466;Pont-à-Marcq;14.2
+59481;Le Quesnoy;11.2
+59491;Raismes;7.6
+59507;Ronchin;10.3
+59508;Roncq;9.5
+59512;Roubaix;14.2
+59526;Saint-Amand-les-Eaux;9.9
+59527;Saint-André-lez-Lille;12.1
+59544;Saint-Saulve;12.5
+59560;Seclin;10.8
+59569;Sin-le-Noble;6.6
+59571;Solesmes;8.4
+59574;Somain;9.7
+59580;Steenvoorde;7.2
+59586;Templeuve-en-Pévèle;7.8
+59599;Tourcoing;10.8
+59603;Trith-Saint-Léger;7.6
+59606;Valenciennes;14.5
+59616;Vieux-Condé;11.3
+59636;Wambrechies;11.8
+59646;Wasquehal;8.4
+59648;Wattignies;12.3
+59650;Wattrelos;10.3
+59653;Wavrin;11.5
+59663;Wormhout;8.1
+60057;Beauvais;9.2
+60103;Bresles;5.3
+60104;Breteuil;5.6
+60139;Chambly;6.2
+60141;Chantilly;10.7
+60143;Chaumont-en-Vexin;6
+60157;Clermont;7.6
+60159;Compiègne;12.7
+60175;Creil;13.1
+60176;Crépy-en-Valois;7.6
+60178;Crèvecoeur-le-Grand;6
+60188;Cuise-la-Motte;7.3
+60223;Estrées-Saint-Denis;6.8
+60245;Formerie;4.9
+60286;Grandvilliers;8.2
+60360;Liancourt;5.9
+60382;Margny-lès-Compiègne;9.1
+60395;Méru;6
+60414;Montataire;6.1
+60439;Mouy;6.6
+60463;Nogent-sur-Oise;6
+60471;Noyon;8
+60482;Orry-la-Ville;5.1
+60500;Le Plessis-Belleville;7.6
+60509;Pont-Sainte-Maxence;8
+60533;Ressons-sur-Matz;6.2
+60581;Saint-Just-en-Chaussée;4.4
+60584;Saint-Leu-d'Esserent;5.7
+60589;Saint-Maximin;6.2
+60612;Senlis;11.2
+60636;Thourotte;7.9
+61001;Alençon;8.4
+61006;Argentan;6.6
+61038;Bellême;7.6
+61117;Condé-sur-Sarthe;6.6
+61145;Domfront en Poiraie;8.2
+61168;La Ferté Macé;6.2
+61169;Flers;5.7
+61181;Gacé;6.2
+61214;L'Aigle;6.9
+61230;Longny les Villages;5.6
+61293;Mortagne-au-Perche;8.6
+61464;Sées;6.6
+61483;Bagnoles de l'Orne Normandie;7.5
+61486;Tinchebray-Bocage;7.2
+61508;Vimoutiers;9.5
+62004;Achicourt;8.8
+62014;Aire-sur-la-Lys;9.8
+62038;Ardres;8.7
+62040;Arques;11.2
+62041;Arras;12.6
+62045;Aubigny-en-Artois;13.4
+62048;Auchel;8
+62051;Auchy-les-Mines;11.3
+62057;Audruicq;7.7
+62060;Auxi-le-Château;6.4
+62063;Avesnes-le-Comte;7.2
+62065;Avion;8.4
+62080;Bapaume;7.5
+62083;Barlin;6.8
+62108;Berck;9.1
+62119;Béthune;12.7
+62126;Beuvry;6.6
+62133;Billy-Montigny;10.2
+62160;Boulogne-sur-Mer;13.9
+62178;Bruay-la-Buissière;8.6
+62186;Bully-les-Mines;8.5
+62193;Calais;10.7
+62215;Carvin;8.9
+62239;Coquelles;8.5
+62249;Courcelles-lès-Lens;7.4
+62250;Courrières;9.7
+62261;Cucq;16.5
+62263;Dainville;8.9
+62268;Desvres;7.5
+62270;Divion;7.8
+62297;Éperlecques;7.5
+62318;Étaples;10.8
+62361;Frévent;7.6
+62364;Fruges;7.2
+62397;Guînes;8.1
+62413;Harnes;8.2
+62427;Hénin-Beaumont;8.6
+62443;Hersin-Coupigny;8.8
+62447;Hesdin;8
+62473;Isbergues;11
+62491;Laventie;11.8
+62497;Leforest;9.3
+62498;Lens;10.1
+62510;Liévin;9.5
+62516;Lillers;7.8
+62525;Longuenesse;7.3
+62528;Loos-en-Gohelle;8.8
+62534;Lumbres;8
+62548;Marck;6.8
+62560;Marquise;9.1
+62563;Mazingarbe;7.9
+62588;Montreuil;9.2
+62604;Neufchâtel-Hardelot;9.9
+62617;Noeux-les-Mines;9.4
+62624;Noyelles-Godault;6.5
+62637;Oignies;7.8
+62643;Outreau;9.7
+62667;Le Portel;11.9
+62753;Saint-Laurent-Blangy;8.1
+62757;Saint-Martin-lez-Tatinghem;8
+62758;Saint-Martin-Boulogne;14.5
+62765;Saint-Omer;14.7
+62767;Saint-Pol-sur-Ternoise;9.1
+62771;Sallaumines;5.8
+62826;Le Touquet-Paris-Plage;15.8
+62842;Vendin-le-Vieil;7.7
+62861;Vimy;11.8
+62865;Vitry-en-Artois;8.9
+62893;Wimereux;13.4
+62895;Wingles;7.4
+62907;Libercourt;8
+63001;Aigueperse;6.9
+63003;Ambert;7.5
+63010;Arlanc;11.6
+63014;Aubière;8.8
+63032;Beaumont;12
+63038;Besse-et-Saint-Anastaise;14.5
+63040;Billom;5.7
+63047;La Bourboule;13.1
+63050;Brassac-les-Mines;11.2
+63063;Cébazat;11.6
+63070;Ceyrat;12.5
+63075;Chamalières;15.5
+63103;Châtel-Guyon;9.2
+63113;Clermont-Ferrand;12.2
+63124;Cournon-d'Auvergne;9.3
+63125;Courpière;9.3
+63164;Gerzat;7.4
+63178;Issoire;9.7
+63193;Lempdes;9.5
+63195;Lezoux;6.5
+63210;Maringues;12.4
+63214;Les Martres-de-Veyre;8.3
+63231;La Monnerie-le-Montel;6.7
+63236;Mont-Dore;24.2
+63283;Pontaumur;7.3
+63284;Pont-du-Château;8.3
+63285;Pontgibaud;10.6
+63291;Puy-Guillaume;9.8
+63300;Riom;9.5
+63338;Saint-Éloy-les-Mines;6.5
+63349;Saint-Georges-de-Mons;8.9
+63354;Saint-Gervais-d'Auvergne;9.5
+63430;Thiers;8.1
+63457;Vic-le-Comte;11.2
+64024;Anglet;14.5
+64061;Artix;9.9
+64062;Arudy;10.7
+64063;Arzacq-Arraziguet;10.9
+64102;Bayonne;14.6
+64122;Biarritz;19.8
+64125;Bidart;8.3
+64129;Billère;14.3
+64132;Bizanos;12
+64140;Boucau;9.2
+64160;Cambo-les-Bains;14.3
+64189;Ciboure;11.9
+64230;Gan;11.7
+64233;Garlin;6.2
+64256;Hasparren;7.1
+64260;Hendaye;11.9
+64284;Jurançon;11.3
+64331;Lembeye;7
+64335;Lescar;9.4
+64348;Lons;6.8
+64371;Mauléon-Licharre;8.1
+64405;Morlaàs;7.8
+64410;Mourenx;9.5
+64416;Navarrenx;8.2
+64417;Nay;14
+64422;Oloron-Sainte-Marie;11.7
+64430;Orthez;9.3
+64445;Pau;11.8
+64453;Pontacq;11.2
+64483;Saint-Jean-de-Luz;14.6
+64485;Saint-Jean-Pied-de-Port;8.5
+64493;Saint-Palais;10
+64499;Salies-de-Béarn;11.4
+64513;Sauveterre-de-Béarn;12.4
+64519;Serres-Castet;8.3
+64547;Ustaritz;6.7
+65025;Argelès-Gazost;N/A
+65031;Arreau;N/A
+65059;Bagnères-de-Bigorre;N/A
+65258;Lannemezan;N/A
+65286;Lourdes;N/A
+65295;Luz-Saint-Sauveur;N/A
+65304;Maubourguet;0
+65417;Séméac;N/A
+65440;Tarbes;13.8
+65447;Tournay;N/A
+65452;Trie-sur-Baïse;N/A
+65460;Vic-en-Bigorre;0
+66003;Amélie-les-Bains-Palalda;N/A
+66008;Argelès-sur-Mer;N/A
+66016;Banyuls-sur-Mer;N/A
+66021;Bompas;N/A
+66024;Le Boulou;N/A
+66028;Cabestany;N/A
+66037;Canet-en-Roussillon;N/A
+66049;Céret;N/A
+66065;Elne;N/A
+66088;Ille-sur-Têt;N/A
+66108;Millas;N/A
+66124;Font-Romeu-Odeillo-Via;N/A
+66136;Perpignan;N/A
+66148;Port-Vendres;N/A
+66149;Prades;N/A
+66164;Rivesaltes;N/A
+66171;Saint-Cyprien;N/A
+66172;Saint-Estève;N/A
+66180;Saint-Laurent-de-la-Salanque;N/A
+66195;Le Soler;N/A
+66210;Thuir;N/A
+67021;Barr;11.6
+67028;Benfeld;7.8
+67043;Bischheim;11.3
+67046;Bischwiller;9.9
+67061;Bouxwiller;10.5
+67066;La Broque;9
+67067;Brumath;10
+67105;Drulingen;5.3
+67130;Erstein;8.6
+67152;Geispolsheim;10.1
+67180;Haguenau;10.8
+67202;Hochfelden;10.5
+67204;Hoenheim;14.3
+67218;Illkirch-Graffenstaden;9.9
+67222;Ingwiller;9
+67267;Lingolsheim;9.6
+67281;Marckolsheim;6.9
+67282;Marlenheim;9
+67300;Molsheim;10.6
+67309;Mundolsheim;11.4
+67348;Obernai;13.3
+67365;Ostwald;13
+67372;Val de Moder;8
+67388;Reichshoffen;8.7
+67411;Rosheim;9.3
+67434;Sarre-Union;8.3
+67437;Saverne;10.8
+67447;Schiltigheim;12.2
+67458;Schweighouse-sur-Moder;10.5
+67462;Sélestat;10.9
+67463;Seltz;5.5
+67471;Souffelweyersheim;8.6
+67474;Soultz-sous-Forêts;8
+67482;Strasbourg;14.6
+67495;Truchtersheim;8.9
+67506;Vendenheim;9.3
+67507;Villé;11.2
+67519;La Wantzenau;10.8
+67520;Wasselonne;11.2
+67544;Wissembourg;11.1
+67550;Woerth;10.8
+67551;Wolfisheim;11.5
+68004;Altkirch;8.5
+68063;Cernay;8.4
+68066;Colmar;11.1
+68068;Dannemarie;5.4
+68082;Ensisheim;5.2
+68112;Guebwiller;8.2
+68118;Habsheim;8.7
+68145;Horbourg-Wihr;10.3
+68154;Illzach;8.7
+68155;Ingersheim;7
+68162;Kaysersberg Vignoble;10.8
+68166;Kingersheim;7.7
+68195;Lutterbach;8.2
+68201;Masevaux-Niederbruck;8
+68224;Mulhouse;12.6
+68226;Munster;9.5
+68256;Pfastatt;6.7
+68269;Ribeauvillé;10.2
+68271;Riedisheim;9.8
+68278;Rixheim;8
+68287;Rouffach;7.4
+68292;Saint-Amarin;7.7
+68297;Saint-Louis;8.6
+68298;Sainte-Marie-aux-Mines;10.9
+68309;Sierentz;8.5
+68352;Volgelsheim;7.2
+68374;Wintzenheim;9.4
+68375;Wittelsheim;5.7
+68376;Wittenheim;6.3
+69006;Amplepuis;7.3
+69009;Anse;6.2
+69010;L'Arbresle;8.4
+69018;Beaujeu;6.9
+69019;Belleville;7.5
+69024;Val d'Oingt;6.9
+69027;Brignais;11.2
+69029;Bron;11
+69034;Caluire-et-Cuire;9.8
+69040;Champagne-au-Mont-d'Or;9.7
+69064;Condrieu;6.9
+69066;Cours;5
+69069;Craponne;10.2
+69072;Dardilly;8.8
+69081;Écully;13.4
+69088;Fontaines-sur-Saône;9.7
+69089;Francheville;9.9
+69091;Givors;8.4
+69096;Grigny;6.6
+69100;Irigny;7.3
+69115;Limas;10.8
+69116;Limonest;9.8
+69141;Mornant;6.8
+69143;Neuville-sur-Saône;8.5
+69149;Oullins;10.3
+69152;Pierre-Bénite;7
+69199;Saint-Fons;7
+69202;Sainte-Foy-lès-Lyon;11.3
+69204;Saint-Genis-Laval;8.4
+69220;Saint-Laurent-de-Chamousset;8.4
+69227;Saint-Martin-en-Haut;8.6
+69238;Saint-Symphorien-sur-Coise;5.1
+69243;Tarare;6.9
+69244;Tassin-la-Demi-Lune;8.3
+69248;Thizy-les-Bourgs;6.7
+69255;Vaugneray;6.7
+69256;Vaulx-en-Velin;8.7
+69259;Vénissieux;9.4
+69260;Vernaison;9.2
+69264;Villefranche-sur-Saône;9.2
+69266;Villeurbanne;8.1
+69271;Chassieu;8.4
+69273;Corbas;8.5
+69275;Décines-Charpieu;10.1
+69276;Feyzin;7.6
+69277;Genas;8.6
+69282;Meyzieu;8.5
+69283;Mions;9.2
+69286;Rillieux-la-Pape;9.2
+69287;Saint-Bonnet-de-Mure;6.2
+69290;Saint-Priest;11.3
+69291;Saint-Symphorien-d'Ozon;9.7
+69381;Lyon 1er Arrondissement;N/A
+69382;Lyon 2e Arrondissement;N/A
+69383;Lyon 3e Arrondissement;N/A
+69384;Lyon 4e Arrondissement;N/A
+69385;Lyon 5e Arrondissement;N/A
+69386;Lyon 6e Arrondissement;N/A
+69387;Lyon 7e Arrondissement;N/A
+69388;Lyon 8e Arrondissement;N/A
+69389;Lyon 9e Arrondissement;N/A
+70120;Champagney;8.2
+70198;Dampierre-sur-Salon;8.2
+70279;Gray;10.7
+70285;Héricourt;8.3
+70292;Jussey;6.1
+70310;Lure;7.4
+70311;Luxeuil-les-Bains;10.4
+70334;Marnay;13.5
+70421;Port-sur-Saône;11.4
+70447;Rioz;8
+70467;Saint-Loup-sur-Semouse;8.5
+70550;Vesoul;11.4
+70561;Villersexel;6.3
+71014;Autun;9.4
+71047;Bourbon-Lancy;4.8
+71070;Buxy;12.6
+71073;Chagny;8.2
+71076;Chalon-sur-Saône;12.4
+71090;La Chapelle-de-Guinchay;10.1
+71105;Charnay-lès-Mâcon;8.2
+71106;Charolles;7.8
+71118;Châtenoy-le-Royal;9.5
+71120;Chauffailles;7
+71133;La Clayette;8.2
+71137;Cluny;9
+71153;Le Creusot;7.4
+71158;Cuisery;7.2
+71176;Digoin;5.3
+71192;Étang-sur-Arroux;7.6
+71221;Givry;9.9
+71230;Gueugnon;7.2
+71263;Louhans;5.9
+71270;Mâcon;10.6
+71275;Marcigny;5.7
+71306;Montceau-les-Mines;6.8
+71310;Montchanin;5.9
+71342;Paray-le-Monial;8.1
+71351;Pierre-de-Bresse;6.5
+71417;Saint-Gengoux-le-National;7.7
+71419;Saint-Germain-du-Bois;6.1
+71445;Saint-Marcel;7.4
+71475;Saint-Rémy;7.6
+71512;Sennecey-le-Grand;7.5
+71543;Tournus;8.5
+72003;Allonnes;7.8
+72008;Arnage;7.6
+72029;Beaumont-sur-Sarthe;6.4
+72039;Bonnétable;6.5
+72054;Champagné;5.4
+72065;La Chapelle-Saint-Aubin;7.3
+72068;La Chartre-sur-le-Loir;7.9
+72071;Montval-sur-Loir;7.4
+72089;Conlie;4.8
+72090;Connerré;5.6
+72095;Coulaines;9.1
+72124;Écommoy;6.5
+72132;La Ferté-Bernard;6.9
+72138;Fresnay-sur-Sarthe;4.8
+72143;Le Grand-Lucé;5.2
+72154;La Flèche;6.8
+72168;Loué;5.9
+72176;Le Lude;9.2
+72180;Mamers;6.6
+72181;Le Mans;10
+72189;Marolles-les-Braults;6.6
+72213;Mulsanne;7.3
+72231;Parigné-l'Évêque;6.3
+72264;Sablé-sur-Sarthe;6.6
+72269;Saint-Calais;6.1
+72334;Sillé-le-Guillaume;6.7
+72346;La Suze-sur-Sarthe;6.4
+72373;Vibraye;6.2
+73006;Aime-la-Plagne;10
+73008;Aix-les-Bains;12
+73010;Entrelacs;8.3
+73011;Albertville;10
+73054;Bourg-Saint-Maurice;15.3
+73055;Bozel;20.5
+73064;Challes-les-Eaux;8.2
+73065;Chambéry;15.1
+73087;Cognin;6.3
+73157;Modane;12.8
+73171;Montmélian;11.3
+73179;La Motte-Servolex;11
+73181;Moûtiers;16
+73213;La Ravoire;8.9
+73222;Saint-Alban-Leysse;8.2
+73248;Saint-Jean-de-Maurienne;9.9
+73261;Saint-Michel-de-Maurienne;13.3
+73270;Saint-Pierre-d'Albigny;6.2
+73303;Ugine;8
+73330;Yenne;9.2
+74001;Abondance;13.6
+74010;Annecy;14.6
+74012;Annemasse;12.8
+74042;Bonneville;7.3
+74043;Bons-en-Chablais;4.2
+74056;Chamonix-Mont-Blanc;11.9
+74081;Cluses;9.5
+74096;Cruseilles;6.8
+74105;Douvaine;7.6
+74112;Epagny Metz-Tessy;5
+74119;Évian-les-Bains;8.2
+74123;Faverges-Seythenex;7.5
+74133;Gaillard;9.2
+74173;Megève;18.1
+74191;Morzine;13.8
+74208;Passy;10.6
+74218;Publier;6.8
+74220;Reignier-Ésery;5.8
+74224;La Roche-sur-Foron;5.7
+74225;Rumilly;6
+74236;Saint-Gervais-les-Bains;14.6
+74242;Saint-Jorioz;8.7
+74243;Saint-Julien-en-Genevois;8.5
+74256;Sallanches;12.2
+74258;Samoëns;13.9
+74269;Seyssel;4.2
+74276;Taninges;10.3
+74280;Thônes;14.1
+74281;Thonon-les-Bains;9.3
+74305;Ville-la-Grand;8.5
+74311;Viuz-en-Sallaz;8.3
+75101;Paris 1er Arrondissement;17.2
+75102;Paris 2e Arrondissement;10.6
+75103;Paris 3e Arrondissement;10.3
+75104;Paris 4e Arrondissement;15.7
+75105;Paris 5e Arrondissement;15.8
+75106;Paris 6e Arrondissement;16
+75107;Paris 7e Arrondissement;15.2
+75108;Paris 8e Arrondissement;33.3
+75109;Paris 9e Arrondissement;15.7
+75110;Paris 10e Arrondissement;7.8
+75111;Paris 11e Arrondissement;10.9
+75112;Paris 12e Arrondissement;10
+75113;Paris 13e Arrondissement;20.3
+75114;Paris 14e Arrondissement;10.4
+75115;Paris 15e Arrondissement;9.4
+75116;Paris 16e Arrondissement;15.6
+75117;Paris 17e Arrondissement;11.9
+75118;Paris 18e Arrondissement;7
+75119;Paris 19e Arrondissement;8.3
+75120;Paris 20e Arrondissement;6.7
+76034;Auffay;8.1
+76035;Aumale;10.5
+76051;Bacqueville-en-Caux;5.3
+76057;Barentin;8.9
+76101;Blangy-sur-Bresle;4.9
+76103;Bonsecours;8.9
+76108;Bois-Guillaume;12.2
+76114;Bolbec;8
+76146;Buchy;5.8
+76157;Canteleu;9.5
+76159;Cany-Barville;5.9
+76164;Rives-en-Seine;8.7
+76165;Caudebec-lès-Elbeuf;7.9
+76196;Criquetot-l'Esneval;7.3
+76212;Darnétal;9.2
+76216;Déville-lès-Rouen;9.8
+76217;Dieppe;9.2
+76219;Doudeville;8.2
+76222;Duclair;9.6
+76231;Elbeuf;8.6
+76255;Eu;10.2
+76258;Terres-de-Caux;7.5
+76259;Fécamp;9.6
+76276;Forges-les-Eaux;9.1
+76302;Goderville;5.4
+76305;Gonfreville-l'Orcher;6.2
+76312;Gournay-en-Bray;5.7
+76319;Grand-Couronne;9.6
+76322;Le Grand-Quevilly;8.6
+76341;Harfleur;11.1
+76351;Le Havre;10.5
+76384;Lillebonne;7.1
+76400;Luneray;8.3
+76402;Malaunay;10.7
+76410;Maromme;9.8
+76429;Le Mesnil-Esnard;9.4
+76447;Montivilliers;7.4
+76451;Mont-Saint-Aignan;9.5
+76452;Montville;9.8
+76462;Neufchâtel-en-Bray;8.1
+76482;Offranville;8
+76484;Oissel;8.1
+76498;Le Petit-Quevilly;10.1
+76540;Rouen;15.8
+76575;Saint-Étienne-du-Rouvray;6.6
+76647;Saint-Romain-de-Colbosc;5.7
+76648;Saint-Saëns;10.6
+76655;Saint-Valery-en-Caux;9.7
+76681;Sotteville-lès-Rouen;11
+76705;Tourville-la-Rivière;8.9
+76752;Yerville;4.9
+76758;Yvetot;8.6
+77037;Bois-le-Roi;7.8
+77051;Bray-sur-Seine;5.8
+77053;Brie-Comte-Robert;7.4
+77058;Bussy-Saint-Georges;6.7
+77067;Cesson;6.2
+77079;Champagne-sur-Seine;7.1
+77083;Champs-sur-Marne;7.6
+77088;La Chapelle-la-Reine;5.6
+77100;Le Châtelet-en-Brie;8.8
+77108;Chelles;6.4
+77118;Claye-Souilly;6.7
+77122;Combs-la-Ville;8
+77131;Coulommiers;8.1
+77152;Dammarie-les-Lys;7.8
+77153;Dammartin-en-Goële;5.7
+77169;Émerainville;5.5
+77171;Esbly;7
+77182;La Ferté-Gaucher;6.3
+77183;La Ferté-sous-Jouarre;6.1
+77186;Fontainebleau;10.1
+77192;Fontenay-Trésigny;6.9
+77243;Lagny-sur-Marne;9.5
+77249;Lésigny;9.2
+77251;Lieusaint;4.9
+77257;Lizy-sur-Ourcq;3.7
+77258;Lognes;7.6
+77284;Meaux;12.4
+77285;Le Mée-sur-Seine;7.3
+77288;Melun;13.4
+77294;Mitry-Mory;6.7
+77296;Moissy-Cramayel;6.7
+77305;Montereau-Fault-Yonne;7.8
+77317;Mormant;6.5
+77327;Nangis;5.2
+77330;Nanteuil-lès-Meaux;4.7
+77333;Nemours;7.9
+77337;Noisiel;7.7
+77350;Ozoir-la-Ferrière;7.9
+77373;Pontault-Combault;9.5
+77379;Provins;7.7
+77390;Roissy-en-Brie;6.2
+77393;Rozay-en-Brie;5.4
+77407;Saint-Fargeau-Ponthierry;6.4
+77437;Saint-Soupplets;4.6
+77438;Saint-Thibault-des-Vignes;4.6
+77445;Savigny-le-Temple;7.4
+77449;Serris;11.6
+77458;Souppes-sur-Loing;8.3
+77468;Torcy;8.9
+77470;Tournan-en-Brie;6.5
+77479;Vaires-sur-Marne;8
+77487;Vaux-le-Pénil;4.9
+77495;Vert-Saint-Denis;8.1
+77514;Villeparisis;7.5
+78005;Achères;7.1
+78015;Andrésy;5.7
+78029;Aubergenville;9.8
+78073;Bois-d'Arcy;8.1
+78092;Bougival;7.1
+78123;Carrières-sous-Poissy;7.6
+78124;Carrières-sur-Seine;4.5
+78126;La Celle-Saint-Cloud;8.1
+78133;Chambourcy;6.9
+78138;Chanteloup-les-Vignes;8.6
+78146;Chatou;8
+78158;Le Chesnay;10.1
+78160;Chevreuse;8.4
+78165;Les Clayes-sous-Bois;7.5
+78168;Coignières;6.8
+78172;Conflans-Sainte-Honorine;10.1
+78190;Croissy-sur-Seine;8.9
+78208;Élancourt;9.1
+78217;Épône;7.5
+78220;Les Essarts-le-Roi;6
+78242;Fontenay-le-Fleury;6.3
+78265;Garancières;5.6
+78297;Guyancourt;9.4
+78310;Houdan;6.5
+78311;Houilles;7.4
+78322;Jouy-en-Josas;5.3
+78335;Limay;5.5
+78350;Louveciennes;6.9
+78356;Magny-les-Hameaux;5.7
+78358;Maisons-Laffitte;9.3
+78361;Mantes-la-Jolie;10
+78362;Mantes-la-Ville;6.1
+78372;Marly-le-Roi;14.3
+78380;Maule;7
+78383;Maurepas;7.8
+78397;Le Mesnil-Saint-Denis;7
+78401;Meulan-en-Yvelines;9
+78418;Montesson;9.3
+78420;Montfort-l'Amaury;6.5
+78423;Montigny-le-Bretonneux;10.6
+78440;Les Mureaux;9
+78455;Noisy-le-Roi;7
+78466;Orgeval;8.1
+78481;Le Pecq;9
+78486;Le Perray-en-Yvelines;8.1
+78490;Plaisir;7.7
+78498;Poissy;10.6
+78517;Rambouillet;10.4
+78531;Rosny-sur-Seine;6.9
+78537;Saint-Arnoult-en-Yvelines;9.7
+78545;Saint-Cyr-l'École;9.1
+78551;Saint-Germain-en-Laye;11.1
+78575;Saint-Rémy-lès-Chevreuse;8.1
+78586;Sartrouville;6.8
+78621;Trappes;7.7
+78624;Triel-sur-Seine;5.9
+78640;Vélizy-Villacoublay;6.8
+78642;Verneuil-sur-Seine;7.9
+78643;Vernouillet;5.6
+78646;Versailles;9.7
+78650;Le Vésinet;10.4
+78674;Villepreux;6.8
+78686;Viroflay;7.5
+78688;Voisins-le-Bretonneux;8.3
+79005;Airvault;11.6
+79048;La Crèche;8.1
+79049;Bressuire;9.3
+79057;Brioux-sur-Boutonne;7.9
+79061;Celles-sur-Belle;6
+79062;Cerizay;3.7
+79079;Mauléon;6.8
+79081;Chauray;8.9
+79083;Chef-Boutonne;9.6
+79101;Coulonges-sur-l'Autize;5.5
+79174;Melle;10.4
+79179;Moncoutant;6.8
+79184;La Mothe-Saint-Héray;7.9
+79191;Niort;11.3
+79195;Nueil-les-Aubiers;6
+79202;Parthenay;8.3
+79270;Saint-Maixent-l'École;6.3
+79307;Sauzé-Vaussais;8.7
+79311;Secondigny;6.4
+79329;Thouars;8.1
+80001;Abbeville;10.2
+80016;Albert;6.8
+80021;Amiens;12.9
+80212;Corbie;8.9
+80253;Doullens;8.8
+80308;Feuquières-en-Vimeu;11.3
+80318;Flixecourt;9.3
+80368;Friville-Escarbotin;7.3
+80373;Gamaches;6.7
+80410;Ham;7
+80489;Longueau;11.1
+80561;Montdidier;7.3
+80570;Moreuil;9
+80606;Oisemont;9.5
+80620;Péronne;7.7
+80630;Poix-de-Picardie;8.8
+80680;Rosières-en-Santerre;8.5
+80685;Roye;8.2
+80688;Rue;11.4
+80721;Saint-Valery-sur-Somme;9.7
+80799;Villers-Bretonneux;15.3
+81003;Alban;N/A
+81004;Albi;N/A
+81037;Brassac;N/A
+81060;Carmaux;N/A
+81065;Castres;N/A
+81099;Gaillac;N/A
+81105;Graulhet;N/A
+81120;Labruguière;N/A
+81124;Lacaune;N/A
+81140;Lavaur;N/A
+81163;Mazamet;N/A
+81219;Puylaurens;N/A
+81220;Rabastens;N/A
+81222;Réalmont;N/A
+81257;Saint-Juéry;N/A
+81271;Saint-Sulpice-la-Pointe;N/A
+81308;Valence-d'Albigeois;N/A
+82013;Beaumont-de-Lomagne;N/A
+82033;Castelsarrasin;N/A
+82037;Caussade;N/A
+82079;Labastide-Saint-Pierre;N/A
+82087;Lafrançaise;N/A
+82121;Montauban;N/A
+82125;Montech;N/A
+82134;Nègrepelisse;N/A
+82155;Saint-Antonin-Noble-Val;N/A
+82186;Valence;0
+82190;Verdun-sur-Garonne;N/A
+83004;Les Arcs;9.7
+83007;Aups;9
+83009;Bandol;21.7
+83012;Barjols;9.4
+83016;Le Beausset;10.4
+83019;Bormes-les-Mimosas;12.4
+83023;Brignoles;8.1
+83032;Carcès;9.7
+83034;Carqueiranne;8.2
+83036;Cavalaire-sur-Mer;10.1
+83042;Cogolin;9.9
+83047;La Crau;12.2
+83049;Cuers;9.7
+83050;Draguignan;10.8
+83054;La Farlède;6.7
+83055;Fayence;7.7
+83061;Fréjus;10.4
+83062;La Garde;9.9
+83064;Garéoult;9.4
+83069;Hyères;16.1
+83071;La Londe-les-Maures;10
+83072;Lorgues;9.7
+83073;Le Luc;8
+83081;Montauroux;11.9
+83086;Le Muy;7.9
+83090;Ollioules;12.3
+83091;Pierrefeu-du-Var;11.5
+83092;Pignans;6.3
+83098;Le Pradet;16.1
+83099;Puget-sur-Argens;10.2
+83104;Rians;6.1
+83106;Rocbaron;5.8
+83107;Roquebrune-sur-Argens;10.7
+83112;Saint-Cyr-sur-Mer;10.5
+83115;Sainte-Maxime;9.8
+83116;Saint-Maximin-la-Sainte-Baume;8
+83118;Saint-Raphaël;15.3
+83119;Saint-Tropez;15.3
+83120;Saint-Zacharie;11.7
+83121;Salernes;7.3
+83123;Sanary-sur-Mer;14.1
+83126;La Seyne-sur-Mer;13.3
+83129;Six-Fours-les-Plages;12.4
+83130;Solliès-Pont;10.6
+83137;Toulon;13
+83141;Trans-en-Provence;6.9
+83144;La Valette-du-Var;15.1
+83148;Vidauban;8.2
+83150;Vinon-sur-Verdon;9.4
+84003;Apt;12.8
+84007;Avignon;14.2
+84016;Bédarrides;13.7
+84019;Bollène;10.6
+84026;Cadenet;13
+84031;Carpentras;11.4
+84035;Cavaillon;11.2
+84039;Courthézon;9.4
+84043;Entraigues-sur-la-Sorgue;8.9
+84054;L'Isle-sur-la-Sorgue;11.6
+84069;Malaucène;10
+84072;Mazan;7.2
+84080;Monteux;8.4
+84081;Morières-lès-Avignon;13.3
+84087;Orange;9.5
+84088;Pernes-les-Fontaines;6.5
+84089;Pertuis;10.9
+84091;Piolenc;10
+84092;Le Pontet;15.4
+84099;Robion;9.2
+84122;Sarrians;9.5
+84123;Sault;10
+84129;Sorgues;8.4
+84132;Le Thor;7.2
+84133;La Tour-d'Aigues;13.1
+84137;Vaison-la-Romaine;10.7
+84138;Valréas;9.2
+84141;Vedène;6.7
+85001;L'Aiguillon-sur-Mer;10.7
+85003;Aizenay;9.3
+85018;Beauvoir-sur-Mer;7.3
+85035;Bretignolles-sur-Mer;9.5
+85047;Challans;9.4
+85051;Chantonnay;9.9
+85059;La Châtaigneraie;5.1
+85060;Château-d'Olonne;0
+85084;Essarts en Bocage;6.2
+85092;Fontenay-le-Comte;7.8
+85109;Les Herbiers;7.3
+85113;L'Île-d'Yeu;0
+85114;Jard-sur-Mer;8.1
+85128;Luçon;8.3
+85135;Mareuil-sur-Lay-Dissais;6.7
+85146;Montaigu;7.8
+85151;Mortagne-sur-Sèvre;6.7
+85152;Les Achards;6.2
+85156;Moutiers-les-Mauxfaits;5.4
+85163;Noirmoutier-en-l'Île;12.3
+85166;Olonne-sur-Mer;6.9
+85178;Le Poiré-sur-Vie;7.7
+85182;Pouzauges;7.5
+85191;La Roche-sur-Yon;11.6
+85194;Les Sables-d'Olonne;11.9
+85215;Saint-Fulgent;7
+85223;Sainte-Hermine;9
+85226;Saint-Hilaire-de-Riez;8.2
+85234;Saint-Jean-de-Monts;11
+85288;Talmont-Saint-Hilaire;9.2
+85294;La Tranche-sur-Mer;12.2
+86041;Buxerolles;11.9
+86062;Chasseneuil-du-Poitou;6
+86066;Châtellerault;9.9
+86070;Chauvigny;8.4
+86078;Civray;8.9
+86082;Couhé;9
+86103;Gençay;7.7
+86112;L'Isle-Jourdain;16.1
+86115;Jaunay-Marigny;10.3
+86128;Lencloître;9.6
+86137;Loudun;7.2
+86139;Lusignan;9.9
+86140;Lussac-les-Châteaux;6.1
+86158;Migné-Auxances;9.3
+86160;Mirebeau;10.5
+86165;Montmorillon;15.2
+86177;Neuville-de-Poitou;10.4
+86194;Poitiers;12.1
+86207;La Roche-Posay;8.5
+86214;Saint-Benoît;10.6
+86293;Vivonne;11
+86294;Vouillé;8.2
+87001;Aixe-sur-Vienne;10.8
+87002;Ambazac;7.6
+87011;Bellac;10.2
+87014;Bessines-sur-Gartempe;13.9
+87032;Châlus;11.5
+87040;Châteauneuf-la-Forêt;9.1
+87041;Châteauponsac;16.8
+87050;Couzeix;10.6
+87059;Le Dorat;9.8
+87064;Eymoutiers;15.1
+87065;Feytiat;11
+87075;Isle;9.4
+87085;Limoges;16.2
+87106;Nexon;12
+87114;Panazol;10.4
+87126;Rochechouart;9.6
+87154;Saint-Junien;10.5
+87161;Saint-Léonard-de-Noblat;10.9
+87187;Saint-Yrieix-la-Perche;9
+88075;La Bresse;7.3
+88078;Bruyères;7.8
+88090;Charmes;7.7
+88095;Châtenois;9.2
+88114;Contrexéville;9.2
+88160;Épinal;11.8
+88181;Fraize;8.4
+88196;Gérardmer;10.3
+88209;Golbey;7.1
+88304;Mirecourt;9.2
+88319;Moyenmoutier;11.3
+88321;Neufchâteau;9.1
+88367;Rambervillers;7.5
+88372;Raon-l'Étape;7.6
+88383;Remiremont;10
+88413;Saint-Dié-des-Vosges;8.9
+88465;Capavenir Vosges;8.6
+88468;Le Thillot;8.6
+88516;Vittel;12
+89003;Montholon;5.7
+89024;Auxerre;10.7
+89025;Avallon;10.7
+89068;Chablis;9.3
+89086;Charny Orée de Puisaye;7
+89206;Joigny;6.7
+89257;Migennes;7.4
+89263;Monéteau;8.9
+89309;Pont-sur-Yonne;6
+89345;Saint-Florentin;7.1
+89368;Saint-Sauveur-en-Puisaye;7.2
+89387;Sens;10.7
+89418;Tonnerre;8.6
+89419;Toucy;8.8
+89464;Villeneuve-sur-Yonne;6.3
+90009;Beaucourt;6.5
+90010;Belfort;10.2
+90033;Delle;7.5
+90052;Giromagny;11.4
+90099;Valdoie;4.9
+91016;Angerville;5.5
+91021;Arpajon;8.2
+91027;Athis-Mons;10.4
+91045;Ballancourt-sur-Essonne;6.8
+91086;Bondoufle;6.2
+91097;Boussy-Saint-Antoine;10.4
+91103;Brétigny-sur-Orge;6.5
+91105;Breuillet;3.7
+91114;Brunoy;8.6
+91122;Bures-sur-Yvette;8.4
+91161;Chilly-Mazarin;6.7
+91174;Corbeil-Essonnes;7.6
+91191;Crosne;5.5
+91200;Dourdan;6.6
+91201;Draveil;7
+91207;Égly;9.3
+91215;Épinay-sous-Sénart;8.8
+91216;Épinay-sur-Orge;7.7
+91223;Étampes;7.8
+91226;Étréchy;8.1
+91228;Évry;8.4
+91272;Gif-sur-Yvette;7.8
+91286;Grigny;5.1
+91312;Igny;5.7
+91326;Juvisy-sur-Orge;13.2
+91338;Limours;6.6
+91340;Lisses;5.3
+91345;Longjumeau;9.4
+91377;Massy;9.1
+91386;Mennecy;18
+91405;Milly-la-Forêt;9.9
+91421;Montgeron;11
+91425;Montlhéry;5.1
+91432;Morangis;6.8
+91434;Morsang-sur-Orge;8.1
+91471;Orsay;8.6
+91477;Palaiseau;6.6
+91479;Paray-Vieille-Poste;8.1
+91514;Quincy-sous-Sénart;14
+91521;Ris-Orangis;7
+91540;Saint-Chéron;8.5
+91549;Sainte-Geneviève-des-Bois;10.3
+91570;Saint-Michel-sur-Orge;8.4
+91573;Saint-Pierre-du-Perray;5.4
+91589;Savigny-sur-Orge;6.7
+91600;Soisy-sur-Seine;5.8
+91645;Verrières-le-Buisson;7.6
+91657;Vigneux-sur-Seine;6.3
+91659;Villabé;4.5
+91661;Villebon-sur-Yvette;10.2
+91665;La Ville-du-Bois;9.2
+91687;Viry-Châtillon;7.3
+91691;Yerres;10.3
+91692;Les Ulis;9.4
+92002;Antony;11.9
+92004;Asnières-sur-Seine;6.6
+92007;Bagneux;6.5
+92009;Bois-Colombes;6.5
+92012;Boulogne-Billancourt;12.5
+92014;Bourg-la-Reine;11
+92019;Châtenay-Malabry;5.3
+92020;Châtillon;8.6
+92022;Chaville;9.9
+92023;Clamart;7.2
+92024;Clichy;5.8
+92025;Colombes;6.1
+92026;Courbevoie;8.1
+92032;Fontenay-aux-Roses;5.4
+92033;Garches;7.7
+92035;La Garenne-Colombes;6
+92036;Gennevilliers;6.7
+92040;Issy-les-Moulineaux;8.8
+92044;Levallois-Perret;9.5
+92046;Malakoff;6.1
+92048;Meudon;8.5
+92049;Montrouge;7.3
+92050;Nanterre;5.9
+92051;Neuilly-sur-Seine;12.1
+92060;Le Plessis-Robinson;10.1
+92062;Puteaux;7.6
+92063;Rueil-Malmaison;7.2
+92064;Saint-Cloud;8.7
+92071;Sceaux;10.2
+92072;Sèvres;6.1
+92073;Suresnes;6.1
+92075;Vanves;5.3
+92076;Vaucresson;4.6
+92077;Ville-d'Avray;4.8
+92078;Villeneuve-la-Garenne;7.2
+93001;Aubervilliers;6.7
+93005;Aulnay-sous-Bois;7.8
+93006;Bagnolet;6.8
+93007;Le Blanc-Mesnil;6.7
+93008;Bobigny;4.2
+93010;Bondy;11.6
+93013;Le Bourget;7.5
+93014;Clichy-sous-Bois;6.2
+93027;La Courneuve;6
+93029;Drancy;5.4
+93031;Épinay-sur-Seine;6.5
+93032;Gagny;6.8
+93045;Les Lilas;10.4
+93046;Livry-Gargan;7.7
+93047;Montfermeil;7.6
+93048;Montreuil;6.4
+93049;Neuilly-Plaisance;5.4
+93050;Neuilly-sur-Marne;5.4
+93051;Noisy-le-Grand;6.7
+93053;Noisy-le-Sec;6.2
+93055;Pantin;5.3
+93057;Les Pavillons-sous-Bois;7.7
+93059;Pierrefitte-sur-Seine;3.8
+93061;Le Pré-Saint-Gervais;5.1
+93062;Le Raincy;17.6
+93063;Romainville;6.2
+93064;Rosny-sous-Bois;7.6
+93066;Saint-Denis;6.9
+93070;Saint-Ouen;4.8
+93071;Sevran;8.3
+93072;Stains;8.7
+93073;Tremblay-en-France;7.3
+93077;Villemomble;7.5
+93078;Villepinte;5.9
+93079;Villetaneuse;5.5
+94002;Alfortville;6.3
+94003;Arcueil;5.5
+94004;Boissy-Saint-Léger;6.4
+94011;Bonneuil-sur-Marne;6
+94015;Bry-sur-Marne;11.8
+94016;Cachan;5.4
+94017;Champigny-sur-Marne;8.7
+94018;Charenton-le-Pont;10.2
+94019;Chennevières-sur-Marne;6.2
+94021;Chevilly-Larue;5.3
+94022;Choisy-le-Roi;8.4
+94028;Créteil;8.6
+94033;Fontenay-sous-Bois;6.6
+94034;Fresnes;7.2
+94037;Gentilly;8.6
+94038;L'Haÿ-les-Roses;5.8
+94041;Ivry-sur-Seine;6.4
+94042;Joinville-le-Pont;8.1
+94043;Le Kremlin-Bicêtre;6.1
+94044;Limeil-Brévannes;7.5
+94046;Maisons-Alfort;8.1
+94048;Marolles-en-Brie;7.7
+94052;Nogent-sur-Marne;10.7
+94054;Orly;5.7
+94055;Ormesson-sur-Marne;7
+94058;Le Perreux-sur-Marne;8.4
+94059;Le Plessis-Trévise;8.6
+94060;La Queue-en-Brie;7
+94067;Saint-Mandé;7.5
+94068;Saint-Maur-des-Fossés;11.9
+94069;Saint-Maurice;6.2
+94071;Sucy-en-Brie;6.9
+94073;Thiais;5.7
+94074;Valenton;9
+94075;Villecresnes;8.5
+94076;Villejuif;7.9
+94077;Villeneuve-le-Roi;7.2
+94078;Villeneuve-Saint-Georges;8.1
+94079;Villiers-sur-Marne;6.2
+94080;Vincennes;9.8
+94081;Vitry-sur-Seine;7.5
+95018;Argenteuil;6.1
+95019;Arnouville;10.6
+95039;Auvers-sur-Oise;5
+95051;Beauchamp;6.8
+95052;Beaumont-sur-Oise;10.1
+95063;Bezons;5.4
+95127;Cergy;8.4
+95176;Cormeilles-en-Parisis;7.4
+95197;Deuil-la-Barre;6.9
+95199;Domont;10.1
+95203;Eaubonne;10.6
+95210;Enghien-les-Bains;27.2
+95218;Éragny;6.1
+95219;Ermont;9.8
+95229;Ézanville;4.7
+95250;Fosses;7.9
+95252;Franconville;7.8
+95268;Garges-lès-Gonesse;5.5
+95277;Gonesse;6
+95280;Goussainville;5.7
+95306;Herblay;5
+95313;L'Isle-Adam;11.5
+95323;Jouy-le-Moutier;9.1
+95351;Louvres;8.9
+95355;Magny-en-Vexin;6.8
+95370;Marines;6
+95394;Méry-sur-Oise;5
+95424;Montigny-lès-Cormeilles;5.8
+95427;Montmagny;7.6
+95428;Montmorency;5.9
+95476;Osny;9.1
+95487;Persan;7.8
+95488;Pierrelaye;6.4
+95491;Le Plessis-Bouchard;6.5
+95500;Pontoise;8.1
+95527;Roissy-en-France;7
+95539;Saint-Brice-sous-Forêt;10
+95555;Saint-Gratien;7.9
+95563;Saint-Leu-la-Forêt;24.5
+95572;Saint-Ouen-l'Aumône;6.9
+95582;Sannois;7.3
+95585;Sarcelles;7.6
+95598;Soisy-sous-Montmorency;9.2
+95607;Taverny;6.9
+95637;Vauréal;5.8
+95652;Viarmes;7.2
+95680;Villiers-le-Bel;6.2
+97101;Les Abymes;N/A
+97102;Anse-Bertrand;N/A
+97103;Baie-Mahault;N/A
+97104;Baillif;N/A
+97105;Basse-Terre;N/A
+97106;Bouillante;N/A
+97107;Capesterre-Belle-Eau;N/A
+97109;Gourbeyre;N/A
+97110;La Désirade;N/A
+97112;Grand-Bourg;N/A
+97113;Le Gosier;N/A
+97115;Lamentin;N/A
+97116;Morne-à-l'Eau;N/A
+97117;Le Moule;N/A
+97118;Petit-Bourg;N/A
+97119;Petit-Canal;N/A
+97120;Pointe-à-Pitre;N/A
+97121;Pointe-Noire;N/A
+97122;Port-Louis;N/A
+97124;Saint-Claude;N/A
+97125;Saint-François;N/A
+97128;Sainte-Anne;N/A
+97129;Sainte-Rose;N/A
+97130;Terre-de-Bas;N/A
+97131;Terre-de-Haut;N/A
+97132;Trois-Rivières;N/A
+97133;Vieux-Fort;N/A
+97134;Vieux-Habitants;N/A
+97202;Les Anses-d'Arlet;N/A
+97204;Le Carbet;N/A
+97205;Case-Pilote;N/A
+97206;Le Diamant;N/A
+97207;Ducos;N/A
+97208;Fonds-Saint-Denis;N/A
+97209;Fort-de-France;N/A
+97210;Le François;N/A
+97212;Gros-Morne;N/A
+97213;Le Lamentin;N/A
+97217;Le Marin;N/A
+97218;Le Morne-Rouge;N/A
+97219;Le Prêcheur;N/A
+97220;Rivière-Pilote;N/A
+97221;Rivière-Salée;N/A
+97222;Le Robert;N/A
+97223;Saint-Esprit;N/A
+97224;Saint-Joseph;N/A
+97225;Saint-Pierre;N/A
+97226;Sainte-Anne;N/A
+97227;Sainte-Luce;N/A
+97228;Sainte-Marie;N/A
+97229;Schoelcher;N/A
+97231;Les Trois-Îlets;N/A
+97232;Le Vauclin;N/A
+97233;Le Morne-Vert;N/A
+97234;Bellefontaine;N/A
+97301;Régina;N/A
+97302;Cayenne;N/A
+97304;Kourou;N/A
+97305;Macouria;N/A
+97306;Mana;N/A
+97307;Matoury;N/A
+97308;Saint-Georges;N/A
+97309;Remire-Montjoly;N/A
+97310;Roura;N/A
+97311;Saint-Laurent-du-Maroni;N/A
+97313;Montsinéry-Tonnegrande;N/A
+97314;Ouanary;N/A
+97352;Saül;N/A
+97353;Maripasoula;N/A
+97356;Camopi;N/A
+97357;Grand-Santi;N/A
+97360;Apatou;N/A
+97361;Awala-Yalimapo;N/A
+97362;Papaichton;N/A
+97402;Bras-Panon;N/A
+97403;Entre-Deux;N/A
+97404;L'Étang-Salé;N/A
+97405;Petite-Île;N/A
+97406;La Plaine-des-Palmistes;N/A
+97407;Le Port;N/A
+97408;La Possession;N/A
+97409;Saint-André;N/A
+97410;Saint-Benoît;N/A
+97411;Saint-Denis;N/A
+97412;Saint-Joseph;N/A
+97413;Saint-Leu;N/A
+97414;Saint-Louis;N/A
+97415;Saint-Paul;N/A
+97416;Saint-Pierre;N/A
+97418;Sainte-Marie;N/A
+97419;Sainte-Rose;N/A
+97420;Sainte-Suzanne;N/A
+97421;Salazie;N/A
+97422;Le Tampon;N/A
+97423;Les Trois-Bassins;N/A
+97424;Cilaos;N/A
+97601;Acoua;N/A
+97602;Bandraboua;N/A
+97603;Bandrele;N/A
+97604;Bouéni;N/A
+97605;Chiconi;N/A
+97606;Chirongui;N/A
+97607;Dembeni;N/A
+97608;Dzaoudzi;N/A
+97609;Kani-Kéli;N/A
+97610;Koungou;N/A
+97611;Mamoudzou;N/A
+97612;Mtsamboro;N/A
+97613;M'Tsangamouji;N/A
+97614;Ouangani;N/A
+97615;Pamandzi;N/A
+97616;Sada;N/A
+97617;Tsingoni;N/A
