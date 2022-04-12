@@ -340,16 +340,38 @@ summary(fixed)
 
 
 Constitution d'une indicatrice de désert médical
-
 ```{r}
 summary(data$densite)
 
+
 data %>% ggplot(aes(x = densite)) +
-  geom_histogram(bins=200, fill = 'cornflowerblue')
+  geom_histogram(bins=200, fill = 'cornflowerblue') + geom_vline(xintercept = quantile(data$densite, 0.08), color = "red")+ theme_bw()
+print(c("Valeur seuil", quantile(data$densite, 0.08)))
 
-data$densite %>% arrange(densite)
 
-filter(data, data$densite == 0)
+data$sous_dense <- ifelse(data$densite < quantile(data$densite, 0.08), 1, 0)
+table(data$sous_dense)
+
+data
+```
+```{r}
+pdata <- plm.data(data, index=c("Code","annee_deces"))
+
+
+#Pooling
+pooling <- plm(age_moyen_deces ~ sous_dense + log_pop, data=pdata, model= "pooling")
+summary(pooling)
+
+pooling <- plm(log_nb_morts ~ sous_dense + log_pop, data=pdata, model= "pooling")
+summary(pooling)
+
+
+fixed <- feols(age_moyen_deces ~ sous_dense + log_pop | `Code`, data=data)
+summary(fixed)
+
+fixed <- feols(log_nb_morts ~ sous_dense + log_pop | `Code`, data=data)
+summary(fixed)
+
 ```
 
 
