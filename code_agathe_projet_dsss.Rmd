@@ -1,0 +1,363 @@
+---
+title: "Projet de DSSS"
+author: "Agathe ROSENZWEIG"
+date: "14/02/2022"
+output: html_document
+lang: fr
+---
+
+Partie I : constitution de la base de données de panel à l'échelle de la TVS (sortie base_finale)
+
+
+
+
+
+Import des packages
+```{r}
+library(readr)
+library(dplyr)
+library(xtable)
+library(stats)
+library(ggplot2)
+library(lubridate)
+library(readxl)
+library(dplyr)
+
+library(haven)
+library(tidyverse)
+library(tictoc)
+library(magrittr)
+library(fixest)
+library(lfe)
+library(writexl)
+library(data.table)
+
+library(imputeTS)
+library(R.utils)
+library(epiDisplay)
+library(plm)
+```
+
+#Import de l'ensemble des bases utilisées
+Importation des bases de décès sur 18 périodes (2004-2021)
+```{r}
+files_list <- list.files(pattern = 'deces-20[0-9][0-9]+.txt', full.names = F)
+
+positions <- c(
+  nom = 80,
+  sexe = 1,
+  naissance_date = 8,
+  naissance_code_lieu = 5,
+  naissance_commune = 30,
+  naissance_pays = 30,
+  deces_date = 8,
+  deces_code_lieu = 5,
+  deces_numero_acte = 9
+)
+deces <- lapply(files_list, read_fwf,
+                        col_positions = fwf_widths(positions, col_names = names(positions)),
+                        col_types = cols(
+                          .default = col_character())
+)
+```
+
+Data cleaning pour les bases de décès
+```{r}
+nettoyer_partie_date <- function(
+  x,
+  debut,
+  fin
+) {
+  rez <- x %>%
+    substr(debut, fin) %>% 
+    as.integer()
+  
+  rez[rez==0] <- NA
+  rez
+}
+
+#impute moyenne
+complete_manquant <- function(x) {
+  x[is.na(x)] <- as.integer(mean(x, na.rm = TRUE))
+  x
+}
+
+#applique ces 2 fonctions aux colonnes dates
+clean_date <- function(df){
+  clean_df <- df %>%
+    mutate(
+      naissance_annee = nettoyer_partie_date(naissance_date, 1, 4),
+      naissance_annee_complete = complete_manquant(naissance_annee), 
+      naissance_mois = nettoyer_partie_date(naissance_date, 5, 6),
+      naissance_mois_complete = complete_manquant(naissance_mois), 
+      naissance_jour = nettoyer_partie_date(naissance_date, 7, 8),
+      naissance_jour_complete = complete_manquant(naissance_jour), 
+      naissance_date_brute = naissance_date,
+      naissance_date = as.Date(naissance_date, '%Y%m%d'),
+      naissance_date_complete = as.Date(paste0(naissance_annee_complete, '-', naissance_mois_complete, '-', naissance_jour_complete)),
+      deces_annee = nettoyer_partie_date(deces_date, 1, 4),
+      deces_annee_complete = complete_manquant(deces_annee), 
+      deces_mois = nettoyer_partie_date(deces_date, 5, 6),
+      deces_mois_complete = complete_manquant(deces_mois), 
+      deces_jour = nettoyer_partie_date(deces_date, 7, 8),
+      deces_jour_complete = complete_manquant(deces_jour), 
+      deces_date = as.Date(deces_date, '%Y%m%d'),
+      deces_date_complete = as.Date(paste0(deces_annee_complete, '-', deces_mois_complete, '-', deces_jour_complete))
+    ) %>%
+    dplyr::select(nom, sexe, naissance_date_brute,naissance_date_complete, naissance_code_lieu,
+           naissance_commune, naissance_pays, deces_date, deces_date_complete, deces_code_lieu,
+           deces_numero_acte)
+  clean_df
+}
+
+
+
+deces <- lapply(deces, clean_date)
+#ajouter dplyr::select sinon erreur 
+
+deces_04_21 <- bind_rows(deces) %>% distinct(.keep_all = T)
+
+any(is.na(deces_04_21$naissance_date_complete))
+
+any(is.na(deces_04_21$deces_date_complete))
+table(is.na(deces_04_21$naissance_date_complete))
+#11 naissance_date_complete comptabilisés comme NA
+
+rm(deces)
+```
+
+
+Variable d'intérêt à l'échelle de l'individu : âge moyen de décès
+```{r}
+#On crée la variable qui comptabilise le nombre de semaines en vie
+deces_04_21 %<>% mutate(age = round(as.numeric((deces_date_complete - naissance_date_complete)/365),1))
+
+deces_04_21 <- deces_04_21 %>% drop_na(age)
+table(is.na(deces_04_21$age))
+```
+
+
+
+Base à l'échelle des TVS
+```{r}
+tvs <- read_excel("Correspondance_communes_tvs_2019.xlsx")
+
+deces_04_21 %<>% distinct(nom, sexe, naissance_date_complete, naissance_code_lieu, deces_date_complete, .keep_all = T) %>%
+  left_join(tvs, by = c('deces_code_lieu' = 'Code commune')) %>%
+  mutate(annee_deces = year(deces_date_complete))
+
+rm(tvs)
+```
+
+Valeurs manquantes TVS
+```{r}
+#tab1(is.na(deces_04_21$`Libellé du territoire de vie-santé`), sort.group = "decreasing", cum.percent = TRUE)
+deces_04_21 <- deces_04_21 %>% drop_na(`Libellé du territoire de vie-santé`)
+```
+
+Import des bases de densité médicale (à l'échelle de la TVS)
+```{r}
+files_list <- list.files(pattern = 'tvs[0-9][0-9]+.csv', full.names = F)
+
+densite <- lapply(files_list, function(i){read_csv2(i, skip = 2)})
+
+for (i in 1:length(files_list)){
+  densite[[i]] %<>% mutate(annee = 2003 + i) %>% rename(nb_medecins = 3)
+  
+  #Quand on prend en compte toutes les bases, certaines bases s'importent en format ch
+  if (is.character(densite[[i]]$nb_medecins) == T){
+    densite[[i]]$nb_medecins <- as.numeric(densite[[i]]$nb_medecins)
+  }
+}
+
+
+
+densite_04_21 <- bind_rows(densite) %>% arrange(Code)
+rm(densite)
+```
+
+
+Import des données sur la population à l'échelle de la commune, et stratégie d'imputation pour les données manquantes
+```{r}
+files_list <- list.files(pattern = 'pop_tvs_[0-9][0-9][0-9][0-9]+.csv', full.names = F)
+pop_tvs <- lapply(files_list, function(i){read_csv2(i, skip = 2)})
+
+
+for (i in 1:length(files_list)){
+  #On doit récupérer l'année en caractères, et comme on n'a pas exactement des années consécutives, on ne peut pas utiliser la même technique que pour importer les bases de densité médicale
+  pop_tvs[[i]] %<>% mutate(annee = substr(names(pop_tvs[[i]])[3], nchar(names(pop_tvs[[i]])[3]) - 3, nchar(names(pop_tvs[[i]])[3]))) %>% rename(pop_totale = 3)
+  
+  #Quand on prend en compte toutes les bases, certaines bases s'importent en format ch
+  if (is.character(pop_tvs[[i]]$pop_totale) == T){
+    pop_tvs[[i]]$pop_totale <- as.numeric(pop_tvs[[i]]$pop_totale)
+  }
+}
+
+pop_tvs_04_21 <- bind_rows(pop_tvs) %>% arrange(Code, annee)
+rm(pop_tvs)
+
+#Illustration 
+#Représentation de l'imputation effectuée (cas particulier Marolles-en-Brie)
+code <- '94048'
+x <- ts(c(pop_tvs_04_21[pop_tvs_04_21$Code == code,]$pop_totale[1],rep(NA, 5), pop_tvs_04_21[pop_tvs_04_21$Code == code,]$pop_totale[2:length(pop_tvs_04_21[pop_tvs_04_21$Code == code,]$pop_totale)], rep(NA, 3)))
+imp <- na_kalman(x)
+ggplot_na_imputations(x_with_na = x, imp)
+
+
+
+#On drop la colonne du Libellé par souci de simplicité
+pop_tvs_04_21 <- subset(pop_tvs_04_21, select = - 2)
+
+
+#Permet de rajouter des lignes vides pour les années manquantes dans le dataframe
+for(code in unique(pop_tvs_04_21$Code)){
+  pop_tvs_04_21 <- pop_tvs_04_21 %>% 
+    tibble::add_row(
+      Code   = rep(code, 9),
+      pop_totale = rep(NA, 9), 
+      annee = as.character(c((2000:2005), (2019:2021)))
+    )
+}
+
+pop_tvs_04_21 <- pop_tvs_04_21%>% arrange(Code,annee)
+#On doit réarranger le data frame pour garantir l'ordre de la série temporelle
+
+#Boucle qui permet d'interpoler (en utilisant le filtre kalman)
+for (code in unique(pop_tvs_04_21$Code)){
+  pop_tvs_04_21[pop_tvs_04_21$Code == code,]$pop_totale <- na_kalman(ts(pop_tvs_04_21[pop_tvs_04_21$Code == code,]$pop_totale), type = "level")
+  #ajouter type = "level" permet d'éviter les messages d'erreur 
+}
+
+
+
+#A la fin, on ne garde que les données pour la période postérieure à 2004
+pop_tvs_04_21 <- filter(pop_tvs_04_21, as.numeric(annee) > 2003)
+```
+
+Merge des bases densite_04_21 et pop_tvs_04_21
+```{r}
+densite_04_21$annee <- as.character(densite_04_21$annee)
+densite_04_21 <- full_join(x = densite_04_21, y = pop_tvs_04_21)
+rm(pop_tvs_04_21)
+```
+
+Merge des bases de décès et de densite_04_21 à l'échelle du TVS
+```{r}
+#On convertit en ch pour pouvoir faire le merge
+names(deces_04_21)[names(deces_04_21) == "Code du territoire de vie-santé"] <- "Code"
+
+
+deces_04_21_tvs <- deces_04_21 %>% filter(as.numeric(annee_deces) >= 2004) %>%
+  group_by(Code, annee_deces) %>%
+  summarise(nb_morts = n(), age_moyen_deces = mean(age)) 
+rm(deces_04_21)
+
+
+
+densite_04_21_tvs <- densite_04_21 %>% filter(!is.na(nb_medecins)) %>%
+  group_by(Code, annee) %>%
+  summarise(densite = nb_medecins*1000/`pop_totale`, log_pop = log(`pop_totale`)) 
+rm(densite_04_21)
+
+#On convertit les années en numérique pour pouvoir faire le left_join
+densite_04_21_tvs$annee <- as.numeric(densite_04_21_tvs$annee)
+base_finale <- left_join(deces_04_21_tvs, densite_04_21_tvs, by = c('Code' = 'Code', 'annee_deces' = 'annee') ) 
+
+base_finale <- base_finale %>% mutate(
+         log_nb_morts = log(nb_morts))
+
+base_finale <- filter(base_finale, nb_morts >= 5 & !is.na(densite))
+
+write.csv(base_finale, "base_finale.csv")
+```
+
+
+
+#Partie II 
+##Décomposition de la variance
+```{r}
+base_finale <- read_csv('base_finale.csv')
+
+#Pour les communes avec plus d'un décès par an 
+base_finale %<>% ungroup() %>% mutate(moy_age = mean(age_moyen_deces),
+                                moy_densite = mean(densite))
+
+base_finale %<>% group_by(Code) %>% mutate(moy_age_tvs = mean(age_moyen_deces),
+                                                              moy_densite_tvs = mean(densite)) %>%mutate(ecart_age_with = age_moyen_deces - moy_age_tvs,
+         ecart_densite_with = densite - moy_densite_tvs)
+
+overall_var_age_deces <- var(base_finale$age_moyen_deces)
+overall_var_densite <- var(base_finale$densite)
+
+between_var <- base_finale %>% distinct(Code, .keep_all = T) %>%
+  mutate(ecart_age_betw = moy_age_tvs - moy_age,
+         ecart_densite_betw = moy_densite_tvs - moy_densite)
+
+between_var
+nb_tvs <- length(unique(base_finale$Code))
+#On dispose de 2830 TVS distincts qui comptent plus de 5 décès
+
+n <- nrow(base_finale)
+
+between_var_age_deces <- sum((between_var$ecart_age_betw)^2)/nb_tvs
+between_var_densite <- sum((between_var$ecart_densite_betw)^2)/nb_tvs
+
+within_var_age_deces <- sum((base_finale$ecart_age_with)^2)/(n-1)
+within_var_densite <- sum((base_finale$ecart_densite_with)^2)/(n-1)
+
+var <- data.frame(Variable = c("age_moyen_deces","densite"),
+                  Overall = c(overall_var_age_deces, overall_var_densite),
+                  Between = c(between_var_age_deces, between_var_densite),
+                  Within = c(within_var_age_deces, within_var_densite))
+var %<>% mutate(Part_within = Within/Overall)
+
+```
+
+#Modèles de panel
+
+```{r}
+data <- base_finale %>% group_by(Code) %>% mutate(nb_min = min(nb_morts))
+data %>% filter(nb_min >= 5) %>% pull(Code) %>% n_distinct() 
+
+pdata <- plm.data(data, index=c("Code","annee_deces"))
+
+
+#Pooling
+pooling <- plm(age_moyen_deces ~ densite + log_pop, data=pdata, model= "pooling")
+summary(pooling)
+
+pooling <- plm(log_nb_morts ~ densite + log_pop, data=pdata, model= "pooling")
+summary(pooling)
+
+#FE
+fixed <- plm(age_moyen_deces ~ densite + log_pop, data=data, index=c("Code", "annee_deces"), model="within")
+summary(fixed)
+
+fixed <- plm(log_nb_morts ~ densite + log_pop, data=data, index=c("Code", "annee_deces"), model="within")
+summary(fixed)
+
+```
+
+
+Constitution d'une indicatrice de désert médical
+
+```{r}
+summary(data$densite)
+
+data %>% ggplot(aes(x = densite)) +
+  geom_histogram(bins=200, fill = 'cornflowerblue')
+
+data$densite %>% arrange(densite)
+
+filter(data, data$densite == 0)
+```
+
+
+
+
+
+
+
+
+
+
