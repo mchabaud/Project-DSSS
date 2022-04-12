@@ -136,8 +136,6 @@ deces_04_21 <- deces_04_21 %>% drop_na(age)
 table(is.na(deces_04_21$age))
 ```
 
-
-
 Base à l'échelle des TVS
 ```{r}
 tvs <- read_excel("Correspondance_communes_tvs_2019.xlsx")
@@ -176,8 +174,93 @@ densite_04_21 <- bind_rows(densite) %>% arrange(Code)
 rm(densite)
 ```
 
+Import des bases des équipements à l'échelle de la commune, et stratégie d'imputation pour les données manquantes
+```{r}
+liste <- numeric(2012 - 2007 + 1)
+for (i in (1:length(liste))){
+  year <- 2006 + i 
+  liste[i] <-paste0("bpe_",as.character(year), "/Csv/bpe", substr(as.character(year), nchar(as.character(year)) - 1,nchar(as.character(year))), "_ensemble.csv")
+}
 
-Import des données sur la population à l'échelle de la commune, et stratégie d'imputation pour les données manquantes
+bpe_07_12 <- lapply(liste, function(i){read_csv2(i)[, c("DEPCOM", "TYPEQU", "NB_EQUIP", "AN")]})
+
+liste <- numeric(2019 - 2012)
+for (i in (1:length(liste))){
+  year <- 2012 + i 
+  liste[i] <-paste0("bpe_",as.character(year), "/Csv/bpe", substr(as.character(year), nchar(as.character(year)) - 1,nchar(as.character(year))), "_ensemble_com.csv")
+}
+
+bpe_13_19 <- lapply(liste, function(i){read_csv2(i)[, c("CODGEO","NB_D101", "NB_D106", "NB_D401")]})
+
+#Ajout de la ligne AN pour les df 13-19
+for (i in (1: length(liste))){
+  bpe_13_19[[i]] <- bpe_13_19[[i]] %>% mutate(AN = 2012 + i)
+}
+
+#On filtre uniquement sur les catégories qui nous intéressent pour la liste 07_12
+for (i in (1:(2012 - 2007 + 1))){
+  bpe_07_12[[i]] <- bpe_07_12[[i]][bpe_07_12[[i]]$TYPEQU %chin% c("D101", "D106", "D401"),]
+  bpe_07_12[[i]] <- bpe_07_12[[i]]%>%
+  pivot_wider(names_from = TYPEQU, values_from = NB_EQUIP, values_fn = sum)
+
+bpe_07_12[[i]] <- setnafill(bpe_07_12[[i]], cols = c("D101", "D106", "D401"), fill=0)
+bpe_07_12[[i]] <-  bpe_07_12[[i]] %>% 
+  rename(
+    NB_D401 = D401,
+    NB_D101 = D101, 
+    NB_D106 = D106, 
+    CODGEO = DEPCOM
+    )
+}
+
+bpe <- bind_rows(bpe_07_12,bpe_13_19  )
+
+A <- bpe %>% filter(!(CODGEO %chin% tvs$com)) %>% distinct(CODGEO)
+
+tvs
+
+bpe %<>% left_join(tvs, by = c("CODGEO" = "Code commune")) %>%
+  group_by(`Code du territoire de vie-santé`, AN) %>%
+  summarise(NB_D101 = sum(NB_D101), NB_D106 = sum(NB_D106), NB_D401 = sum(NB_D401))
+
+bpe<-  bpe %>% rename(Code = `Code du territoire de vie-santé`)
+bpe <- data.frame(bpe)
+
+
+#Illustration 
+#Représentation de l'imputation effectuée (cas particulier Marolles-en-Brie)
+code <- '94048'
+x <- ts(c(rep(NA,3), bpe$NB_D101[which(bpe$Code == code)]))
+imp <- na_interpolation(x)
+ggplot_na_imputations(x_with_na = x, imp)
+
+
+#Permet de rajouter des lignes vides pour les années manquantes dans le dataframe
+for(code in unique(bpe$Code)){
+  bpe <- bpe %>% 
+    tibble::add_row(
+      Code = rep(code, 3),
+      AN = (2004:2006),
+      NB_D101 = rep(NA, 3), 
+      NB_D106 = rep(NA, 3),
+      NB_D401 = rep(NA, 3)
+    )
+}
+
+bpe <- bpe %>% arrange(Code, AN)
+bpe <- bpe[!is.na(bpe$Code),]
+
+#Boucle qui permet d'interpoler (en utilisant le filtre kalman)
+for (code in unique(bpe$Code)){
+  bpe$NB_D101[which(bpe$Code == code)] <- na_interpolation(ts(bpe$NB_D101[which(bpe$Code == code)] ))
+   bpe$NB_D106[which(bpe$Code == code)] <- na_interpolation(ts(bpe$NB_D106[which(bpe$Code == code)] ))
+   bpe$NB_D401[which(bpe$Code == code)] <- na_interpolation(ts(bpe$NB_D401[which(bpe$Code == code)]))
+}
+
+```
+
+
+Import des données sur la population à l'échelle de la TVS, et stratégie d'imputation pour les données manquantes
 ```{r}
 files_list <- list.files(pattern = 'pop_tvs_[0-9][0-9][0-9][0-9]+.csv', full.names = F)
 pop_tvs <- lapply(files_list, function(i){read_csv2(i, skip = 2)})
@@ -252,8 +335,6 @@ deces_04_21_tvs <- deces_04_21 %>% filter(as.numeric(annee_deces) >= 2004) %>%
   summarise(nb_morts = n(), age_moyen_deces = mean(age)) 
 rm(deces_04_21)
 
-
-
 densite_04_21_tvs <- densite_04_21 %>% filter(!is.na(nb_medecins)) %>%
   group_by(Code, annee) %>%
   summarise(densite = nb_medecins*1000/`pop_totale`, log_pop = log(`pop_totale`)) 
@@ -277,6 +358,7 @@ write.csv(base_finale, "base_finale.csv")
 ##Décomposition de la variance
 ```{r}
 base_finale <- read_csv('base_finale.csv')
+base_finale <- filter(base_finale, as.numeric(annee_deces) <= 2019)
 
 #Pour les communes avec plus d'un décès par an 
 base_finale %<>% ungroup() %>% mutate(moy_age = mean(age_moyen_deces),
@@ -311,10 +393,15 @@ var <- data.frame(Variable = c("age_moyen_deces","densite"),
                   Within = c(within_var_age_deces, within_var_densite))
 var %<>% mutate(Part_within = Within/Overall)
 
+#log_nb_morts/pop_totale et regarder sa décomposition en variance
+
+var
 ```
 
-#Modèles de panel
+##Modèles de panel
+###Pas de covariables à part la population 
 
+Modèles de panel pour densité médicale 
 ```{r}
 data <- base_finale %>% group_by(Code) %>% mutate(nb_min = min(nb_morts))
 data %>% filter(nb_min >= 5) %>% pull(Code) %>% n_distinct() 
@@ -354,6 +441,9 @@ table(data$sous_dense)
 
 data
 ```
+
+
+Modèles de panel pour indicatrice de désert médical
 ```{r}
 pdata <- plm.data(data, index=c("Code","annee_deces"))
 
