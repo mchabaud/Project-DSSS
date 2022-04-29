@@ -176,7 +176,9 @@ deces_04_19 <- deces_04_19 %>% as_tibble() %>%
   ))
 
 deces_04_19_tvs <- deces_04_19 %>% group_by(code_tvs, annee_deces) %>%
-  summarise(nb_morts = n(), age_moyen_deces = mean(age))
+  summarise(nb_morts = n(), age_moyen_deces = mean(age)) %>%
+  ungroup() %>%
+  rename(annee = annee_deces)
 
 n_distinct(communes_tvs_restreint$code_tvs) #2841
 n_distinct(deces_04_19_tvs$code_tvs) #2728
@@ -230,7 +232,8 @@ pop %>% filter(is.na(F15_29)) %>% view()
 #en attendant d'imputer pour marseille et lyon
 pop %<>% mutate(missing = if_else(is.na(pop_tot), 1, 0)) %>%
   group_by(code_tvs) %>% mutate(missing = max(missing)) %>%
-  filter(missing == 0)
+  filter(missing == 0) %>%
+  ungroup()
 
 n_distinct(pop$code_tvs) #2808 tvs
 deces_04_19_tvs %>% filter(!(code_tvs %in% pop$code_tvs)) %>% view()
@@ -242,7 +245,7 @@ pop %<>% mutate(code_tvs = case_when(
   TRUE ~ code_tvs))
 
 
-#BPE: on s'intéresse à :
+#BPE: on s'int�resse �:
 #D101 : établissement santé court séjour
 #D106 : service d'urgences
 #D401 : établissement personnes âgées hébérgement
@@ -253,6 +256,7 @@ files_list2 <- list.files(sprintf('%s/BPE/', covariable_path), pattern = 'bpe[0-
 import_bpe1 <- function(file){
   data <- read_csv2(file) %>% filter(TYPEQU %in% c("D101", "D106", "D401")) %>%
     group_by(DEPCOM, AN, TYPEQU) %>% summarise(nb = sum(NB_EQUIP)) %>%
+    ungroup %>%
     pivot_wider(names_from = TYPEQU, values_from = nb) %>%
     rename(CODGEO = DEPCOM, NB_D101 = D101, NB_D106 = D106, NB_D401 = D401, annee = AN) %>%
     mutate(across(starts_with("NB"), ~replace_na(.,0)))
@@ -269,21 +273,138 @@ bpe1 <- lapply(files_list1, import_bpe1)
 bpe2 <- lapply(files_list2, import_bpe2)
 bpe <- bind_rows(bpe1, bpe2)
 
-A <- bpe %>% filter(!(CODGEO %chin% communes_tvs$com)) %>% distinct(CODGEO)
+A <- bpe %>% filter(!(CODGEO %chin% communes_tvs$com) & (NB_D101 > 0 | NB_D106 > 0 | NB_D401 > 0)) %>% distinct(CODGEO) #6 communes
 
-bpe %<>% left_join(communes_tvs, by = c("CODGEO" = "com")) %>%
+bpe_1 <- bpe %>% left_join(communes_tvs_restreint, by = c("CODGEO" = "com")) %>%
+  mutate(code_tvs = case_when(
+    CODGEO == "14513" ~ "50601",
+    CODGEO == "44160" ~ "44003",
+    CODGEO == "44060" ~ "49244",
+    CODGEO == "74181" ~ "74112",
+    TRUE ~ code_tvs)) %>%
   group_by(code_tvs, annee) %>%
-  summarise(NB_D101 = sum(NB_D101), NB_D106 = sum(NB_D106), NB_D401 = sum(NB_D401))
+  summarise(NB_D101 = sum(NB_D101), NB_D106 = sum(NB_D106), NB_D401 = sum(NB_D401)) %>%
+  ungroup()
 
-
-deces_04_19 %<>%
-  left_join(pop, by = c("code_tvs", "annee")) %>%
-  left_join(bpe, by = c("code_tvs", "annee"))
+bpe_1 %>% filter(NB_D101 == 0 & NB_D106 == 0 & NB_D401 == 0) %>% view()
 
 
 
 
-data <- read_csv2("C:/Users/Mathieu/Documents/ENSAE/3A/Projet_DSSS/Données/Covariables/BPE/bpe07_ensemble.csv")
+#densit� m�dicale
+
+files_list <- list.files(sprintf('%s', densite_path), pattern = '[0-9]+_tvs.csv', full.names = T)[4:15]
+
+import_densite <- function(file){
+  file1 <- str_replace(file, "3A", "")
+  annee <- as.numeric(str_extract(file1, "[0-9]+"))
+  data <- read_csv2(file, skip = 2) %>% rename(nb_medecins = 3, code_tvs = Code) %>%
+    mutate(nb_medecins = as.numeric(nb_medecins), annee = !!annee) %>%
+    select(-`Libell�`)
+}
+
+densite <- lapply(files_list, import_densite)
+densite <- bind_rows(densite)
+
+#deces_04_19_tvs %>% filter(!(code_tvs %in% densite$code_tvs))
+
+densite %<>% mutate(code_tvs = case_when(
+  code_tvs == "22007" ~ "22055",
+  code_tvs == "35129" ~ "35176",
+  code_tvs == "49313" ~ "49218",
+  TRUE ~ code_tvs))
+
+#densite %>% filter(is.na(nb_medecins))
 
 
+
+data_tvs <- tibble(code_tvs = rep(unique(deces_04_19_tvs$code_tvs), 12),
+                       annee = rep(c(2007:2018), each = n_distinct(deces_04_19_tvs$code_tvs)))
+
+
+data_tvs %<>% left_join(pop) %>%
+  left_join(bpe_1) %>%
+  left_join(densite) %>%
+  left_join(deces_04_19_tvs) %>%
+  mutate(across(starts_with("NB"), ~replace_na(.,0))) %>%
+  filter(!is.na(pop_tot)) %>%
+  mutate(densite = 1000*nb_medecins/pop_tot, log_pop = log(pop_tot), log_morts = log(nb_morts))
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop + NB_D401 + NB_D106 + NB_D101 + CSprof_interm + CScadres +
+                 CSemployes + CSouvriers + CSartisans_commercants + CSagriculteurs + CSretraites + F30_44 + 
+                 F45_59 + F60_74 + Fplus75 + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + F15_29
+                 | code_tvs, data=data_tvs)
+summary(fixed)
+
+fixed <- feols(log_morts ~ densite + log_pop + NB_D401 + NB_D106 + NB_D101 + CSprof_interm + CScadres +
+                 CSemployes + CSouvriers + CSartisans_commercants + CSagriculteurs + CSretraites + F30_44 + 
+                 F45_59 + F60_74 + Fplus75 + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + F15_29
+               | code_tvs, data=data_tvs)
+summary(fixed)
+
+A <- data_tvs %>% filter(annee == 2014)
+quantile(A$densite, probs = c(0.08))
+
+B <- data_tvs %>% mutate(sous_dense = if_else(densite <= 0.53, 1, 0)) %>%
+  group_by(code_tvs) %>% mutate(sous_dense = max(sous_dense)) %>%
+  filter(sous_dense == 1)
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop + NB_D401 + NB_D106 + NB_D101 + CSprof_interm + CScadres +
+                 CSemployes + CSouvriers + CSartisans_commercants + CSagriculteurs + CSretraites + F30_44 + 
+                 F45_59 + F60_74 + Fplus75 + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + F15_29
+               | code_tvs, data=B)
+summary(fixed)
+
+fixed <- feols(log_morts ~ densite + log_pop + NB_D401 + NB_D106 + NB_D101 + CSprof_interm + CScadres +
+                 CSemployes + CSouvriers + CSartisans_commercants + CSagriculteurs + CSretraites + F30_44 + 
+                 F45_59 + F60_74 + Fplus75 + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + F15_29
+               | code_tvs, data=B)
+summary(fixed)
+
+
+data_tvs %<>% filter(!is.na(pop_tot))
+data_tvs %>% filter(is.na(nb_medecins))
+
+
+
+#decomposition variance
+
+data_tvs1 <- data_tvs %>% filter(!is.na(age_moyen_deces) & !is.na(densite) & !is.na(nb_morts)) %>%
+  mutate(nb_morts_hab = nb_morts/pop_tot) %>%
+  mutate(moy_age = mean(age_moyen_deces),
+         moy_nb_morts = mean(nb_morts_hab),
+         moy_densite = mean(densite))
+
+nb_tvs <- n_distinct(data_tvs1$code_tvs)
+n <- nrow(data_tvs1)
+
+data_tvs1 %<>% group_by(code_tvs) %>% mutate(moy_age_tvs = mean(age_moyen_deces),
+                                             moy_nb_morts_tvs = mean(nb_morts_hab),
+                                             moy_densite_tvs = mean(densite)) %>%
+  mutate(ecart_age_with = age_moyen_deces - moy_age_tvs,
+         ecart_nb_morts_with = nb_morts_hab - moy_nb_morts_tvs,
+         ecart_densite_with = densite - moy_densite_tvs) %>%
+  ungroup()
+
+overall_var_age_deces <- var(data_tvs1$age_moyen_deces)
+overall_var_nb_morts <- var(data_tvs1$nb_morts_hab)
+overall_var_densite <- var(data_tvs1$densite)
+
+between_var <- data_tvs1 %>% distinct(code_tvs, .keep_all = T) %>%
+  mutate(ecart_age_betw = moy_age_tvs - moy_age,
+         ecart_nb_morts_betw = moy_nb_morts_tvs - moy_nb_morts,
+         ecart_densite_betw = moy_densite_tvs - moy_densite)
+between_var_age_deces <- sum((between_var$ecart_age_betw)^2)/nb_tvs
+between_var_nb_morts <- sum((between_var$ecart_nb_morts_betw)^2)/nb_tvs
+between_var_densite <- sum((between_var$ecart_densite_betw)^2)/nb_tvs
+
+within_var_age_deces <- sum((data_tvs1$ecart_age_with)^2)/(n-1)
+within_var_nb_morts <- sum((data_tvs1$ecart_nb_morts_with)^2)/(n-1)
+within_var_densite <- sum((data_tvs1$ecart_densite_with)^2)/(n-1)
+
+var <- data.frame(Variable = c("age_moyen_deces", "Nb_morts_hab", "densite"),
+                  Overall = c(overall_var_age_deces, overall_var_nb_morts, overall_var_densite),
+                  Between = c(between_var_age_deces, between_var_nb_morts, between_var_densite),
+                  Within = c(within_var_age_deces, within_var_nb_morts, within_var_densite))
+var %<>% mutate(Part_within = Within/Overall)
 
