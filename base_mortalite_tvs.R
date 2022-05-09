@@ -9,6 +9,8 @@ library("readxl")
 library("writexl")
 library(data.table)
 library(imputeTS)
+library(corrplot)
+library(plm)
 
 
 #### Répertoires ####
@@ -35,6 +37,9 @@ communes_tvs <- communes %>% select(typecom, com, reg, dep, libelle_commune, cod
   select(-`Libellé de la commune`) %>%
   rename(code_tvs = `Code du territoire de vie-santé`, libelle_tvs = `Libellé du territoire de vie-santé`) %>%
   filter(!is.na(code_tvs)) #on ne perd aucune commune car les 3 seules observations avec valeurs manquantes sont Paris, Lyon et Marseille car leur TVS est au niveau de l'arrondissement donc c'est le code commune arrondissement qui est matché
+
+write_csv(communes_tvs, "~/ENSAE/3A/Projet_DSSS/Données/communes_tvs.csv")
+communes_tvs <- read_csv("~/ENSAE/3A/Projet_DSSS/Données/communes_tvs.csv")
 
 rm(communes, tvs)
 
@@ -708,12 +713,272 @@ data_tvs <- read_csv("~/ENSAE/3A/Projet_DSSS/Données/base_finale_tvs.csv")
 data_tvs %<>% filter(annee >= 2006 & annee < 2019)
 
 data_tvs %<>% mutate(densite = 1000*nb_medecins/pop_tot, log_pop = log(pop_tot),
-         log_morts = if_else(nb_morts==0, 0, log(nb_morts)),
-         log_morts_jeunes = if_else(nb_morts_jeunes==0, 0, log(nb_morts_jeunes)),
-         log_morts_vieux = if_else(nb_morts_vieux==0, 0, log(nb_morts_vieux)),
-         part_jeunes = nb_morts_jeunes/nb_morts,
-         part_vieux = nb_morts_vieux/nb_morts,
+         log_morts = log(nb_morts),
+         nb_morts_hab = nb_morts*100/pop_tot,
+         #log_morts_jeunes = if_else(nb_morts_jeunes==0, 0, log(nb_morts_jeunes)),
+         #log_morts_vieux = if_else(nb_morts_vieux==0, 0, log(nb_morts_vieux)),
+         part_jeunes = nb_morts_jeunes*100/nb_morts,
+         part_vieux = nb_morts_vieux*100/nb_morts,
          taille_menage = pop_tot/nb_menages_tot)
+
+#création d'un panel équilibré
+data_tvs1 <- data_tvs %>% filter(!is.na(nb_menages_tot) & nb_morts>=5) #arrondissements Paris, Lyon, Marseille (filosofi disponible que de 2012 à 2018) + Hoedic (valeurs manquantes de 2008 à 2010)
+A <- data_tvs1 %>% group_by(code_tvs) %>% summarise(n = n()) %>% filter(n<13)
+data_tvs1 %<>% filter(!(code_tvs %in% A$code_tvs))
+
+write_csv(data_tvs1, "~/ENSAE/3A/Projet_DSSS/Données/base_finale_tvs_balanced.csv")
+
+
+
+
+#### Stats desc ####
+
+nb_tvs <- n_distinct(data_tvs1$code_tvs)
+n <- nrow(data_tvs1)
+
+var_decompo <- function(data, var){
+  df <- data %>% mutate(moy = mean(!!sym(var)))
+  df %<>% group_by(code_tvs) %>% mutate(moy_tvs = mean(!!sym(var))) %>%
+    mutate(ecart_with = !!sym(var) - moy_tvs) %>%
+    ungroup()
+  overall_var <- var(df[[var]])
+  between <- df %>% distinct(code_tvs, .keep_all = T) %>%
+    mutate(ecart_betw = moy_tvs - moy)
+  between_var <- sum((between$ecart_betw)^2)/nb_tvs
+  within_var <- sum((df$ecart_with)^2)/(n-1)
+  var <- data.frame(Variable = var,
+                    Overall = overall_var,
+                    Between = between_var,
+                    Within = within_var) %>% mutate(Part_within = Within*100/Overall)
+  return(var)
+}
+
+stats_desc <- function(var){
+  moy <- mean(data_tvs1[[var]])
+  min <- data_tvs1 %>% group_by(code_tvs, libelle_tvs) %>% summarise(moy = mean(!!sym(var))) %>%
+    arrange(moy) %>% ungroup() %>% slice(1)
+  max <- data_tvs1 %>% group_by(code_tvs, libelle_tvs) %>% summarise(moy = mean(!!sym(var))) %>%
+    arrange(desc(moy)) %>% ungroup() %>% slice(1)
+  moy06 <- data_tvs1 %>% filter(annee == 2006) %>% pull(var) %>% mean()
+  moy18 <- data_tvs1 %>% filter(annee == 2018) %>% pull(var) %>% mean()
+  diff_18_06 <- moy18 - moy06
+  std <- sd(data_tvs1[[var]])
+  variance <- var_decompo(data_tvs1, var)
+  print(sprintf("Moyenne %s : %s", var, moy))
+  print(sprintf("Min %s : %s (%s)", var, min$moy, min$libelle_tvs))
+  print(sprintf("Max %s : %s (%s)", var, max$moy, max$libelle_tvs))
+  print(sprintf("2018-2006 %s : %s", var, diff_18_06))
+  print(sprintf("Écart-type %s : %s", var, std))
+  print(sprintf("Décomposition variance %s :", var))
+  variance
+}
+
+stats_desc("pop_tot")
+stats_desc("age_moyen_deces")
+stats_desc("nb_morts_hab")
+stats_desc("part_jeunes")
+stats_desc("part_vieux")
+stats_desc("densite")
+
+
+#### Régression ####
+
+#pooled OLS (lm package)
+
+pooling <- lm(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 +
+                as.factor(annee), 
+               data = data_tvs1)
+summary(pooling)
+
+pooling <- lm(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 +
+                as.factor(annee), 
+              data = data_tvs1)
+summary(pooling)
+
+
+#pooled OLS (plm package)
+
+pooling <- plm(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                CSagriculteurs + CSretraites + Fpop_tot + X15_29 + X30_44 + X45_59 + X60_74 + plus75 + as.factor(annee),
+               data = data_tvs1, index = c("code_tvs","annee"), model = "pooling")
+summary(pooling)
+summary(pooling, vcov = function(x) vcovHC(x, method="arellano", cluster = "group"))
+summary(pooling, vcov = vcovHC)
+#+as.factor(annee)
+
+# pooling <- lm.cluster(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+#                  NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+#                  CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee),
+#                data = data_tvs1, cluster = "code_tvs")
+# summary(pooling)
+
+pooling <- plm(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + X15_29 + X30_44 + X45_59 + X60_74 + plus75 + as.factor(annee),
+               data = data_tvs1, index = c("code_tvs","annee"), model = "pooling")
+summary(pooling, vcov = function(x) vcovHC(x, method="arellano", cluster = "group"))
+
+
+
+#first-diff
+
+first_diff <- plm(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + X15_29 + X30_44 + X45_59 + X60_74 + plus75 + as.factor(annee) - 1,
+               data = data_tvs1, index = c("code_tvs","annee"), model = "fd")
+summary(first_diff, vcov = function(x) vcovHC(x, method="arellano", cluster = "group"))
+
+first_diff <- plm(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                    NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                    CSagriculteurs + CSretraites + Fpop_tot + X15_29 + X30_44 + X45_59 + X60_74 + plus75 + as.factor(annee) - 1,
+                  data = data_tvs1, index = c("code_tvs","annee"), model = "fd")
+summary(first_diff, vcov = function(x) vcovHC(x, method="arellano", cluster = "group"))
+
+
+
+#within
+
+within <- plm(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                    NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                    CSagriculteurs + CSretraites + Fpop_tot + X15_29 + X30_44 + X45_59 + X60_74 + plus75 + as.factor(annee) - 1,
+                  data = data_tvs1, index = c("code_tvs","annee"), model = "within")
+summary(within, vcov = function(x) vcovHC(x, method="arellano", cluster = "group"))
+
+within <- plm(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                    NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                    CSagriculteurs + CSretraites + Fpop_tot + X15_29 + X30_44 + X45_59 + X60_74 + plus75 + as.factor(annee) - 1,
+                  data = data_tvs1, index = c("code_tvs","annee"), model = "within")
+summary(within, vcov = function(x) vcovHC(x, method="arellano", cluster = "group"))
+
+
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=data_tvs1)
+summary(fixed)
+
+
+fixed <- feols(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=data_tvs1)
+summary(fixed)
+
+
+
+#### Hétérogénéité selon la densité médicale (focus sur les TVS sous-denses) ####
+
+
+quantile(data_tvs1$densite, probs = c(0,0.05,0.1,0.15,0.2,0.25,0.5,0.75,0.9,1))
+
+#définition du seuil de sous-dotation (6% de la population le moins doté): on considère tous les TVS ayant connu au moins une année en sous-dotation
+#2018
+data18 <- data_tvs1 %>% filter(annee == 2018) %>%
+  arrange(densite) %>% mutate(pop_cumulee = cumsum(pop_tot))
+pop18 <- sum(data18$pop_tot)
+perc6 <- 0.06*pop18
+data_sous_denses <- data18 %>% filter(pop_cumulee <= perc6 + 20000)
+#seuil = 0.46 médecins / 1000hab
+
+A <- data_tvs1 %>% filter(densite < 0.5)
+
+A1 <- data_tvs1 %>% filter(code_tvs %in% A$code_tvs)
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A1)
+summary(fixed)
+
+fixed <- feols(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A1)
+summary(fixed)
+
+
+A1 %<>% mutate(sous_dense = if_else(densite <= 0.48, 1, 0))
+
+fixed <- feols(age_moyen_deces ~ sous_dense + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A1)
+summary(fixed)
+
+fixed <- feols(log_morts ~ sous_dense + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A1)
+summary(fixed)
+
+
+#on considère tous les TVS qui sont en moyenne dans les 20% les moins dotés
+
+data_moy <- data_tvs1 %>% group_by(code_tvs) %>% summarise(moy_densite = mean(densite))
+quantile(data_moy$moy_densite, probs = c(0, 0.1, 0.2, 0.5, 0.75, 0.9, 1))
+#20% : 0.66
+data_moy %<>% filter(moy_densite <= quantile(data_moy$moy_densite, probs = 0.2))
+A2 <- data_tvs1 %>% filter(code_tvs %in% data_moy$code_tvs)
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A2)
+summary(fixed)
+
+fixed <- feols(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A2)
+summary(fixed)
+
+
+#Finalement on considère les TVS avec la plus forte variance de densité
+
+data_var <- data_tvs1 %>% group_by(code_tvs) %>% summarise(var_densite = var(densite))
+quantile(data_var$var_densite, probs = c(0, 0.1, 0.2, 0.5, 0.8, 0.9, 1))
+#80% : 0.0153
+data_var %<>% filter(var_densite >= quantile(data_var$var_densite, probs = 0.75))
+A3 <- data_tvs1 %>% filter(code_tvs %in% data_var$code_tvs)
+
+fixed <- feols(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A3)
+summary(fixed)
+
+fixed <- feols(log_morts ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=A3)
+summary(fixed)
+
+
+
+
+#### Lag et agrégation en 3 périodes ####
+
+data_tvs %<>% group_by(code_tvs) %>% mutate(densite_1 = lag(densite))
+
+fixed <- feols(age_moyen_deces ~ densite_1 + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` +
+                 `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=data_tvs %>% filter(!is.na(taille_menage)))
+summary(fixed)
+
+fixed <- feols(log_morts ~ densite_1 + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
+                 NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
+                 CSagriculteurs + CSretraites + Fpop_tot + `15_29` +
+                 `30_44` + `45_59` + `60_74` + plus75 + as.factor(annee)
+               | code_tvs, data=data_tvs %>% filter(!is.na(taille_menage) & nb_morts > 4))
+summary(fixed)
 
 fixed <- feols(age_moyen_deces ~ densite + log_pop + taille_menage + med_niveau_vie + NB_D401 + NB_D106 +
                  NB_D101 + NB_D102 + NB_D103 + NB_D104 + NB_D105 + CSprof_interm + CScadres + CSemployes + CSouvriers + CSartisans_commercants +
@@ -760,69 +1025,13 @@ summary(fixed)
 
 
 
-A <- data_tvs %>% filter(annee == 2014)
-quantile(A$densite, probs = c(0.08))
-
-B <- data_tvs %>% mutate(sous_dense = if_else(densite <= 0.53, 1, 0)) %>%
-  group_by(code_tvs) %>% mutate(sous_dense = max(sous_dense)) %>%
-  filter(sous_dense == 1)
-
-fixed <- feols(age_moyen_deces ~ densite + log_pop + NB_D401 + NB_D106 + NB_D101 + CSprof_interm + CScadres +
-                 CSemployes + CSouvriers + CSartisans_commercants + CSagriculteurs + CSretraites + F30_44 + 
-                 F45_59 + F60_74 + Fplus75 + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + F15_29
-               | code_tvs, data=B)
-summary(fixed)
-
-fixed <- feols(log_morts ~ densite + log_pop + NB_D401 + NB_D106 + NB_D101 + CSprof_interm + CScadres +
-                 CSemployes + CSouvriers + CSartisans_commercants + CSagriculteurs + CSretraites + F30_44 + 
-                 F45_59 + F60_74 + Fplus75 + Fpop_tot + `15_29` + `30_44` + `45_59` + `60_74` + plus75 + F15_29
-               | code_tvs, data=B)
-summary(fixed)
-
 
 data_tvs %<>% filter(!is.na(pop_tot))
 data_tvs %>% filter(is.na(nb_medecins))
 
 
 
-#decomposition variance
-
-data_tvs1 <- data_tvs %>% filter(!is.na(age_moyen_deces) & !is.na(densite) & !is.na(nb_morts)) %>%
-  mutate(nb_morts_hab = nb_morts/pop_tot) %>%
-  mutate(moy_age = mean(age_moyen_deces),
-         moy_nb_morts = mean(nb_morts_hab),
-         moy_densite = mean(densite))
-
-nb_tvs <- n_distinct(data_tvs1$code_tvs)
-n <- nrow(data_tvs1)
-
-data_tvs1 %<>% group_by(code_tvs) %>% mutate(moy_age_tvs = mean(age_moyen_deces),
-                                             moy_nb_morts_tvs = mean(nb_morts_hab),
-                                             moy_densite_tvs = mean(densite)) %>%
-  mutate(ecart_age_with = age_moyen_deces - moy_age_tvs,
-         ecart_nb_morts_with = nb_morts_hab - moy_nb_morts_tvs,
-         ecart_densite_with = densite - moy_densite_tvs) %>%
-  ungroup()
-
-overall_var_age_deces <- var(data_tvs1$age_moyen_deces)
-overall_var_nb_morts <- var(data_tvs1$nb_morts_hab)
-overall_var_densite <- var(data_tvs1$densite)
-
-between_var <- data_tvs1 %>% distinct(code_tvs, .keep_all = T) %>%
-  mutate(ecart_age_betw = moy_age_tvs - moy_age,
-         ecart_nb_morts_betw = moy_nb_morts_tvs - moy_nb_morts,
-         ecart_densite_betw = moy_densite_tvs - moy_densite)
-between_var_age_deces <- sum((between_var$ecart_age_betw)^2)/nb_tvs
-between_var_nb_morts <- sum((between_var$ecart_nb_morts_betw)^2)/nb_tvs
-between_var_densite <- sum((between_var$ecart_densite_betw)^2)/nb_tvs
-
-within_var_age_deces <- sum((data_tvs1$ecart_age_with)^2)/(n-1)
-within_var_nb_morts <- sum((data_tvs1$ecart_nb_morts_with)^2)/(n-1)
-within_var_densite <- sum((data_tvs1$ecart_densite_with)^2)/(n-1)
-
-var <- data.frame(Variable = c("age_moyen_deces", "Nb_morts_hab", "densite"),
-                  Overall = c(overall_var_age_deces, overall_var_nb_morts, overall_var_densite),
-                  Between = c(between_var_age_deces, between_var_nb_morts, between_var_densite),
-                  Within = c(within_var_age_deces, within_var_nb_morts, within_var_densite))
-var %<>% mutate(Part_within = Within/Overall)
+# A <- na.omit(data_tvs)
+# mcor <- cor(A[,c(4:31,37,44)])
+# corrplot(mcor, type="upper", order="hclust", tl.col="black")
 
