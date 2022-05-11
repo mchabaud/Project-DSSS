@@ -6,8 +6,8 @@ Ce repository permet la réplication de l'étude consacrée au lien entre âge m
 
 Les sources des données utilisées sont les suivantes :
 
--décès : https://www.data.gouv.fr/fr/datasets/fichier-des-personnes-decedees/
--CartoSanté : https://cartosante.atlasante.fr/#c=indicator 
+<br>-décès : https://www.data.gouv.fr/fr/datasets/fichier-des-personnes-decedees/
+<br>-CartoSanté : https://cartosante.atlasante.fr/#c=indicator 
 -BPE, Filosofi et RFL : http://www.progedo-adisp.fr/enquetes_donloc.php (accès via le portail Quételet)
 -codes commune 2019 : https://www.insee.fr/fr/information/3720946 (inclus dans le dossier "Données")
 -table de passage communes/TVS 2019 : https://drees.shinyapps.io/carto-apl/ (inclue dans le dossier "Données")
