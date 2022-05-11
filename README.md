@@ -14,3 +14,5 @@ Les sources des données utilisées sont les suivantes :
 Une fois que ces données ont été téléchargées, nous les stockons dans les dossiers indiqués dans les chemins d'accès du code R. Nous produisons à partir de ces sources des bases de données nettoyées qui sont présentes dans le dossier "Données" de ce repository.
 
 L'ordre à suivre pour le code est indiqué par la numérotation des fichiers R.
+
+Le dossier "Old" contient des codes utilisant l'APL comme indicateur d'accès aux soins, mais n'est pas organisé pour être reproduit en l'état car cette stratégie n'a pas été retenue dans la suite du projet. Nous incluons donc ces codes à titre indicatif.
