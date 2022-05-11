@@ -205,6 +205,7 @@ data_tvs1 %<>% group_by(code_tvs) %>% mutate(moy_age_tvs = mean(age_moyen_deces)
 
 overall_var_age_deces <- var(data_tvs1$age_moyen_deces)
 overall_var_nb_morts <- var(data_tvs1$nb_morts_hab)
+print(overall_var_nb_morts)
 overall_var_densite <- var(data_tvs1$densite)
 
 between_var <- data_tvs1 %>% distinct(code_tvs, .keep_all = T) %>%
@@ -224,6 +225,6 @@ var <- data.frame(Variable = c("age_moyen_deces", "Nb_morts_hab", "densite"),
                   Between = c(between_var_age_deces, between_var_nb_morts, between_var_densite),
                   Within = c(within_var_age_deces, within_var_nb_morts, within_var_densite))
 var %<>% mutate(Part_within = Within/Overall)
-xtable(var, digits = 3)
+xtable(var, digits = 8)
 ```
 
