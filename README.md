@@ -5,7 +5,6 @@ Mathieu Chabaud et Agathe Rosenzweig
 Ce repository permet la réplication de l'étude consacrée au lien entre âge moyen de décès et densité médicale, réalisée dans le cadre du cours de "Projet en Data Science et Sciences Sociales" de la 3e année de l'ENSAE (Palaiseau, France).
 
 Les sources des données utilisées sont les suivantes :
-
 <br>-décès : https://www.data.gouv.fr/fr/datasets/fichier-des-personnes-decedees/
 <br>-CartoSanté : https://cartosante.atlasante.fr/#c=indicator 
 <br>-BPE, Filosofi et RFL : http://www.progedo-adisp.fr/enquetes_donloc.php (accès via le portail Quételet)
